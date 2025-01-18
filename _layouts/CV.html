@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Voss - CV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #555;
+        }
+
+        .cv {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .cv h1 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .cv-section {
+            margin-bottom: 2rem;
+        }
+
+        .cv-section h2 {
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #333;
+            padding-bottom: 0.5rem;
+        }
+
+        .experience-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-item h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .date {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Thomas Voss</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="cv.html">View CV</a>
+        </div>
+    </nav>
+
+    <section class="cv">
+        <h1>Curriculum Vitae</h1>
+        
+        <div class="cv-section">
+            <h2>Education</h2>
+            <div class="experience-item">
+                <h3>University Name</h3>
+                <div class="date">2018 - 2022</div>
+                <p>Bachelor of Science in Computer Science</p>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h2>Work Experience</h2>
+            <div class="experience-item">
+                <h3>Software Developer</h3>
+                <div class="date">2022 - Present</div>
+                <p>Company Name</p>
+                <ul>
+                    <li>Achievement 1</li>
+                    <li>Achievement 2</li>
+                    <li>Achievement 3</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3>Junior Developer</h3>
+                <div class="date">2020 - 2022</div>
+                <p>Company Name</p>
+                <ul>
+                    <li>Achievement 1</li>
+                    <li>Achievement 2</li>
+                    <li>Achievement 3</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cv-section">
+            <h2>Skills</h2>
+            <p>Programming Languages: HTML, CSS, JavaScript, Python</p>
+            <p>Frameworks: React, Node.js, Express</p>
+            <p>Tools: Git, VS Code, Docker</p>
+        </div>
+    </section>
+</body>
+</html>
