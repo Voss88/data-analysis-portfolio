@@ -67,7 +67,7 @@
             align-items: center;
             background-image: url('data-background.jpeg');
             background-repeat: repeat;
-            background-size: 300px 300px;
+            background-size: 900px 900px;
             text-align: center;
             padding: 2rem;
             position: relative;
@@ -83,18 +83,20 @@
             background-color: rgba(247, 243, 227, 0.3);
         }
 
-        .hero h1 {
-            font-size: 3rem;
+        .welcome-box {
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
             margin-bottom: 2rem;
-            color: black;
             position: relative;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .button-container {
             display: flex;
             gap: 2rem;
-            margin-bottom: 3rem;
             position: relative;
         }
 
@@ -158,7 +160,9 @@
     </nav>
 
     <section class="hero">
-        <h1>Welcome to My Portfolio</h1>
+        <div class="welcome-box">
+            <h1>Welcome to My Portfolio</h1>
+        </div>
         <div class="button-container">
             <a href="projects.html" class="button">Projects</a>
             <a href="cv.html" class="button">View CV</a>
@@ -178,3 +182,4 @@
     </section>
 </body>
 </html>
+
