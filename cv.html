@@ -9,24 +9,37 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: Tahoma, sans-serif;
+        }
+
+        body {
+            background-color: #F7F3E3;
         }
 
         nav {
-            background-color: #333;
+            background-color: #0F5741;
             padding: 1rem;
             position: sticky;
             top: 0;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
             z-index: 1000;
         }
 
         .logo {
-            color: white;
+            font-family: Georgia, serif;
+            text-align: center;
+            margin-bottom: 1rem;
             font-size: 1.5rem;
-            font-weight: bold;
+        }
+
+        .logo span:first-child {
+            color: black;
+        }
+
+        .logo span:last-child {
+            color: gold;
         }
 
         .nav-links {
@@ -43,18 +56,24 @@
         }
 
         .nav-links a:hover {
-            background-color: #555;
+            background-color: #2C1A11;
         }
 
         .cv {
             max-width: 800px;
             margin: 0 auto;
             padding: 4rem 2rem;
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .cv h1 {
             text-align: center;
             margin-bottom: 3rem;
+            color: #2C1A11;
         }
 
         .cv-section {
@@ -63,8 +82,9 @@
 
         .cv-section h2 {
             margin-bottom: 1rem;
-            border-bottom: 2px solid #333;
+            border-bottom: 2px solid #0F5741;
             padding-bottom: 0.5rem;
+            color: #2C1A11;
         }
 
         .experience-item {
@@ -73,18 +93,30 @@
 
         .experience-item h3 {
             margin-bottom: 0.5rem;
+            color: #2C1A11;
         }
 
         .date {
-            color: #666;
+            color: #0F5741;
             font-style: italic;
             margin-bottom: 0.5rem;
+        }
+
+        .experience-item p,
+        .experience-item li {
+            color: #2C1A11;
+        }
+
+        .cv-section ul {
+            padding-left: 1.5rem;
         }
     </style>
 </head>
 <body>
     <nav>
-        <div class="logo">Thomas Voss</div>
+        <div class="logo">
+            <span>Thomas</span> <span>Voss</span>
+        </div>
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="projects.html">Projects</a>
