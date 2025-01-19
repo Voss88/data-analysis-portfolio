@@ -65,21 +65,37 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #BEAB9D;
+            background-image: url('data-background.jpg');
+            background-repeat: repeat;
+            background-size: 300px 300px;
             text-align: center;
             padding: 2rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(247, 243, 227, 0.3);
         }
 
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 2rem;
-            color: #2C1A11;
+            color: black;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
         }
 
         .button-container {
             display: flex;
             gap: 2rem;
             margin-bottom: 3rem;
+            position: relative;
         }
 
         .button {
