@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Georgia, serif;
+            font-family: Tahoma, sans-serif;
         }
 
         nav {
@@ -18,15 +18,23 @@
             position: sticky;
             top: 0;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
             z-index: 1000;
         }
 
         .logo {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-family: Georgia, serif;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .logo span:first-child {
+            color: black;
+        }
+
+        .logo span:last-child {
+            color: gold;
         }
 
         .nav-links {
@@ -112,7 +120,9 @@
 </head>
 <body>
     <nav>
-        <div class="logo">Thomas Voss</div>
+        <div class="logo">
+            <span>Thomas</span> <span>Voss</span>
+        </div>
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="projects.html">Projects</a>
