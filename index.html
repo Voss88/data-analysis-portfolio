@@ -18,25 +18,18 @@
 
         nav {
             background-color: #0F5741;
-            padding: 1rem 2rem;
+            padding: 1rem;
             position: sticky;
             top: 0;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: space-between;
             z-index: 1000;
-        }
-
-        .logo img {
-            height: 100px;
-            width: auto
-            text-align: center;
         }
 
         .nav-links {
             display: flex;
             gap: 2rem;
-            margin-top: 1rem;
         }
 
         .nav-links a {
@@ -49,6 +42,11 @@
 
         .nav-links a:hover {
             background-color: #06231A;
+        }
+
+        .logo img {
+            max-height: 80px;
+            display: block;
         }
 
         .hero {
@@ -141,12 +139,15 @@
 </head>
 <body>
     <nav>
+        <div class="nav-links">
+            <a href="projects.html">Projects</a>
+        </div>
         <div class="logo">
-            <img src="logo.jpeg" alt="Thomas Voss Logo">
+            <a href="index.html">
+                <img src="logo.jpeg" alt="Thomas Voss Logo">
+            </a>
         </div>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="projects.html">Projects</a>
             <a href="cv.html">View CV</a>
         </div>
     </nav>
@@ -174,5 +175,6 @@
     </section>
 </body>
 </html>
+
 
 
