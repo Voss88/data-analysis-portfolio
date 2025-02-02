@@ -12,10 +12,12 @@
             font-family: Tahoma, sans-serif;
         }
 
-        body {
+                body {
             background-color: #F7F3E3;
+            line-height: 1.6;
         }
 
+        /* Navigation Bar */
         nav {
             background-color: #0F5741;
             padding: 1rem;
@@ -29,6 +31,7 @@
 
         .nav-links {
             display: flex;
+            align-items: center;
             gap: 1rem;
         }
 
@@ -49,9 +52,21 @@
             display: block;
         }
 
-       .logo {
-            margin-right: 1.2rem;
-            margin-left: 1.2rem;  
+        .logo-link {
+            color: #0F5741;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .logo {
+            max-height: 8vh;
+            display: block;
+        }
+
+        .nav-links .logo-link:hover {
+            background: none;
         }
 
         .icon {
@@ -113,6 +128,72 @@
         .cv-section ul {
             padding-left: 1.5rem;
         }
+
+                /* Responsive Design */
+        @media (max-width: 600px) {
+            .carousel {
+                width: 95%;
+            }
+            .carousel-button {
+                width: 40px; /* Slightly smaller for mobile */
+                height: 40px;
+                font-size: 1.2rem; /* Adjust font size accordingly */
+            }
+            .button-container {
+                flex-direction: row;
+                align-items: center;
+            }
+            .photo-placeholder {
+                max-width: 80%;
+                height: 30vh
+                ;
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 2000px) {
+            .carousel {
+                width: 80%;
+                height: 600px;
+            }
+            .carousel-card {
+                height: 100%; /* Ensure cards fill the taller carousel */
+            }
+            .project-image {
+                height: 470px; /* Adjust the project image height within the card */
+            }
+            .photo-placeholder {
+                max-width: 45%;
+            }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 2001px) {
+            .carousel {
+                width: 70%;
+                max-width: 1800px; /* Prevents becoming too wide on extremely large screens */
+                height: 800px; /* Increased height for larger screens */
+            }
+            .carousel-card {
+                height: 100%;
+            }
+            .carousel-button {
+                width: 50px; /* Slightly larger buttons */
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            .project-image {
+                height: 650px; /* Taller project image */
+            }
+            .photo-placeholder {
+                max-width: 50%;
+                height: 40vh; /* Increased height */
+            }
+            .button-container {
+                justify-content: center; /* Center buttons on very wide screens */
+                gap: 20px; /* Add some space between buttons */
+    }
+}
+        
     </style>
 </head>
 <body>
