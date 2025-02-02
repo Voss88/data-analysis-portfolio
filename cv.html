@@ -151,6 +151,14 @@
     border-color: #0077b5;
 }
 
+.linkedin-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Optional: add padding/margin if you want space around the container */
+    padding: 20px;
+}
+
                 /* Responsive Design */
         @media (max-width: 600px) {
             .carousel {
@@ -234,11 +242,12 @@
 
     <section class="cv">
         <h1>Curriculum Vitae</h1>
-
-        <a href="https://www.linkedin.com/in/thomas-voss-30a321172/" target="_blank" class="linkedin-button">
-    View LinkedIn Profile
-</a>
-
+        
+<div class="linkedin-button-container">
+            <a href="https://www.linkedin.com/in/thomas-voss-30a321172/" target="_blank" class="linkedin-button">
+        View LinkedIn Profile
+    </a>
+</div>
         <div class="cv-section">
             <h2>Work Experience</h2>
             <div class="experience-item">
