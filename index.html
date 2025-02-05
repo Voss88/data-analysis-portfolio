@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thomas Voss - Portfolio</title>
     <style>
+        html {
+            font-size: 16px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,6 +19,7 @@
         body {
             background-color: #F7F3E3;
             line-height: 1.6;
+            font-size: 1rem;
         }
 
         /* Navigation Bar */
@@ -38,9 +43,10 @@
         .nav-links a {
             color: white;
             text-decoration: none;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 4px;
             transition: background-color 0.3s;
+            font-size: 1.1rem;
         }
 
         .nav-links a:hover {
@@ -55,7 +61,7 @@
         .logo-link {
             color: #0F5741;
             text-decoration: none;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 4px;
             transition: background-color 0.3s;
         }
@@ -89,7 +95,7 @@
 
         .carousel-card {
             flex: 0 0 100%;
-            padding: 2%;
+            padding: 2rem;
             background-color: white;
             border: 0.2rem solid #0F5741;
             border-radius: 2%;
@@ -110,7 +116,8 @@
             align-items: center;
             justify-content: center;
             border-radius: 1%;
-            margin-bottom: 2%;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
         }
 
         .carousel-button {
@@ -121,9 +128,9 @@
             color: white;
             border: none;
             border-radius: 50%;
-            width: 50px; /* Use a fixed size for consistency */
-            height: 50px; /* Keep the button circular */
-            font-size: 1.5rem; /* Adjust size of the arrow inside */
+            width: 60px;
+            height: 60px;
+            font-size: 2rem;
             cursor: pointer;
             z-index: 500;
         }
@@ -154,21 +161,25 @@
             background-color: rgba(255, 255, 255, 0.9);
             border: 0.2rem solid black;
             border-radius: 2%;
-            padding: 5%;
+            padding: 3rem;
             max-width: 80%;
             margin: 0 auto 5vh;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .welcome-box h1 {
+            font-size: 2.5rem;
+        }
+
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 2%;
+            gap: 2rem;
             flex-wrap: wrap;
         }
 
         .button {
-            padding: 2% 5%;
+            padding: 1rem 2rem;
             background-color: #F7F3E3;
             color: #0F5741;
             border-color: #0A0A0B;
@@ -176,6 +187,7 @@
             border-radius: 4px;
             transition: background-color 0.3s;
             border-style: solid;
+            font-size: 1rem;
         }
 
         .button:hover {
@@ -185,28 +197,30 @@
 
         /* About Section */
         .about {
-            padding: 5% 5%;
+            padding: 5rem;
             max-width: 90%;
             margin: 0 auto;
         }
 
         .about h2 {
             text-align: center;
-            margin-bottom: 5%;
+            margin-bottom: 3rem;
             color: #2C1A11;
+            font-size: 2rem;
         }
 
         .about p {
             text-align: center;
             color: #2C1A11;
-            margin-bottom: 5%;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
         }
 
         .photo-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 2%;
+            gap: 2rem;
         }
 
         .photo-placeholder {
@@ -218,26 +232,37 @@
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 1.2rem;
         }
 
         /* Responsive Design */
         @media (max-width: 600px) {
+            html {
+                font-size: 14px;
+            }
+
             .carousel {
                 width: 95%;
             }
+            
             .carousel-button {
-                width: 40px; /* Slightly smaller for mobile */
+                width: 40px;
                 height: 40px;
-                font-size: 1.2rem; /* Adjust font size accordingly */
+                font-size: 1.5rem;
             }
+            
             .button-container {
                 flex-direction: row;
                 align-items: center;
             }
+            
             .photo-placeholder {
                 max-width: 80%;
-                height: 30vh
-                ;
+                height: 30vh;
+            }
+
+            .about {
+                padding: 2rem;
             }
         }
 
@@ -246,45 +271,55 @@
                 width: 80%;
                 height: 600px;
             }
+            
             .carousel-card {
-                height: 100%; /* Ensure cards fill the taller carousel */
+                height: 100%;
             }
+            
             .project-image {
-                height: 470px; /* Adjust the project image height within the card */
+                height: 470px;
             }
+            
             .photo-placeholder {
                 max-width: 45%;
             }
         }
 
-        /* Responsive Design */
         @media (min-width: 2001px) {
+            html {
+                font-size: 18px;
+            }
+
             .carousel {
                 width: 70%;
-                max-width: 1800px; /* Prevents becoming too wide on extremely large screens */
-                height: 800px; /* Increased height for larger screens */
+                max-width: 1800px;
+                height: 800px;
             }
+            
             .carousel-card {
                 height: 100%;
             }
+            
             .carousel-button {
-                width: 50px; /* Slightly larger buttons */
-                height: 50px;
-                font-size: 1.5rem;
+                width: 70px;
+                height: 70px;
+                font-size: 2.5rem;
             }
+            
             .project-image {
-                height: 650px; /* Taller project image */
+                height: 650px;
             }
+            
             .photo-placeholder {
                 max-width: 50%;
-                height: 40vh; /* Increased height */
+                height: 40vh;
             }
+            
             .button-container {
-                justify-content: center; /* Center buttons on very wide screens */
-                gap: 20px; /* Add some space between buttons */
-    }
-}
-        
+                justify-content: center;
+                gap: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -342,13 +377,13 @@
     <!-- About Section -->
     <section class="about">
         <h2>About Me</h2>
-        <p>Experienced Data Analyst with a <strong>MSc in Data Science and Business Analytics</strong>. Currently, I am at the forefront of the UK automotive technology industry, where I utilize data science models, including Bayesian analysis, to evaluate A/B tests on AutoTrader’s Search & Product Pages. My primary focus is on analyzing innovative website components created by the product team and assessing how these features enhance consumer journeys.
+        <p>Experienced Data Analyst with a <strong>MSc in Data Science and Business Analytics</strong>. Currently, I am at the forefront of the UK automotive technology industry, where I utilize data science models, including Bayesian analysis, to evaluate A/B tests on AutoTrader's Search & Product Pages. My primary focus is on analyzing innovative website components created by the product team and assessing how these features enhance consumer journeys.
 
-<br><br>
-Proficient in <strong>SQL, Python, Looker, and DBT</strong>, I manage key areas of the data pipeline, including tracking, ingestion, enriching, manipulation, and visualization. This comprehensive skill set allows me to effectively interpret complex datasets and provide actionable insights that support strategic decision-making.
+        <br><br>
+        Proficient in <strong>SQL, Python, Looker, and DBT</strong>, I manage key areas of the data pipeline, including tracking, ingestion, enriching, manipulation, and visualization. This comprehensive skill set allows me to effectively interpret complex datasets and provide actionable insights that support strategic decision-making.
 
-<br><br>
-My previous experience in the social media and advertising technology sector involved optimizing marketing campaigns and improving brand performance through data-driven strategies. I excel at transforming complex data into clear, actionable strategies that drive business success.</p>
+        <br><br>
+        My previous experience in the social media and advertising technology sector involved optimizing marketing campaigns and improving brand performance through data-driven strategies. I excel at transforming complex data into clear, actionable strategies that drive business success.</p>
         <div class="photo-container">
             <div class="photo-placeholder">Photo 1</div>
         </div>
