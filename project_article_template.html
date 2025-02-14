@@ -105,7 +105,107 @@
             overflow-x: auto;
         }
 
-        @media (max-width: 768px) {
+                @media (max-width: 600px) {
+            html {
+                font-size: 14px;
+            }
+
+            .carousel {
+                width: 95%;
+            }
+            
+            .carousel-button {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .button-container {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .photo-placeholder {
+                max-width: 80%;
+                height: 30vh;
+            }
+
+            .about {
+                padding: 2rem;
+            }
+                    
+            .hero-container {
+                height: 300px;
+            }
+                    
+            .hero-text-box {
+                width: 90%;
+                padding: 1rem;
+            }
+                    
+        }
+
+        @media (min-width: 601px) and (max-width: 2000px) {
+            .carousel {
+                width: 80%;
+                height: 600px;
+            }
+            
+            .carousel-card {
+                height: 100%;
+            }
+            
+            .project-image {
+                height: 470px;
+            }
+            
+            .photo-placeholder {
+                max-width: 45%;
+            }
+            .hero-container {
+                height: 300px;
+            }
+            
+            .hero-text-box {
+                width: 90%;
+                padding: 1rem;
+            }
+        }
+
+        @media (min-width: 2001px) {
+            html {
+                font-size: 18px;
+            }
+
+            .carousel {
+                width: 70%;
+                max-width: 1800px;
+                height: 800px;
+            }
+            
+            .carousel-card {
+                height: 100%;
+            }
+            
+            .carousel-button {
+                width: 70px;
+                height: 70px;
+                font-size: 2.5rem;
+            }
+            
+            .project-image {
+                height: 650px;
+            }
+            
+            .photo-placeholder {
+                max-width: 50%;
+                height: 40vh;
+            }
+            
+            .button-container {
+                justify-content: center;
+                gap: 2rem;
+            }
             .hero-container {
                 height: 300px;
             }
