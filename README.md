@@ -54,5 +54,5 @@ Feel free to reach out if you have any questions or feedback about this portfoli
 
 - **Email**: [thomas_voss@hotmail.co.uk](mailto:thomas_voss@hotmail.co.uk)
 - **LinkedIn**: [linkedin.com/in/thomas-voss-30a321172](https://linkedin.com/in/thomas-voss-30a321172)
-- **Portfolio Page**: [https://voss88.github.io/data-analysis-portfolio/](https://voss88.github.io/data-analysis-portfolio/)
+- **Portfolio Page**: [www.thomasvoss.co.uk](https://voss88.github.io/data-analysis-portfolio/)
 
