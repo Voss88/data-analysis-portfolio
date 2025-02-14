@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Tahoma, sans-serif;
+        }
+
+        body {
+            background-color: #F7F3E3;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #0F5741;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #06231A;
+        }
+
+        /* Hero Section */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-text-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-text-box h1 {
+            color: #2C1A11;
+            margin-bottom: 1rem;
+        }
+
+        /* Content Sections */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .text-section {
+            background-color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .code-section {
+            background-color: #1E1E1E;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: #D4D4D4;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero-container {
+                height: 300px;
+            }
+            
+            .hero-text-box {
+                width: 90%;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-links">
+            <a href="projects.html">Projects</a>
+            <a href="index.html" class="logo-link">
+                <img src="logo.jpeg" alt="Thomas Voss Logo" class="logo">
+            </a>
+            <a href="cv.html">View CV</a>
+        </div>
+    </nav>
+
+    <div class="hero-container">
+        <img src="/api/placeholder/1200/400" alt="Project Hero Image" class="hero-image">
+        <div class="hero-text-box">
+            <h1>Project Title</h1>
+            <p>Brief project description or tagline</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="text-section">
+            <h2>Introduction</h2>
+            <p>This is a placeholder for your first text section. Here you can explain the context, motivation, and goals of your project. The text sections use a clean, readable design with adequate spacing and contrast.</p>
+        </div>
+
+        <div class="code-section">
+            <pre>
+# This is a placeholder for your code
+def example_function():
+    print("Hello, World!")
+    return True
+
+# You can add more code here
+class ExampleClass:
+    def __init__(self):
+        self.value = 42
+            </pre>
+        </div>
+
+        <div class="text-section">
+            <h2>Project Details</h2>
+            <p>This is a placeholder for your second text section. Here you can explain the implementation details, challenges faced, solutions devised, or results achieved. The alternating pattern of text and code sections helps create a natural flow for technical documentation.</p>
+        </div>
+    </div>
+</body>
+</html>
