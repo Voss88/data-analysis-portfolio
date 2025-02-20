@@ -23,8 +23,61 @@
 
         /* Custom navbar styling to match your theme */
         .navbar {
-            background-color: var(--primary-color) !important;
-            padding: 1rem;
+            background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar::before,
+        .navbar::after {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: transparent;
+            z-index: 0;
+        }
+        
+        .navbar::before {
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            animation: stars 15s linear infinite;
+        }
+
+        .navbar::after {
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px);
+            background-size: 400px 400px, 300px 300px, 200px 200px;
+            background-position: 0 0, 60px 40px, 130px 270px;
+            animation: stars 20s linear infinite;
+        }
+
+        @keyframes stars {
+            0% {
+                background-position: 
+                    0 0, 
+                    40px 60px, 
+                    130px 270px;
+            }
+            100% {
+                background-position: 
+                    -550px 0, 
+                    -350px 60px, 
+                    -250px 270px;
+            }
+        }
+
+        .navbar .container-fluid {
+            position: relative;
+            z-index: 1;
         }
 
         .navbar-brand img {
@@ -32,14 +85,17 @@
         }
 
         .nav-link {
-            color: white !important;
+            color: rgba(255, 255, 255, 0.9) !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             padding: 0.75rem 1.5rem !important;
             border-radius: 4px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
 
         .nav-link:hover {
-            background-color: var(--dark-green);
+            color: white !important;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         /* Hero section styling */
