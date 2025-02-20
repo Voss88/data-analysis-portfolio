@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thomas Voss - Portfolio</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Custom colors matching your original theme */
         :root {
             --primary-color: #0F5741;
             --secondary-color: #F7F3E3;
@@ -21,68 +19,13 @@
             line-height: 1.6;
         }
 
-        /* Custom navbar styling to match your theme */
-        .navbar {
+        .space-effect {
             background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
             position: relative;
             overflow: hidden;
         }
 
-        .navbar::before,
-        .navbar::after {
-            content: "";
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: transparent;
-            z-index: 0;
-        }
-        
-        .navbar::before {
-            background-image: 
-                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
-                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
-            background-size: 250px 250px, 150px 150px, 100px 100px;
-            background-position: 0 0, 40px 60px, 130px 270px;
-            animation: stars 15s linear infinite;
-        }
-
-        .navbar::after {
-            background-image: 
-                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 2px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
-                radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px);
-            background-size: 250px 250px, 150px 150px, 100px 100px;
-            background-position: 0 0, 60px 40px, 130px 270px;
-            animation: stars 20s linear infinite;
-        }
-
-        @keyframes stars {
-            0% {
-                background-position: 
-                    0 0, 
-                    40px 60px, 
-                    130px 270px;
-            }
-            100% {
-                background-position: 
-                    -550px 0, 
-                    -350px 60px, 
-                    -250px 270px;
-            }
-        }
-
-        .space-background {
-            background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .space-background::before,
-        .space-background::after {
+        .space-effect::before {
             content: "";
             position: absolute;
             top: 0;
@@ -93,25 +36,77 @@
             z-index: 0;
         }
 
-        .space-background::before {
-            background-image: 
-                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
-                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
-            background-size: 250px 250px, 150px 150px, 100px 100px;
-            background-position: 0 0, 40px 60px, 130px 270px;
-            animation: stars 15s linear infinite;
+        @keyframes starField {
+            0% {
+                opacity: 0;
+                transform: translateX(0);
+            }
+            2% {
+                opacity: 1;
+            }
+            98% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
         }
 
-        .space-background::after {
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(255,0,255,0.1), transparent 50%),
-                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 2px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
-                radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px);
-            background-size: 250px 250px, 150px 150px, 100px 100px;
-            background-position: 0 0, 60px 40px, 130px 270px;
-            animation: stars 20s linear infinite;
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Generate 50 unique stars with different positions and animations */
+        .space-effect::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(
+                1px 1px at 10% 10%,
+                white 100%,
+                transparent
+            ),
+            radial-gradient(
+                2px 2px at 20% 30%,
+                rgba(255, 255, 255, 0.9) 100%,
+                transparent
+            ),
+            radial-gradient(
+                1.5px 1.5px at 35% 75%,
+                rgba(255, 255, 255, 0.8) 100%,
+                transparent
+            ),
+            radial-gradient(
+                2px 2px at 50% 50%,
+                rgba(255, 255, 255, 0.7) 100%,
+                transparent
+            ),
+            radial-gradient(
+                1px 1px at 65% 25%,
+                rgba(255, 255, 255, 0.9) 100%,
+                transparent
+            ),
+            radial-gradient(
+                1.5px 1.5px at 80% 80%,
+                rgba(255, 255, 255, 0.8) 100%,
+                transparent
+            ),
+            radial-gradient(
+                2px 2px at 90% 15%,
+                rgba(255, 255, 255, 0.7) 100%,
+                transparent
+            );
+            animation: starField 15s linear infinite;
+        }
+
+        .navbar {
+            background: none;
         }
 
         .navbar .container-fluid {
@@ -137,7 +132,7 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
 
-        /* Hero section styling */
+        /* Rest of your existing styles */
         .hero {
             text-align: center;
             padding: 5vh 5%;
@@ -147,7 +142,6 @@
             justify-content: center;
         }
 
-        /* Welcome box styling */
         .welcome-box {
             background-color: rgba(255, 255, 255, 0.9);
             border: 0.2rem solid black;
@@ -157,7 +151,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Custom button styling */
         .custom-btn {
             background-color: rgba(247, 243, 227, 0.9);
             color: var(--primary-color);
@@ -180,7 +173,6 @@
             z-index: 2;
         }
 
-        /* Carousel custom styling */
         .carousel-item {
             height: 600px;
             background-color: white;
@@ -198,7 +190,6 @@
             margin-bottom: 2rem;
         }
 
-        /* Photo placeholder styling */
         .photo-placeholder {
             height: 50vh;
             background-color: var(--primary-color);
@@ -208,7 +199,6 @@
             justify-content: center;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .carousel-item {
                 height: 400px;
@@ -225,8 +215,8 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar - Using Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg sticky-top space-effect">
         <div class="container-fluid justify-content-center">
             <div class="navbar-nav align-items-center">
                 <a class="nav-link" href="projects.html">Projects</a>
@@ -238,7 +228,7 @@
         </div>
     </nav>
 
-    <!-- Carousel Section - Using Bootstrap Carousel -->
+    <!-- Rest of your existing HTML content -->
     <div class="container my-5">
         <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -275,7 +265,6 @@
         </div>
     </div>
 
-    <!-- About Section - Using Bootstrap Container and Typography -->
     <div class="container mb-5">
         <h2 class="text-center mb-4">About Me</h2>
         <p class="text-center">
@@ -287,7 +276,6 @@
         </p>
     </div>
 
-    <!-- Photo Section - Using Bootstrap Grid -->
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -296,8 +284,7 @@
         </div>
     </div>
 
-    <!-- Hero Section - Using Bootstrap Buttons -->
-    <section class="hero space-background">
+    <section class="hero space-effect">
         <div class="button-container d-flex justify-content-center gap-4 flex-wrap">
             <a href="projects.html" class="btn custom-btn">Projects</a>
             <a href="https://www.linkedin.com/in/thomas-voss-30a321172/" class="btn custom-btn">Connect on LinkedIn</a>
@@ -305,7 +292,6 @@
         </div>
     </section>
 
-    <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
