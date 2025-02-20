@@ -107,6 +107,16 @@
 
         .navbar {
             background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        /* Add padding to body to account for fixed navbar */
+        body {
+            padding-top: 80px;
         }
 
         .navbar .container-fluid {
@@ -153,20 +163,21 @@
         }
 
         .custom-btn {
-            background-color: rgba(247, 243, 227, 0.9);
-            color: var(--primary-color);
-            border: 1px solid #0A0A0B;
-            padding: 1rem 2rem;
+            color: rgba(255, 255, 255, 0.9) !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 4px;
             transition: all 0.3s;
-            position: relative;
-            z-index: 2;
+            background: transparent;
+            border: none;
+            text-decoration: none;
         }
 
         .custom-btn:hover {
-            background-color: var(--dark-green);
-            color: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: white !important;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: none;
         }
 
         .button-container {
@@ -218,7 +229,7 @@
         .photo-placeholder {
             height: 50vh;
             background-color: var(--primary-color);
-            color: white;
+            color: grey;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -241,14 +252,18 @@
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg sticky-top space-effect">
-        <div class="container-fluid justify-content-center">
-            <div class="navbar-nav align-items-center">
-                <a class="nav-link" href="projects.html">Projects</a>
-                <a class="navbar-brand mx-4" href="index.html">
+    <nav class="navbar navbar-expand-lg space-effect">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a class="nav-link d-none d-lg-block" href="projects.html">Projects</a>
+                <a class="nav-link d-lg-none order-1" href="projects.html">Projects</a>
+                
+                <a class="navbar-brand mx-4 order-2" href="index.html">
                     <img src="logo-removebg-preview.png" alt="Thomas Voss Logo">
                 </a>
-                <a class="nav-link" href="cv.html">View CV</a>
+                
+                <a class="nav-link d-none d-lg-block" href="cv.html">View CV</a>
+                <a class="nav-link d-lg-none order-3" href="cv.html">View CV</a>
             </div>
         </div>
     </nav>
