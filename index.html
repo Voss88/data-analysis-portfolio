@@ -45,7 +45,7 @@
                 radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
                 radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
                 radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
-            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-size: 250px 250px, 150px 150px, 100px 100px;
             background-position: 0 0, 40px 60px, 130px 270px;
             animation: stars 15s linear infinite;
         }
@@ -55,7 +55,7 @@
                 radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 2px),
                 radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
                 radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px);
-            background-size: 400px 400px, 300px 300px, 200px 200px;
+            background-size: 250px 250px, 150px 150px, 100px 100px;
             background-position: 0 0, 60px 40px, 130px 270px;
             animation: stars 20s linear infinite;
         }
@@ -73,6 +73,44 @@
                     -350px 60px, 
                     -250px 270px;
             }
+        }
+
+        .space-background {
+            background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .space-background::before,
+        .space-background::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            z-index: 0;
+        }
+
+        .space-background::before {
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 250px 250px, 150px 150px, 100px 100px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            animation: stars 15s linear infinite;
+        }
+
+        .space-background::after {
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px);
+            background-size: 250px 250px, 150px 150px, 100px 100px;
+            background-position: 0 0, 60px 40px, 130px 270px;
+            animation: stars 20s linear infinite;
         }
 
         .navbar .container-fluid {
@@ -102,8 +140,10 @@
         .hero {
             text-align: center;
             padding: 5vh 5%;
-            /* Remove the background-image property */
-            position: relative; /* Added for space effect positioning */
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Welcome box styling */
@@ -118,12 +158,12 @@
 
         /* Custom button styling */
         .custom-btn {
-            background-color: rgba(247, 243, 227, 0.9); /* Slightly transparent */
+            background-color: rgba(247, 243, 227, 0.9);
             color: var(--primary-color);
             border: 1px solid #0A0A0B;
             padding: 1rem 2rem;
             transition: all 0.3s;
-            position: relative; /* Ensure buttons appear above space effect */
+            position: relative;
             z-index: 2;
         }
 
@@ -256,8 +296,8 @@
     </div>
 
     <!-- Hero Section - Using Bootstrap Buttons -->
-    <section class="hero space-effect">
-        <div class="d-flex justify-content-center gap-4 flex-wrap">
+    <section class="hero space-background">
+        <div class="button-container d-flex justify-content-center gap-4 flex-wrap">
             <a href="projects.html" class="btn custom-btn">Projects</a>
             <a href="https://www.linkedin.com/in/thomas-voss-30a321172/" class="btn custom-btn">Connect on LinkedIn</a>
             <a href="cv.html" class="btn custom-btn">View CV</a>
