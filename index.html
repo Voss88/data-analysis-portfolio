@@ -199,16 +199,80 @@
                 padding: 0.5rem 1rem !important;
             }
 
-            .carousel-item {
-                height: 400px;
+            .carousel-wrapper {
+                margin: 1rem 0;  /* Reduced margin for mobile */
             }
-            
-            .project-image {
-                height: 250px;
+
+            .carousel-content {
+                padding-bottom: 75%;  /* Adjusted aspect ratio for mobile */
             }
-            
+
+            .carousel-caption {
+                padding: 0.5rem;
+            }
+
+            .carousel-caption h3 {
+                font-size: 1.2rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.9rem;
+                margin-bottom: 0;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .container.mb-5 {
+                margin-bottom: 2rem !important;  /* Reduced spacing on mobile */
+            }
+
+            .my-5 {
+                margin-top: 2rem !important;
+                margin-bottom: 2rem !important;
+            }
+
             .photo-placeholder {
                 height: 30vh;
+            }
+
+            h2.text-center.mb-4 {
+                margin-bottom: 1rem !important;
+                font-size: 1.5rem;
+            }
+
+            p.text-center {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+            .button-container {
+                gap: 2 !important;
+            }
+
+            .custom-btn {
+                padding: 0.5rem 1rem !important;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-content {
+                padding-bottom: 100%;  /* Even more squared aspect ratio for smaller devices */
+            }
+
+            .nav-wrapper {
+                padding: 0 0.5rem;
+            }
+
+            .navbar-brand {
+                margin: 0 1rem;
+            }
+
+            .navbar-brand img {
+                max-height: 50px;
             }
         }
     </style>
