@@ -102,10 +102,8 @@
         .hero {
             text-align: center;
             padding: 5vh 5%;
-            background-image: url('data-background-alt.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            /* Remove the background-image property */
+            position: relative; /* Added for space effect positioning */
         }
 
         /* Welcome box styling */
@@ -120,16 +118,25 @@
 
         /* Custom button styling */
         .custom-btn {
-            background-color: var(--secondary-color);
+            background-color: rgba(247, 243, 227, 0.9); /* Slightly transparent */
             color: var(--primary-color);
             border: 1px solid #0A0A0B;
             padding: 1rem 2rem;
             transition: all 0.3s;
+            position: relative; /* Ensure buttons appear above space effect */
+            z-index: 2;
         }
 
         .custom-btn:hover {
             background-color: var(--dark-green);
             color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-container {
+            position: relative;
+            z-index: 2;
         }
 
         /* Carousel custom styling */
@@ -249,7 +256,7 @@
     </div>
 
     <!-- Hero Section - Using Bootstrap Buttons -->
-    <section class="hero">
+    <section class="hero space-effect">
         <div class="d-flex justify-content-center gap-4 flex-wrap">
             <a href="projects.html" class="btn custom-btn">Projects</a>
             <a href="https://www.linkedin.com/in/thomas-voss-30a321172/" class="btn custom-btn">Connect on LinkedIn</a>
