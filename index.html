@@ -74,7 +74,7 @@
             pointer-events: none;
             opacity: 0.8;
             will-change: transform;
-            transform: translateZ(0); /* Force hardware acceleration */
+            transform: translateZ(0);
             -webkit-transform: translateZ(0);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
@@ -136,7 +136,6 @@
             max-height: 60px;
         }
 
-        /* Your existing styles */
         .hero {
             text-align: center;
             padding: 2rem 5%;
@@ -219,6 +218,48 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* iPad-specific media query */
+        @media only screen 
+        and (min-device-width: 768px) 
+        and (max-device-width: 1024px) 
+        and (-webkit-min-device-pixel-ratio: 1) {
+            .navbar {
+                background: linear-gradient(45deg, #0a0a2e, #1a1a3a) !important;
+                -webkit-transform: translate3d(0,0,0);
+                transform: translate3d(0,0,0);
+                perspective: 1000px;
+                -webkit-perspective: 1000px;
+            }
+
+            .nav-wrapper {
+                -webkit-transform: translate3d(0,0,0);
+                transform: translate3d(0,0,0);
+            }
+
+            .star-layer {
+                opacity: 1 !important;
+                -webkit-transform: translate3d(0,0,0) !important;
+                transform: translate3d(0,0,0) !important;
+                animation: continuousStars 30s linear infinite !important;
+                will-change: transform;
+                background-size: auto 100% !important;
+            }
+
+            .star-layer-1 {
+                background-image: 
+                    radial-gradient(2px 2px at 10% 10%, rgba(234, 0, 224, 1) 100%, transparent),
+                    radial-gradient(2px 2px at 20% 30%, rgba(245, 0, 132, 1) 100%, transparent),
+                    radial-gradient(2px 2px at 30% 40%, rgba(249, 0, 89, 1) 100%, transparent),
+                    radial-gradient(2px 2px at 40% 50%, rgba(255, 58, 30, 1) 100%, transparent),
+                    radial-gradient(2px 2px at 50% 60%, rgba(255, 104, 30, 1) 100%, transparent),
+                    radial-gradient(2px 2px at 60% 70%, rgba(255, 137, 27, 1) 100%, transparent) !important;
+            }
+
+            .star-layer-2 {
+                animation-delay: -15s !important;
+            }
+        }
         
         @media (min-width: 1400px) {
             .carousel-content {
@@ -227,14 +268,8 @@
         }
 
         @media (max-width: 768px) {
-            .star-layer {
-                opacity: 0.9; /* Even higher opacity for iPad */
-                transform: translate3d(0,0,0) !important;
-                -webkit-transform: translate3d(0,0,0) !important;
-            }
             .navbar {
                 height: 10vw;
-                background: linear-gradient(45deg, #0a0a2e, #1a1a3a) !important;
             }
 
             .nav-content {
@@ -254,7 +289,6 @@
                 margin: 0 0.25rem;
             }
 
-            /* Your existing mobile styles */
             .carousel-wrapper {
                 margin: 1rem 0;
             }
@@ -315,14 +349,8 @@
         }
 
         @media (max-width: 480px) {
-            .star-layer {
-                opacity: 0.9; /* Even higher opacity for iPad */
-                transform: translate3d(0,0,0) !important;
-                -webkit-transform: translate3d(0,0,0) !important;
-            }
             .navbar {
                 height: 10vw;
-                background: linear-gradient(45deg, #0a0a2e, #1a1a3a) !important;
             }
 
             .nav-content {
@@ -349,7 +377,7 @@
     </style>
 </head>
 <body>
-    <!-- Updated Navigation Bar -->
+    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-wrapper">
             <div class="star-layer star-layer-1"></div>
