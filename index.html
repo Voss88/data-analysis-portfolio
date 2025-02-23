@@ -19,33 +19,30 @@
             background-color: var(--secondary-color);
             font-family: Tahoma, sans-serif;
             line-height: 1.6;
-            padding-top: 80px;
+            padding-top: 90px;
+            margin: 0;
+            overflow-x: hidden;
         }
 
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
+            width: 100%;
             height: 90px;
             z-index: 1000;
-            min-height: 80px;
             padding: 0;
-            background: transparent;
-            -webkit-transform: translate3d(0,0,0);
+            overflow: hidden;
+            background: #0a0a2e;
         }
 
         .nav-wrapper {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
-            -webkit-transform: translate3d(0,0,0);
         }
 
         .particles-container {
@@ -55,12 +52,6 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 2;
-        }
-
-        .particles-container object {
-            width: 100%;
-            height: 100%;
         }
 
         .nav-content {
@@ -75,13 +66,12 @@
         }
 
         .nav-link {
-            position: relative;
-            z-index: 3;
             color: rgba(255, 255, 255, 0.9) !important;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             padding: 0.75rem 1rem !important;
             border-radius: 4px;
             transition: all 0.3s;
+            z-index: 3;
         }
 
         .nav-link:hover {
@@ -91,9 +81,8 @@
         }
 
         .navbar-brand {
-            position: relative;
-            z-index: 3;
             margin: 0 2rem;
+            z-index: 3;
         }
 
         .navbar-brand img {
@@ -108,13 +97,8 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background: transparent;
-        }
-
-        .space-effect {
-            position: relative;
+            background: #0a0a2e;
             overflow: hidden;
-            background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
         }
 
         .carousel-wrapper {
@@ -155,8 +139,6 @@
         }
 
         .custom-btn {
-            position: relative;
-            z-index: 3;
             color: rgba(255, 255, 255, 0.9) !important;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
             padding: 0.75rem 1.5rem !important;
@@ -165,6 +147,7 @@
             background: transparent;
             border: none;
             text-decoration: none;
+            z-index: 3;
         }
 
         .custom-btn:hover {
@@ -231,45 +214,12 @@
                 padding: 0.5rem;
             }
 
-            .carousel-caption h3 {
-                font-size: 1.2rem;
-                margin-bottom: 0.25rem;
-            }
-
-            .carousel-caption p {
-                font-size: 0.9rem;
-                margin-bottom: 0;
-            }
-
             .container {
                 padding: 0 15px;
             }
 
-            .container.mb-5 {
-                margin-bottom: 2rem !important;
-            }
-
-            .my-5 {
-                margin-top: 2rem !important;
-                margin-bottom: 2rem !important;
-            }
-
             .photo-placeholder {
                 height: 30vh;
-            }
-
-            h2.text-center.mb-4 {
-                margin-bottom: 1rem !important;
-                font-size: 1.5rem;
-            }
-
-            p.text-center {
-                font-size: 0.95rem;
-                line-height: 1.5;
-            }
-
-            .button-container {
-                gap: 2 !important;
             }
 
             .custom-btn {
@@ -311,7 +261,7 @@
     <nav class="navbar">
         <div class="nav-wrapper">
             <div class="particles-container">
-                <object data="particles.svg" type="image/svg+xml" width="100%" height="100%"></object>
+                <object data="particles.svg" type="image/svg+xml"></object>
             </div>
             <div class="nav-content">
                 <a class="nav-link" href="projects.html">Projects</a>
@@ -388,9 +338,9 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="hero space-effect">
+    <section class="hero">
         <div class="particles-container">
-            <object data="particles.svg" type="image/svg+xml" width="100%" height="100%"></object>
+            <object data="particles.svg" type="image/svg+xml"></object>
         </div>
         <div class="button-container d-flex justify-content-center gap-4 flex-wrap">
             <a href="projects.html" class="btn custom-btn">Projects</a>
