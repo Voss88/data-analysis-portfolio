@@ -35,7 +35,12 @@
             overflow: hidden;
             background: #0a0a2e url('./particles.svg') center center;
             background-size: cover;
-            -webkit-transform: translate3d(0,0,0);
+            -webkit-backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000;
+            transform: translateZ(0);
         }
 
         .nav-content {
@@ -85,7 +90,12 @@
             background: #0a0a2e url('./particles.svg') center center;
             background-size: cover;
             overflow: hidden;
-            -webkit-transform: translate3d(0,0,0);
+            -webkit-backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000;
+            transform: translateZ(0);
         }
 
         .hero::before {
@@ -174,6 +184,19 @@
         @media (min-width: 1400px) {
             .carousel-content {
                 padding-bottom: 35%;
+            }
+            
+            .navbar, .hero {
+                will-change: transform;
+                transform: translate3d(0,0,0);
+                -webkit-transform: translate3d(0,0,0);
+            }
+        }
+        @media (min-width: 1024px) {
+            .navbar, .hero {
+                will-change: transform;
+                transform: translate3d(0,0,0);
+                -webkit-transform: translate3d(0,0,0);
             }
         }
 
