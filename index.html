@@ -33,8 +33,9 @@
             z-index: 1000;
             padding: 0;
             overflow: hidden;
-            background: transparent url('particles.svg') center center;
+            background: #0a0a2e url('./particles.svg') center center;
             background-size: cover;
+            -webkit-transform: translate3d(0,0,0);
         }
 
         .nav-content {
@@ -46,6 +47,7 @@
             width: 100%;
             height: 100%;
             padding: 0.5rem;
+            background-color: rgba(10, 10, 46, 0.3);
         }
 
         .nav-link {
@@ -80,9 +82,20 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background: transparent url('particles.svg') center center;
+            background: #0a0a2e url('./particles.svg') center center;
             background-size: cover;
             overflow: hidden;
+            -webkit-transform: translate3d(0,0,0);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 46, 0.3);
         }
 
         .carousel-wrapper {
@@ -243,13 +256,12 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
-            <div class="nav-content">
-                <a class="nav-link" href="projects.html">Projects</a>
-                <a class="navbar-brand mx-2" href="index.html">
-                    <img src="logo-removebg-preview.png" alt="Thomas Voss Logo">
-                </a>
-                <a class="nav-link" href="cv.html">View CV</a>
-            </div>
+        <div class="nav-content">
+            <a class="nav-link" href="projects.html">Projects</a>
+            <a class="navbar-brand mx-2" href="index.html">
+                <img src="logo-removebg-preview.png" alt="Thomas Voss Logo">
+            </a>
+            <a class="nav-link" href="cv.html">View CV</a>
         </div>
     </nav>
 
