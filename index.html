@@ -9,378 +9,307 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <style>
         :root {
-    --primary-color: #0F5741;
-    --secondary-color: #F7F3E3;
-    --dark-green: #06231A;
-    --text-color: #2C1A11;
-}
+            --primary-color: #0F5741;
+            --secondary-color: #F7F3E3;
+            --dark-green: #06231A;
+            --text-color: #2C1A11;
+        }
 
-body {
-    background-color: var(--secondary-color);
-    font-family: Tahoma, sans-serif;
-    line-height: 1.6;
-    padding-top: 80px;
-}
+        body {
+            background-color: var(--secondary-color);
+            font-family: Tahoma, sans-serif;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
 
-.space-effect {
-    background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
-    position: relative;
-    overflow: hidden;
-}
+        .space-effect {
+            background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
+            position: relative;
+            overflow: hidden;
+        }
 
-@keyframes continuousStars {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 90px;
+            z-index: 1000;
+            min-height: 80px;
+            padding: 0;
+            background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
+            -webkit-transform: translate3d(0,0,0);
+        }
 
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 90px;
-    z-index: 1000;
-    min-height: 80px;
-    padding: 0;
-    background: linear-gradient(45deg, #0a0a2e, #1a1a3a);
-    -webkit-transform: translate3d(0,0,0);
-}
+        .nav-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            -webkit-transform: translate3d(0,0,0);
+        }
 
-.nav-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    -webkit-transform: translate3d(0,0,0);
-}
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-.star-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 100%;
-    animation: continuousStars 20s linear infinite;
-    background-repeat: repeat-x;
-    pointer-events: none;
-    opacity: 0.8;
-    will-change: transform;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-}
+        .particles-container object {
+            width: 100%;
+            height: 100%;
+        }
 
-.star-layer-1 {
-    background-image: 
-        radial-gradient(0.15vw 0.15vw at 10% 10%, rgba(234, 0, 224, 1) 100%, transparent),
-        radial-gradient(0.2vw 0.2vw at 20% 30%, rgba(245, 0, 132, 1) 100%, transparent),
-        radial-gradient(0.1vw 0.1vw at 30% 40%, rgba(249, 0, 89, 1) 100%, transparent),
-        radial-gradient(0.15vw 0.15vw at 40% 50%, rgba(255, 58, 30, 1) 100%, transparent),
-        radial-gradient(0.1vw 0.1vw at 50% 60%, rgba(255, 104, 30, 1) 100%, transparent),
-        radial-gradient(0.2vw 0.2vw at 60% 70%, rgba(255, 137, 27, 1) 100%, transparent);
-}
+        .nav-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem;
+        }
 
-.star-layer-2 {
-    background-image: 
-        radial-gradient(0.1vw 0.1vw at 15% 15%, rgba(255, 137, 27, 1) 100%, transparent),
-        radial-gradient(0.15vw 0.15vw at 25% 35%, rgba(255, 58, 30, 1) 100%, transparent),
-        radial-gradient(0.2vw 0.2vw at 35% 55%, rgba(249, 0, 89, 1) 100%, transparent),
-        radial-gradient(0.1vw 0.1vw at 45% 75%, rgba(245, 0, 132, 1) 100%, transparent),
-        radial-gradient(0.15vw 0.15vw at 55% 85%, rgba(234, 0, 224, 1) 100%, transparent),
-        radial-gradient(0.2vw 0.2vw at 65% 25%, rgba(255, 104, 30, 1) 100%, transparent);
-    animation-delay: -10s;
-}
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            padding: 0.75rem 1rem !important;
+            border-radius: 4px;
+            transition: all 0.3s;
+            z-index: 2;
+        }
 
-.nav-content {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 0.5rem;
-}
+        .nav-link:hover {
+            color: white !important;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
-.nav-link {
-    color: rgba(255, 255, 255, 0.9) !important;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    padding: 0.75rem 1rem !important;
-    border-radius: 4px;
-    transition: all 0.3s;
-    z-index: 2;
-}
+        .navbar-brand {
+            margin: 0 2rem;
+            z-index: 2;
+        }
 
-.nav-link:hover {
-    color: white !important;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-    background-color: rgba(255, 255, 255, 0.1);
-}
+        .navbar-brand img {
+            max-height: 60px;
+        }
 
-.navbar-brand {
-    margin: 0 2rem;
-    z-index: 2;
-}
+        .hero {
+            text-align: center;
+            padding: 2rem 5%;
+            height: 20vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
 
-.navbar-brand img {
-    max-height: 60px;
-}
+        .carousel-wrapper {
+            width: 100%;
+            max-height: 40%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
-.hero {
-    text-align: center;
-    padding: 2rem 5%;
-    height: 20vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .carousel-item {
+            height: auto;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
 
-.carousel-wrapper {
-    width: 100%;
-    max-height: 40%;
-    margin: 0 auto;
-    overflow: hidden;
-}
+        .carousel-content {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 40%;
+            overflow: hidden;
+        }
 
-.carousel-item {
-    height: auto;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-}
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+        }
 
-.carousel-content {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 40%;
-    overflow: hidden;
-}
+        .custom-btn {
+            color: rgba(255, 255, 255, 0.9) !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 4px;
+            transition: all 0.3s;
+            background: transparent;
+            border: none;
+            text-decoration: none;
+            z-index: 2;
+            position: relative;
+        }
 
-.carousel-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 1rem;
-}
+        .custom-btn:hover {
+            color: white !important;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
-.custom-btn {
-    color: rgba(255, 255, 255, 0.9) !important;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    padding: 0.75rem 1.5rem !important;
-    border-radius: 4px;
-    transition: all 0.3s;
-    background: transparent;
-    border: none;
-    text-decoration: none;
-    z-index: 2;
-    position: relative;
-}
+        .button-container {
+            position: relative;
+            z-index: 2;
+        }
 
-.custom-btn:hover {
-    color: white !important;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-    background-color: rgba(255, 255, 255, 0.1);
-}
+        .welcome-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 0.2rem solid black;
+            border-radius: 2%;
+            padding: 3rem;
+            margin: 0 auto 5vh;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-.button-container {
-    position: relative;
-    z-index: 2;
-}
+        .photo-placeholder {
+            height: 50vh;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.welcome-box {
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 0.2rem solid black;
-    border-radius: 2%;
-    padding: 3rem;
-    margin: 0 auto 5vh;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+        /* Media Queries */
+        @media (min-width: 1400px) {
+            .carousel-content {
+                padding-bottom: 35%;
+            }
+        }
 
-.photo-placeholder {
-    height: 50vh;
-    background-color: var(--primary-color);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        @media (max-width: 768px) {
+            .navbar {
+                height: 10vw;
+            }
 
-/* iPad-specific media query */
-@media only screen 
-and (min-device-width: 768px) 
-and (max-device-width: 1024px) {
-    .navbar {
-        background: linear-gradient(45deg, #0a0a2e, #1a1a3a) !important;
-        overflow: hidden;
-    }
+            .nav-content {
+                padding: 0.5rem;
+            }
 
-    .star-layer {
-        opacity: 0.4 !important;
-        width: 300% !important;
-        transform: translate3d(0,0,0) !important;
-        -webkit-transform: translate3d(0,0,0) !important;
-        animation: continuousStars 35s linear infinite !important;
-        mix-blend-mode: screen !important;
-    }
+            .navbar-brand {
+                margin: 0 1rem !important;
+            }
 
-    .star-layer-1 {
-        background-image: 
-            radial-gradient(0.08vw 0.08vw at 10% 10%, rgba(255, 255, 255, 0.9) 100%, transparent),
-            radial-gradient(0.1vw 0.1vw at 20% 30%, rgba(255, 255, 255, 0.8) 100%, transparent),
-            radial-gradient(0.06vw 0.06vw at 30% 40%, rgba(255, 255, 255, 0.9) 100%, transparent),
-            radial-gradient(0.08vw 0.08vw at 40% 50%, rgba(255, 255, 255, 0.8) 100%, transparent),
-            radial-gradient(0.06vw 0.06vw at 50% 60%, rgba(255, 255, 255, 0.9) 100%, transparent),
-            radial-gradient(0.1vw 0.1vw at 60% 70%, rgba(255, 255, 255, 0.8) 100%, transparent) !important;
-    }
+            .navbar-brand img {
+                max-height: 50px;
+            }
 
-    .star-layer-2 {
-        opacity: 0.3 !important;
-        animation: continuousStars 40s linear infinite !important;
-        animation-delay: -20s !important;
-        background-image: 
-            radial-gradient(0.06vw 0.06vw at 15% 15%, rgba(255, 255, 255, 0.9) 100%, transparent),
-            radial-gradient(0.08vw 0.08vw at 25% 35%, rgba(255, 255, 255, 0.8) 100%, transparent),
-            radial-gradient(0.1vw 0.1vw at 35% 55%, rgba(255, 255, 255, 0.9) 100%, transparent),
-            radial-gradient(0.06vw 0.06vw at 45% 75%, rgba(255, 255, 255, 0.8) 100%, transparent),
-            radial-gradient(0.08vw 0.08vw at 55% 85%, rgba(255, 255, 255, 0.9) 100%, transparent),
-            radial-gradient(0.1vw 0.1vw at 65% 25%, rgba(255, 255, 255, 0.8) 100%, transparent) !important;
-    }
-}
+            .nav-link {
+                padding: 0.5rem !important;
+                margin: 0 0.25rem;
+            }
 
-@media (min-width: 1400px) {
-    .carousel-content {
-        padding-bottom: 35%;
-    }
-}
+            .carousel-wrapper {
+                margin: 1rem 0;
+            }
 
-@media (max-width: 768px) {
-    .navbar {
-        height: 10vw;
-    }
+            .carousel-content {
+                padding-bottom: 75%;
+            }
 
-    .nav-content {
-        padding: 0.5rem;
-    }
+            .carousel-caption {
+                padding: 0.5rem;
+            }
 
-    .navbar-brand {
-        margin: 0 1rem !important;
-    }
+            .carousel-caption h3 {
+                font-size: 1.2rem;
+                margin-bottom: 0.25rem;
+            }
 
-    .navbar-brand img {
-        max-height: 50px;
-    }
+            .carousel-caption p {
+                font-size: 0.9rem;
+                margin-bottom: 0;
+            }
 
-    .nav-link {
-        padding: 0.5rem !important;
-        margin: 0 0.25rem;
-    }
+            .container {
+                padding: 0 15px;
+            }
 
-    .carousel-wrapper {
-        margin: 1rem 0;
-    }
+            .container.mb-5 {
+                margin-bottom: 2rem !important;
+            }
 
-    .carousel-content {
-        padding-bottom: 75%;
-    }
+            .my-5 {
+                margin-top: 2rem !important;
+                margin-bottom: 2rem !important;
+            }
 
-    .carousel-caption {
-        padding: 0.5rem;
-    }
+            .photo-placeholder {
+                height: 30vh;
+            }
 
-    .carousel-caption h3 {
-        font-size: 1.2rem;
-        margin-bottom: 0.25rem;
-    }
+            h2.text-center.mb-4 {
+                margin-bottom: 1rem !important;
+                font-size: 1.5rem;
+            }
 
-    .carousel-caption p {
-        font-size: 0.9rem;
-        margin-bottom: 0;
-    }
+            p.text-center {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
 
-    .container {
-        padding: 0 15px;
-    }
+            .button-container {
+                gap: 2 !important;
+            }
 
-    .container.mb-5 {
-        margin-bottom: 2rem !important;
-    }
+            .custom-btn {
+                padding: 0.5rem 1rem !important;
+                font-size: 0.9rem;
+            }
+        }
 
-    .my-5 {
-        margin-top: 2rem !important;
-        margin-bottom: 2rem !important;
-    }
+        @media (max-width: 480px) {
+            .navbar {
+                height: 10vw;
+            }
 
-    .photo-placeholder {
-        height: 30vh;
-    }
+            .nav-content {
+                padding: 0.25rem;
+            }
 
-    h2.text-center.mb-4 {
-        margin-bottom: 1rem !important;
-        font-size: 1.5rem;
-    }
+            .navbar-brand {
+                margin: 0 0.5rem !important;
+            }
 
-    p.text-center {
-        font-size: 0.95rem;
-        line-height: 1.5;
-    }
+            .navbar-brand img {
+                max-height: 40px;
+            }
 
-    .button-container {
-        gap: 2 !important;
-    }
+            .nav-link {
+                padding: 0.25rem !important;
+                font-size: 0.85rem;
+            }
 
-    .custom-btn {
-        padding: 0.5rem 1rem !important;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar {
-        height: 10vw;
-    }
-
-    .nav-content {
-        padding: 0.25rem;
-    }
-
-    .navbar-brand {
-        margin: 0 0.5rem !important;
-    }
-
-    .navbar-brand img {
-        max-height: 40px;
-    }
-
-    .nav-link {
-        padding: 0.25rem !important;
-        font-size: 0.85rem;
-    }
-
-    .carousel-content {
-        padding-bottom: 100%;
-    }
-}
+            .carousel-content {
+                padding-bottom: 100%;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-wrapper">
-            <div class="star-layer star-layer-1"></div>
-            <div class="star-layer star-layer-2"></div>
+            <div class="particles-container">
+                <object data="particles.svg" type="image/svg+xml"></object>
+            </div>
             <div class="nav-content">
                 <a class="nav-link" href="projects.html">Projects</a>
                 <a class="navbar-brand mx-2" href="index.html">
@@ -454,13 +383,14 @@ and (max-device-width: 1024px) {
     </div>
 
     <section class="hero space-effect">
-        <div class="star-layer star-layer-1"></div>
-        <div class="star-layer star-layer-2"></div>
+        <div class="particles-container">
+            <object data="particles.svg" type="image/svg+xml"></object>
+        </div>
         <div class="button-container d-flex justify-content-center gap-4 flex-wrap">
             <a href="projects.html" class="btn custom-btn">Projects</a>
             <a href="https://www.linkedin.com/in/thomas-voss-30a321172/" class="btn custom-btn">Connect on LinkedIn</a>
             <a href="cv.html" class="btn custom-btn">View CV</a>
-    </div>
+        </div>
     </section>
 </body>
 </html>
