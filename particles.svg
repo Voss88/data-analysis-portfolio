@@ -1,4 +1,4 @@
-<svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+<svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <rect width="100%" height="100%" fill="black"/>
     
     <!-- Particle definitions -->
@@ -13,7 +13,7 @@
 
     <!-- Layer 1 particles (original set with slower speed) -->
     <g>
-        <use href="#particle-tiny" x="0" y="0">
+        <use xlink:href="#particle-tiny" x="0" y="0">
             <animateMotion 
                 dur="40s" 
                 repeatCount="indefinite" 
@@ -22,7 +22,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-small" x="0" y="0">
+        <use xlink:href="#particle-small" x="0" y="0">
             <animateMotion 
                 dur="45s" 
                 repeatCount="indefinite" 
@@ -31,7 +31,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-medium" x="0" y="0">
+        <use xlink:href="#particle-medium" x="0" y="0">
             <animateMotion 
                 dur="42s" 
                 repeatCount="indefinite"
@@ -40,7 +40,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-large" x="0" y="0">
+        <use xlink:href="#particle-large" x="0" y="0">
             <animateMotion 
                 dur="48s" 
                 repeatCount="indefinite"
@@ -49,7 +49,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-xl" x="0" y="0">
+        <use xlink:href="#particle-xl" x="0" y="0">
             <animateMotion 
                 dur="50s" 
                 repeatCount="indefinite"
@@ -59,7 +59,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-xxl" x="0" y="0">
+        <use xlink:href="#particle-xxl" x="0" y="0">
             <animateMotion 
                 dur="44s" 
                 repeatCount="indefinite"
@@ -73,7 +73,7 @@
 
     <!-- Layer 2 particles (new set with different paths) -->
     <g>
-        <use href="#particle-tiny" x="0" y="0">
+        <use xlink:href="#particle-tiny" x="0" y="0">
             <animateMotion 
                 dur="46s" 
                 repeatCount="indefinite"
@@ -82,7 +82,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-small" x="0" y="0">
+        <use xlink:href="#particle-small" x="0" y="0">
             <animateMotion 
                 dur="43s" 
                 repeatCount="indefinite"
@@ -91,7 +91,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-medium" x="0" y="0">
+        <use xlink:href="#particle-medium" x="0" y="0">
             <animateMotion 
                 dur="47s" 
                 repeatCount="indefinite"
@@ -100,7 +100,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-large" x="0" y="0">
+        <use xlink:href="#particle-large" x="0" y="0">
             <animateMotion 
                 dur="41s" 
                 repeatCount="indefinite"
@@ -109,7 +109,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-xl" x="0" y="0">
+        <use xlink:href="#particle-xl" x="0" y="0">
             <animateMotion 
                 dur="49s" 
                 repeatCount="indefinite"
@@ -119,7 +119,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-xxl" x="0" y="0">
+        <use xlink:href="#particle-xxl" x="0" y="0">
             <animateMotion 
                 dur="45s" 
                 repeatCount="indefinite"
@@ -133,7 +133,7 @@
 
     <!-- Layer 3 (additional particles with different timings) -->
     <g>
-        <use href="#particle-tiny" x="0" y="0">
+        <use xlink:href="#particle-tiny" x="0" y="0">
             <animateMotion 
                 dur="44s" 
                 repeatCount="indefinite"
@@ -143,7 +143,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-medium" x="0" y="0">
+        <use xlink:href="#particle-medium" x="0" y="0">
             <animateMotion 
                 dur="46s" 
                 repeatCount="indefinite"
@@ -153,7 +153,7 @@
                 calcMode="linear"
             />
         </use>
-        <use href="#particle-large" x="0" y="0">
+        <use xlink:href="#particle-large" x="0" y="0">
             <animateMotion 
                 dur="48s" 
                 repeatCount="indefinite"
