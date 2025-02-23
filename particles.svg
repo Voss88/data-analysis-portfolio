@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 40">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 20">
   <!-- Background -->
-  <rect width="80" height="40" fill="black"/>
+  <rect width="40" height="20" fill="black"/>
   
   <!-- Centered group of bars -->
   <g transform="translate(10, 0)">
