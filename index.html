@@ -58,22 +58,14 @@
             padding: 0.5rem;
         }
 
-        .nav-link {
-            color: var(--text-color);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            padding: 0.75rem 1rem !important;
-            border-radius: 4px;
-            transition: all 0.3s;
-            z-index: 3;
-            position: relative;
-            border: 2px solid transparent;
-        }
-
-        .nav-link:hover {
-            color: var(--text-color) !important;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            background-color: transparent;
-            border-image: linear-gradient(to right, 
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, 
                 rgba(233,0,236,1), 
                 rgba(245,0,132,1), 
                 rgba(248,0,105,1), 
@@ -81,7 +73,18 @@
                 rgba(255,27,29,1), 
                 rgba(255,130,27,1)
             );
-            border-image-slice: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1; /* Position behind the text */
+        }
+        
+        .nav-link:hover {
+            color: white !important; /* Change text to white on hover */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-link:hover::before {
+            opacity: 1;
         }
 
         .navbar-brand {
@@ -125,22 +128,42 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             position: relative;
-            transition: transform 0.3s ease, border 0.3s ease;
+            transition: transform 0.3s ease;
             margin: 0 auto;
-            border: 4px solid transparent;
         }
-
-        .carousel-card:hover {
-            transform: translateY(-5px);
-            border-image: linear-gradient(to right, 
+        
+        .carousel-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px; /* Match the card's border radius */
+            padding: 4px; /* Control the border thickness */
+            background: linear-gradient(to right, 
                 rgba(233,0,236,1), 
                 rgba(245,0,132,1), 
                 rgba(248,0,105,1), 
                 rgba(255,44,31,1), 
                 rgba(255,27,29,1), 
                 rgba(255,130,27,1)
-            );
-            border-image-slice: 1;
+            ); 
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        .carousel-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .carousel-card:hover::before {
+            opacity: 1;
         }
 
         .carousel-card-content {
