@@ -4,69 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Tahoma, sans-serif;
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --dark-green: #06231A;
+            --text-color: #333333;
+            --nav-bg-color: #F5F5F7;
         }
 
         body {
-            background-color: #F7F3E3;
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
             line-height: 1.6;
+            padding-top: 18vh;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--text-color);
         }
 
-        /* Navigation Bar */
-        nav {
-            background-color: #0F5741;
-            padding: 1rem;
-            position: sticky;
+        .navbar {
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
+            height: 15vh;
+            z-index: 1000;
+            padding: 0;
+            background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            );
+            border-image-slice: 1;
+        }
+
+        .nav-content {
+            position: relative;
+            z-index: 3;
             display: flex;
-            align-items: center;
             justify-content: center;
-            z-index: 1000;;
-        }
-
-        .nav-links {
-            display: flex;
             align-items: center;
-            gap: 1rem;
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem;
         }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+        .nav-content a.nav-link {
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+            margin: 0 1rem;
         }
-
-        .nav-links a:hover {
-            background-color: #06231A;
+        
+        .nav-content a.nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
-
-        .logo img {
-            max-height: 60px;
-            display: block;
+        
+        .nav-content a.nav-link:hover {
+            color: white !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
-
-        .logo-link {
-            color: #0F5741;
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+        
+        .nav-content a.nav-link:hover::before {
+            opacity: 1;
         }
-
-        .logo {
-            max-height: 8vh;
-            display: block;
-        }
-
-        .nav-links .logo-link:hover {
+        
+        .navbar-brand.mx-2 {
             background: none;
+            overflow: visible;
+            padding: 0 !important;
+            border-radius: 0;
+        }
+        
+        .navbar-brand.mx-2:hover::before {
+            opacity: 0;
+            display: none;
+        }
+
+        .navbar-brand {
+            margin: 0 2rem;
+            z-index: 3;
+        }
+
+        .navbar-brand img {
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
         }
 
         /* Hero Section */
@@ -76,6 +131,8 @@
             height: 60vh;
             overflow: hidden;
             margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .hero-image {
@@ -83,6 +140,7 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
+            filter: brightness(0.9);
         }
 
         .hero-text-box {
@@ -91,233 +149,294 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 8px;
+            padding: 2.5rem;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 80%;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-text-box:hover {
+            transform: translate(-50%, -52%);
         }
 
         .hero-text-box h1 {
-            color: #2C1A11;
+            color: var(--text-color);
             margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-text-box p {
+            color: var(--text-color);
+            font-size: 1.1rem;
         }
 
         /* Content Sections */
         .content-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+            max-width: 1000px;
+            margin: 2rem auto 4rem;
+            padding: 0;
         }
 
         .text-section {
             background-color: white;
-            padding: 2rem;
+            padding: 2.5rem;
             margin-bottom: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .text-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .text-section h2 {
+            color: var(--text-color);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid;
+            display: inline-block;
+            border-image: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            ) 1;
+        }
+
+        .text-section p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
         }
 
         .code-section {
             background-color: #1E1E1E;
-            padding: 2rem;
+            padding: 2.5rem;
             margin-bottom: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
             color: #D4D4D4;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
             overflow-x: auto;
+            position: relative;
+            transition: transform 0.3s ease;
         }
 
-                @media (max-width: 600px) {
-            html {
-                font-size: 14px;
-            }
+        .code-section:hover {
+            transform: translateY(-5px);
+        }
 
-            .carousel {
-                width: 95%;
-            }
-            
-            .carousel-button {
-                width: 40px;
-                height: 40px;
-                font-size: 1.5rem;
-            }
-            
-            .button-container {
-                flex-direction: row;
-                align-items: center;
-            }
-            
-            .photo-placeholder {
-                max-width: 80%;
-                height: 30vh;
-            }
+        .code-section pre {
+            margin: 0;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+        }
 
-            .about {
+        .code-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            ); 
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .code-section:hover::before {
+            opacity: 1;
+        }
+
+        /* Media queries */
+        @media (min-width: 992px) {
+            .navbar-brand img {
+                max-height: 85px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .navbar-brand img {
+                max-height: 100px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            /* iPad */
+            .navbar {
+                height: 15vh;
+            }
+            
+            .navbar-brand img {
+                max-height: 70px;
+            }
+            
+            body {
+                padding-top: 15vh;
+            }
+            
+            .hero-container {
+                height: 50vh;
+            }
+            
+            .hero-text-box {
                 padding: 2rem;
             }
-            .hero-container {
-                height: 50vh;
-            }
-            .hero-image {
-                object-position: center 25%;
-            }    
-            .hero-text-box {
-                width: 90%;
-                padding: 1rem;
-            }
-            .code-section {
-                width: 90%;
-                padding: 1rem;
-            }
-            .text-section {
-                width: 90%;
-                padding: 1rem;
-            }
-            .content-container {
-                width: 90%;
-                padding: 1rem;
-            }
-                    
         }
 
-        @media (min-width: 601px) and (max-width: 2000px) {
-            .carousel {
-                width: 80%;
-                height: 600px;
+        @media (max-width: 767px) {
+            /* Mobile */
+            .navbar {
+                height: 13vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
             }
             
-            .carousel-card {
-                height: 100%;
+            body {
+                padding-top: 12vh;
+            }
+
+            .nav-content {
+                padding: 0.5rem;
+            }
+
+            .navbar-brand {
+                margin: 0 1rem !important;
+            }
+
+            .nav-link {
+                padding: 0.5rem !important;
+                margin: 0 0.25rem;
+                font-size: 0.9rem;
             }
             
-            .project-image {
-                height: 470px;
-            }
-            
-            .photo-placeholder {
-                max-width: 45%;
-            }
             .hero-container {
-                height: 50vh;
-                
-            .hero-image {
-                object-position: center 25%;
-            }
-            
-            .hero-text-box {
-                width: 90%;
-                padding: 1rem;
-            }
-            .code-section {
-                width: 90%;
-                padding: 1rem;
-            }
-            .text-section {
-                width: 90%;
-                padding: 1rem;
-            }
-            .content-container {
-                width: 90%;
-                padding: 1rem;
-            }
-        }
-
-        @media (min-width: 2001px) {
-            html {
-                font-size: 18px;
-            }
-
-            .carousel {
-                width: 70%;
-                max-width: 1800px;
-                height: 800px;
-            }
-            
-            .carousel-card {
-                height: 100%;
-            }
-            
-            .carousel-button {
-                width: 70px;
-                height: 70px;
-                font-size: 2.5rem;
-            }
-            
-            .project-image {
-                height: 650px;
-            }
-            
-            .photo-placeholder {
-                max-width: 50%;
                 height: 40vh;
             }
             
-            .button-container {
-                justify-content: center;
-                gap: 2rem;
-            }
-            .hero-container {
-                height: 50vh;
-            }
-            .hero-image {
-                object-position: center 25%;
-            }
             .hero-text-box {
-                width: 90%;
-                padding: 1rem;
+                padding: 1.5rem;
+                max-width: 90%;
             }
+            
+            .text-section,
             .code-section {
-                width: 90%;
-                padding: 1rem;
-            }
-            .text-section {
-                width: 90%;
-                padding: 1rem;
-            }
-            .content-container {
-                width: 90%;
-                padding: 1rem;
+                padding: 1.5rem;
             }
         }
-        </style>
-    
-    </head>
+
+        @media (max-width: 480px) {
+            .navbar {
+                height: 12vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
+            }
+            
+            body {
+                padding-top: 10vh;
+            }
+
+            .nav-content {
+                padding: 0.25rem;
+            }
+
+            .navbar-brand {
+                margin: 0 0.5rem !important;
+            }
+
+            .navbar-brand img {
+                max-height: 30px;
+            }
+
+            .nav-link {
+                padding: 0.25rem !important;
+                font-size: 0.8rem;
+            }
+            
+            .hero-container {
+                height: 35vh;
+            }
+            
+            .hero-text-box {
+                padding: 1rem;
+            }
+            
+            .text-section,
+            .code-section {
+                padding: 1rem;
+            }
+            
+            .content-container {
+                margin: 1rem auto 2rem;
+            }
+        }
+    </style>
+</head>
 <body>
-    <nav>
-        <div class="nav-links">
-            <a href="projects.html">Projects</a>
-            <a href="index.html" class="logo-link">
-                <img src="logo.jpeg" alt="Thomas Voss Logo" class="logo">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="projects.html">Projects</a>
+            <a class="navbar-brand mx-2" href="index.html">
+                <img src="logo.png" alt="Thomas Voss Logo">
             </a>
-            <a href="cv.html">View CV</a>
+            <a class="nav-link" href="cv.html">View CV</a>
         </div>
     </nav>
-    <div class="hero-container">
-        <img src="data-background-alt.jpeg" alt="data-background-alt.jpeg" class="hero-image">
-        <div class="hero-text-box">
-            <h1>Project Title</h1>
-            <p>Brief project description or tagline</p>
+    
+    <!-- Hero Section -->
+    <div class="container-fluid px-3">
+        <div class="hero-container">
+            <img src="data-background-alt.jpeg" alt="Project Background" class="hero-image">
+            <div class="hero-text-box">
+                <h1>Project Title</h1>
+                <p>Brief project description or tagline</p>
+            </div>
         </div>
     </div>
+    
+    <!-- Content Sections -->
     <div class="content-container">
         <div class="text-section">
             <h2>TL;DR</h2>
             <p>This is a placeholder for your first text section. Here you can explain the context, motivation, and goals of your project. The text sections use a clean, readable design with adequate spacing and contrast.</p>
-            <p> </p>
+            
             <h2>Prerequisites & Packages</h2>
             <p>words</p>
-            <p> </p>
+            
             <h2>Considerations & Limitations</h2>
             <p>words</p>
         </div>
+        
         <div class="text-section">
             <h2>Step 1</h2>
             <p>This is a placeholder.</p>
         </div>
+        
         <div class="code-section">
-            <pre>
-# This is a placeholder for your code
+            <pre><code># This is a placeholder for your code
 def example_function():
     print("Hello, World!")
     return True
@@ -325,8 +444,7 @@ def example_function():
 # You can add more code here
 class ExampleClass:
     def __init__(self):
-        self.value = 42
-            </pre>
+        self.value = 42</code></pre>
         </div>
     </div>
 </body>
