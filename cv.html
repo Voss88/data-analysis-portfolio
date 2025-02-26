@@ -4,260 +4,434 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thomas Voss - CV</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Tahoma, sans-serif;
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --dark-green: #06231A;
+            --text-color: #333333;
+            --nav-bg-color: #F5F5F7;
         }
 
-                body {
-            background-color: #F7F3E3;
+        body {
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
             line-height: 1.6;
+            padding-top: 18vh;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--text-color);
         }
 
-        /* Navigation Bar */
-        nav {
-            background-color: #0F5741;
-            padding: 1rem;
-            position: sticky;
+        .navbar {
+            position: fixed;
             top: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            left: 0;
+            width: 100%;
+            height: 15vh;
             z-index: 1000;
+            padding: 0;
+            background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            );
+            border-image-slice: 1;
         }
 
-        .nav-links {
+        .nav-content {
+            position: relative;
+            z-index: 3;
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 1rem;
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem;
         }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+        .nav-content a.nav-link {
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+            margin: 0 1rem;
         }
-
-        .nav-links a:hover {
-            background-color: #06231A;
+        
+        .nav-content a.nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
-
-        .logo img {
-            max-height: 60px;
-            display: block;
+        
+        .nav-content a.nav-link:hover {
+            color: white !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
-
-        .logo-link {
-            color: #0F5741;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+        
+        .nav-content a.nav-link:hover::before {
+            opacity: 1;
         }
-
-        .logo {
-            max-height: 8vh;
-            display: block;
-        }
-
-        .nav-links .logo-link:hover {
+        
+        .navbar-brand.mx-2 {
             background: none;
+            overflow: visible;
+            padding: 0 !important;
+            border-radius: 0;
+        }
+        
+        .navbar-brand.mx-2:hover::before {
+            opacity: 0;
+            display: none;
         }
 
-        .icon {
-            width: 20px; 
-            height: 20px; 
-            margin-right: 10px; 
-            vertical-align: middle;
+        .navbar-brand {
+            margin: 0 2rem;
+            z-index: 3;
         }
 
+        .navbar-brand img {
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
 
-        .cv {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
+        .cv-container {
+            max-width: 900px;
+            margin: 2rem auto 4rem;
+            padding: 2.5rem;
             background-color: white;
-            border-radius: 8px;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .cv h1 {
+        .cv-container h1 {
             text-align: center;
-            margin-bottom: 3rem;
-            color: #2C1A11;
+            margin-bottom: 2.5rem;
+            color: var(--text-color);
+            font-weight: 600;
         }
 
         .cv-section {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .cv-section h2 {
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #0F5741;
-            padding-bottom: 0.5rem;
-            color: #2C1A11;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid;
+            border-image: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            ) 1;
         }
 
         .experience-item {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background-color: #FAFAFA;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .experience-item h3 {
-            margin-bottom: 0.5rem;
-            color: #2C1A11;
+            margin-bottom: 0.75rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
         }
 
         .date {
-            color: #0F5741;
+            color: var(--primary-color);
             font-style: italic;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
         }
 
         .experience-item p,
         .experience-item li {
-            color: #2C1A11;
+            color: var(--text-color);
         }
 
-        .cv-section ul {
-            padding-left: 1.5rem;
+        .experience-item ul {
+            padding-left: 1.25rem;
+        }
+
+        .experience-item li {
+            margin-bottom: 0.5rem;
+        }
+
+        .icon {
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill-category {
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        .skill-category h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            background-color: #FAFAFA;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: linear-gradient(to right, 
+                rgba(233,0,236,0.1), 
+                rgba(245,0,132,0.1), 
+                rgba(248,0,105,0.1), 
+                rgba(255,44,31,0.1), 
+                rgba(255,27,29,0.1), 
+                rgba(255,130,27,0.1)
+            );
+            transform: translateY(-2px);
+        }
+
+        .linkedin-button-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
         }
 
         .linkedin-button {
-    /* Button styling */
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #0077b5;  /* LinkedIn brand color */
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    border: 2px solid #0077b5;
-    
-    /* Smooth transition for hover effect */
-    transition: all 0.3s ease;
-}
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #0077b5;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid #0077b5;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
 
-.linkedin-button:hover {
-    background-color: white;
-    color: #0077b5;
-    border-color: #0077b5;
-}
+        .linkedin-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: white;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
 
-.linkedin-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Optional: add padding/margin if you want space around the container */
-    padding: 20px;
-}
+        .linkedin-button:hover {
+            color: #0077b5;
+        }
 
-                /* Responsive Design */
-        @media (max-width: 600px) {
-            .carousel {
-                width: 95%;
+        .linkedin-button:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Media queries */
+        @media (min-width: 992px) {
+            .navbar-brand img {
+                max-height: 85px;
             }
-            .carousel-button {
-                width: 40px; /* Slightly smaller for mobile */
-                height: 40px;
-                font-size: 1.2rem; /* Adjust font size accordingly */
-            }
-            .button-container {
+            .skills-container {
                 flex-direction: row;
-                align-items: center;
             }
-            .photo-placeholder {
-                max-width: 80%;
-                height: 30vh
-                ;
+            .skill-category {
+                width: 48%;
             }
         }
 
-        @media (min-width: 601px) and (max-width: 2000px) {
-            .carousel {
-                width: 80%;
-                height: 600px;
-            }
-            .carousel-card {
-                height: 100%; /* Ensure cards fill the taller carousel */
-            }
-            .project-image {
-                height: 470px; /* Adjust the project image height within the card */
-            }
-            .photo-placeholder {
-                max-width: 45%;
+        @media (min-width: 1200px) {
+            .navbar-brand img {
+                max-height: 100px;
             }
         }
 
-        /* Responsive Design */
-        @media (min-width: 2001px) {
-            .carousel {
-                width: 70%;
-                max-width: 1800px; /* Prevents becoming too wide on extremely large screens */
-                height: 800px; /* Increased height for larger screens */
+        @media (max-width: 991px) {
+            /* iPad */
+            .navbar {
+                height: 15vh;
             }
-            .carousel-card {
-                height: 100%;
+            
+            .navbar-brand img {
+                max-height: 70px;
             }
-            .carousel-button {
-                width: 50px; /* Slightly larger buttons */
-                height: 50px;
-                font-size: 1.5rem;
+            
+            body {
+                padding-top: 15vh;
             }
-            .project-image {
-                height: 650px; /* Taller project image */
+        }
+
+        @media (max-width: 767px) {
+            /* Mobile */
+            .navbar {
+                height: 13vh;
             }
-            .photo-placeholder {
-                max-width: 50%;
-                height: 40vh; /* Increased height */
+
+            .navbar-brand img {
+                max-height: 55px;
             }
-            .button-container {
-                justify-content: center; /* Center buttons on very wide screens */
-                gap: 20px; /* Add some space between buttons */
+            
+            body {
+                padding-top: 12vh;
             }
-            .cv {
-                width: 85%;
-    }
-}
-        
+
+            .nav-content {
+                padding: 0.5rem;
+            }
+
+            .navbar-brand {
+                margin: 0 1rem !important;
+            }
+
+            .nav-link {
+                padding: 0.5rem !important;
+                margin: 0 0.25rem;
+                font-size: 0.9rem;
+            }
+
+            .cv-container {
+                padding: 1.5rem;
+                margin: 1rem 1rem 3rem;
+            }
+
+            .experience-item {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                height: 12vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
+            }
+            
+            body {
+                padding-top: 10vh;
+            }
+
+            .nav-content {
+                padding: 0.25rem;
+            }
+
+            .navbar-brand {
+                margin: 0 0.5rem !important;
+            }
+
+            .navbar-brand img {
+                max-height: 30px;
+            }
+
+            .nav-link {
+                padding: 0.25rem !important;
+                font-size: 0.8rem;
+            }
+
+            .cv-container {
+                padding: 1rem;
+            }
+
+            .skill-item {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
-</style>
-</head>
-<body>
-    <nav>
-        <div class="nav-links">
-            <a href="projects.html">Projects</a>
-            <a href="index.html" class="logo-link">
-                <img src="logo.jpeg" alt="Thomas Voss Logo" class="logo">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="projects.html">Projects</a>
+            <a class="navbar-brand mx-2" href="index.html">
+                <img src="logo.png" alt="Thomas Voss Logo">
             </a>
-            <a href="cv.html">View CV</a>
+            <a class="nav-link" href="cv.html">View CV</a>
         </div>
     </nav>
 
+    <!-- LinkedIn Button -->
     <div class="linkedin-button-container">
-            <a href="https://www.linkedin.com/in/thomas-voss-30a321172/" target="_blank" class="linkedin-button">
-        View LinkedIn Profile
-    </a>
-</div>
+        <a href="https://www.linkedin.com/in/thomas-voss-30a321172/" target="_blank" class="linkedin-button">
+            <i class="fab fa-linkedin-in me-2"></i> View LinkedIn Profile
+        </a>
+    </div>
     
-    <section class="cv">
+    <!-- CV Content -->
+    <div class="container cv-container">
         <h1>Curriculum Vitae</h1>
         
         <div class="cv-section">
             <h2>Work Experience</h2>
             <div class="experience-item">
-                <h3><img src="icons/autotrader_icon.jpeg" alt="Work Icon" class="icon">Data Analyst | AutoTrader</h3>
+                <h3><img src="icons/autotrader_icon.jpeg" alt="AutoTrader Icon" class="icon">Data Analyst | AutoTrader</h3>
                 <div class="date">Jun 2024 - Present</div>
-                <p></p>
                 <ul>
                     <li>Designed, executed and reported on A/B tests using Bayesian statistics to optimize website performance.</li>
                     <li>Presented statistical experiment results to key stakeholders, influencing business decisions.</li>
@@ -267,9 +441,8 @@
                 </ul>
             </div>
             <div class="experience-item">
-                <h3><img src="icons/snapchat_icon.jpeg" alt="Work Icon" class="icon">Data Analyst II | Snap Inc</h3>
+                <h3><img src="icons/snapchat_icon.jpeg" alt="Snap Inc Icon" class="icon">Data Analyst II | Snap Inc</h3>
                 <div class="date">Oct 2023 - Jun 2024</div>
-                <p></p>
                 <ul>
                     <li>Took ownership of technical analytics support for the French market, driving performance improvements.</li>
                     <li>Developed an automated alerting system using Google App Scripts and BigQuery to detect poor web tracking performance.</li>
@@ -279,9 +452,8 @@
                 </ul>
             </div>
             <div class="experience-item">
-                <h3><img src="icons/snapchat_icon.jpeg" alt="Work Icon" class="icon">Data Analyst I | Snap Inc</h3>
+                <h3><img src="icons/snapchat_icon.jpeg" alt="Snap Inc Icon" class="icon">Data Analyst I | Snap Inc</h3>
                 <div class="date">May 2022 - Oct 2023</div>
-                <p></p>
                 <ul>
                     <li>Led data analytics support for the French sales team, collaborating closely with Paris-based stakeholders.</li>
                     <li>Enhanced advertiser performance by identifying tracking issues and recommending solutions.</li>
@@ -291,9 +463,8 @@
                 </ul>
             </div>
             <div class="experience-item">
-                <h3><img src="icons/snapchat_icon.jpeg" alt="Work Icon" class="icon">Data Analyst I [Contract] | Snap Inc</h3>
+                <h3><img src="icons/snapchat_icon.jpeg" alt="Snap Inc Icon" class="icon">Data Analyst I [Contract] | Snap Inc</h3>
                 <div class="date">Nov 2021 - May 2022</div>
-                <p></p>
                 <ul>
                     <li>Developed tailored data-driven advertising solutions by leveraging demographic insights.</li>
                     <li>Provided marketing campaign data analysis to optimize ad performance for SMBs.</li>
@@ -303,15 +474,16 @@
                 </ul>
             </div>
         </div>
+        
         <div class="cv-section">
             <h2>Education</h2>
             <div class="experience-item">
-                <h3><img src="icons/plymouth_university_icon.jpeg" alt="Work Icon" class="icon">MSc Data Science & Business Analytics | University of Plymouth</h3>
+                <h3><img src="icons/plymouth_university_icon.jpeg" alt="University Icon" class="icon">MSc Data Science & Business Analytics | University of Plymouth</h3>
                 <div class="date">2020 - 2021</div>
                 <p>Merit</p>
             </div>
             <div class="experience-item">
-                <h3><img src="icons/plymouth_university_icon.jpeg" alt="Work Icon" class="icon">BSc (Hons) Business Management | University of Plymouth</h3>
+                <h3><img src="icons/plymouth_university_icon.jpeg" alt="University Icon" class="icon">BSc (Hons) Business Management | University of Plymouth</h3>
                 <div class="date">2018 - 2020</div>
                 <p>First Class Honours</p>
             </div>
@@ -319,19 +491,60 @@
         
         <div class="cv-section">
             <h2>Skills</h2>
-            <p>Programming Languages:</p>
-            <p> <img src="icons/python_icon.jpeg" alt="Work Icon" class="icon">Python</p>
-            <p> <img src="icons/sql_icon.jpeg" alt="Work Icon" class="icon">SQL</p>
-            <p> <img src="icons/python_icon.jpeg" alt="Work Icon" class="icon">R</p>
-            <p>Tools:</p>
-            <p> <img src="icons/python_icon.jpeg" alt="Work Icon" class="icon">BigQuery</p>
-            <p> <img src="icons/python_icon.jpeg" alt="Work Icon" class="icon">Looker</p>
-            <p> <img src="icons/python_icon.jpeg" alt="Work Icon" class="icon">Data Studio</p>
-            <p> <img src="icons/python_icon.jpeg" alt="Work Icon" class="icon">Google App Script</p>
-            <p> <img src="icons/python_icon.jpeg" alt="Work Icon" class="icon">PyCharm</p>
-            <p> <img src="icons/python_icon.jpeg" alt="Work Icon" class="icon">Databricks</p>
-            <p> <img src="icons/python_icon.jpeg" alt="Work Icon" class="icon">Salesforce</p>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h4>Programming Languages</h4>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="icons/python_icon.jpeg" alt="Python Icon" class="icon">
+                            <span>Python</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="icons/sql_icon.jpeg" alt="SQL Icon" class="icon">
+                            <span>SQL</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="icons/python_icon.jpeg" alt="R Icon" class="icon">
+                            <span>R</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h4>Tools & Technologies</h4>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="icons/python_icon.jpeg" alt="Tool Icon" class="icon">
+                            <span>BigQuery</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="icons/python_icon.jpeg" alt="Tool Icon" class="icon">
+                            <span>Looker</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="icons/python_icon.jpeg" alt="Tool Icon" class="icon">
+                            <span>Data Studio</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="icons/python_icon.jpeg" alt="Tool Icon" class="icon">
+                            <span>Google App Script</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="icons/python_icon.jpeg" alt="Tool Icon" class="icon">
+                            <span>PyCharm</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="icons/python_icon.jpeg" alt="Tool Icon" class="icon">
+                            <span>Databricks</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="icons/python_icon.jpeg" alt="Tool Icon" class="icon">
+                            <span>Salesforce</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
 </body>
 </html>
