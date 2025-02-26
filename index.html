@@ -20,7 +20,7 @@
             background-color: var(--secondary-color);
             font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif; /* San Francisco font */
             line-height: 1.6;
-            padding-top: 90px;
+            padding-top: 18vh; /* Adjusted to match navbar height */
             margin: 0;
             overflow-x: hidden;
             color: var(--text-color);
@@ -77,6 +77,7 @@
             padding: 2rem 0;
             overflow: hidden;
             position: relative;
+            margin-top: 2rem; /* Added margin to ensure space after navbar */
         }
 
         .card-carousel {
@@ -224,6 +225,10 @@
             .navbar {
                 height: 15vh;
             }
+            
+            body {
+                padding-top: 15vh; /* Match navbar height for iPad */
+            }
 
             .carousel-card {
                 min-width: 85%;
@@ -240,6 +245,10 @@
             /* Mobile */
             .navbar {
                 height: 12vh;
+            }
+            
+            body {
+                padding-top: 12vh; /* Match navbar height for mobile */
             }
 
             .nav-content {
@@ -291,6 +300,10 @@
         @media (max-width: 480px) {
             .navbar {
                 height: 10vh;
+            }
+            
+            body {
+                padding-top: 10vh; /* Match navbar height for small mobile */
             }
 
             .nav-content {
