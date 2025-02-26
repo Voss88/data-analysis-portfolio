@@ -211,6 +211,16 @@
             background-color: black;
         }
 
+        .carousel-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            min-width: 80%;
+            max-width: 80%;
+            margin: 0 auto;
+            scroll-snap-align: center;
+        }
+
         /* Navigation arrows for carousel */
         .carousel-nav {
             display: flex;
@@ -340,9 +350,12 @@
         /* Media queries */
         @media (min-width: 992px) {
             .carousel-card {
+                height: 450px; 
+            }
+
+            .carousel-card-link {
                 min-width: 60%;
                 max-width: 60%;
-                height: 450px; 
             }
             
             .navbar-brand img {
@@ -352,9 +365,12 @@
 
         @media (min-width: 1200px) {
             .carousel-card {
+                height: 450px; 
+            }
+
+            .carousel-card-link {
                 min-width: 45%;
                 max-width: 45%;
-                height: 450px; 
             }
             
             .navbar-brand img {
@@ -377,9 +393,12 @@
             }
 
             .carousel-card {
+                height: 450px;
+            }
+
+            .carousel-card-link {
                 min-width: 85%;
                 max-width: 85%;
-                height: 450px;
             }
 
             .about-card {
@@ -420,8 +439,6 @@
             }
 
             .carousel-card {
-                min-width: 90%;
-                max-width: 90%;
                 height: 300px;
             }
 
@@ -435,6 +452,11 @@
 
             .carousel-card-content p {
                 font-size: 0.9rem;
+            }
+
+            .carousel-card-link {
+                min-width: 90%;
+                max-width: 90%;
             }
 
             .about-card {
@@ -504,6 +526,7 @@
     <div class="carousel-container">
         <div class="card-carousel" id="projectCarousel">
             <!-- Project Card 1 -->
+        <a href="project_article_template.html" class="carousel-card-link">
             <div class="carousel-card">
                 <div class="carousel-card-background"></div>
                 <div class="carousel-card-content">
@@ -511,8 +534,9 @@
                     <p>A short description of Project 1 goes here.</p>
                 </div>
             </div>
-            
+        </a>
             <!-- Project Card 2 -->
+        <a href="project_article_template.html" class="carousel-card-link">
             <div class="carousel-card">
                 <div class="carousel-card-background"></div>
                 <div class="carousel-card-content">
@@ -520,8 +544,10 @@
                     <p>A short description of Project 2 goes here.</p>
                 </div>
             </div>
+        </a>
             
             <!-- Project Card 3 -->
+        <a href="project_article_template.html" class="carousel-card-link">
             <div class="carousel-card">
                 <div class="carousel-card-background"></div>
                 <div class="carousel-card-content">
@@ -529,6 +555,7 @@
                     <p>A short description of Project 3 goes here.</p>
                 </div>
             </div>
+        </a>
         </div>
         
         <!-- Carousel Navigation -->
@@ -588,7 +615,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const carousel = document.getElementById('projectCarousel');
-            const cards = carousel.querySelectorAll('.carousel-card');
+            const cardLinks = carousel.querySelectorAll('.carousel-card-link');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             
@@ -597,10 +624,10 @@
             // Function to scroll to a specific card
             function scrollToCard(index) {
                 if (index < 0) index = 0;
-                if (index >= cards.length) index = cards.length - 1;
+                if (index >= cardLinks.length) index = cardLinks.length - 1;
                 
                 currentIndex = index;
-                cards[index].scrollIntoView({
+                cardLinks[index].scrollIntoView({
                     behavior: 'smooth',
                     block: 'nearest',
                     inline: 'center'
@@ -620,7 +647,7 @@
             carousel.addEventListener('scroll', function() {
                 clearTimeout(carousel.scrollTimeout);
                 carousel.scrollTimeout = setTimeout(function() {
-                    const cardWidth = cards[0].offsetWidth;
+                    const cardWidth = cardLinks[0].offsetWidth;
                     const scrollPosition = carousel.scrollLeft;
                     const newIndex = Math.round(scrollPosition / cardWidth);
                     
