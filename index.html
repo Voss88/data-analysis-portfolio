@@ -10,10 +10,10 @@
     <style>
         :root {
             --primary-color: #0F5741;
-            --secondary-color: #F7F3E3;
+            --secondary-color: #F5F5F7;
             --dark-green: #06231A;
             --text-color: #333333; /* Changed to dark grey */
-            --nav-bg-color: #0a0a2e; /* Solid color for nav */
+            --nav-bg-color: #F5F5F7; /* Solid color for nav */
         }
 
         body {
@@ -35,6 +35,16 @@
             z-index: 1000;
             padding: 0;
             background: var(--nav-bg-color); /* Solid color instead of animated background */
+            border-bottom: 4px solid transparent;
+            border-image: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            );
+            border-image-slice: 1;
         }
 
         .nav-content {
