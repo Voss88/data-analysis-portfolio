@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project - Finding Replacement Players in the Transfer Market using K-means Cluster Analysis in R</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --dark-green: #06231A;
+            --text-color: #333333;
+            --nav-bg-color: #F5F5F7;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            padding-top: 18vh;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15vh;
+            z-index: 1000;
+            padding: 0;
+            background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            );
+            border-image-slice: 1;
+        }
+
+        .nav-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem;
+        }
+
+        .nav-content a.nav-link {
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+            margin: 0 1rem;
+        }
+        
+        .nav-content a.nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .nav-content a.nav-link:hover {
+            color: white !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-content a.nav-link:hover::before {
+            opacity: 1;
+        }
+        
+        .navbar-brand.mx-2 {
+            background: none;
+            overflow: visible;
+            padding: 0 !important;
+            border-radius: 0;
+        }
+        
+        .navbar-brand.mx-2:hover::before {
+            opacity: 0;
+            display: none;
+        }
+
+        .navbar-brand {
+            margin: 0 2rem;
+            z-index: 3;
+        }
+
+        .navbar-brand img {
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.9);
+        }
+
+        .hero-text-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 80%;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-text-box:hover {
+            transform: translate(-50%, -52%);
+        }
+
+        .hero-text-box h1 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-text-box p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        /* Content Sections */
+        .content-container {
+            max-width: 1000px;
+            margin: 2rem auto 4rem;
+            padding: 0;
+        }
+
+        .text-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .text-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .text-section h2 {
+            color: var(--text-color);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid;
+            display: inline-block;
+            border-image: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            ) 1;
+        }
+
+        .text-section p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .code-section {
+            background-color: #1E1E1E;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            color: #D4D4D4;
+            font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+            overflow-x: auto;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .code-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .code-section pre {
+            margin: 0;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+        }
+
+        .code-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            ); 
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .code-section:hover::before {
+            opacity: 1;
+        }
+
+        /* Media queries */
+        @media (min-width: 992px) {
+            .navbar-brand img {
+                max-height: 85px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .navbar-brand img {
+                max-height: 100px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            /* iPad */
+            .navbar {
+                height: 15vh;
+            }
+            
+            .navbar-brand img {
+                max-height: 70px;
+            }
+            
+            body {
+                padding-top: 15vh;
+            }
+            
+            .hero-container {
+                height: 50vh;
+            }
+            
+            .hero-text-box {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            /* Mobile */
+            .navbar {
+                height: 13vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
+            }
+            
+            body {
+                padding-top: 12vh;
+            }
+
+            .nav-content {
+                padding: 0.5rem;
+            }
+
+            .navbar-brand {
+                margin: 0 1rem !important;
+            }
+
+            .nav-link {
+                padding: 0.5rem !important;
+                margin: 0 0.25rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero-container {
+                height: 40vh;
+            }
+            
+            .hero-text-box {
+                padding: 1.5rem;
+                max-width: 90%;
+            }
+            
+            .text-section,
+            .code-section {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                height: 12vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
+            }
+            
+            body {
+                padding-top: 10vh;
+            }
+
+            .nav-content {
+                padding: 0.25rem;
+            }
+
+            .navbar-brand {
+                margin: 0 0.5rem !important;
+            }
+
+            .navbar-brand img {
+                max-height: 30px;
+            }
+
+            .nav-link {
+                padding: 0.25rem !important;
+                font-size: 0.8rem;
+            }
+            
+            .hero-container {
+                height: 35vh;
+            }
+            
+            .hero-text-box {
+                padding: 1rem;
+            }
+            
+            .text-section,
+            .code-section {
+                padding: 1rem;
+            }
+            
+            .content-container {
+                margin: 1rem auto 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="projects.html">Projects</a>
+            <a class="navbar-brand mx-2" href="index.html">
+                <img src="logo.png" alt="Thomas Voss Logo">
+            </a>
+            <a class="nav-link" href="cv.html">View CV</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <div class="container-fluid px-3">
+        <div class="hero-container">
+            <img src="data-background-alt.jpeg" alt="Project Background" class="hero-image">
+            <div class="hero-text-box">
+                <h1>Finding Replacement Players in the Transfer Market</h1>
+                <p>Using K-means Cluster Analysis in R to find statisical profile matches between players to identify younger & cheaper replacments</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Content Sections -->
+    <div class="content-container">
+        <div class="text-section">
+            <h2>TL;DR</h2>
+            <p>By using K-means cluster analysis in R, I was able to identify potential young replacements for aging Premier League players (Giroud, Fernandinho, and Vardy). By applying K-means clustering to my filtered dataset of players born after 1997 in the same positions, I created statistical groupings based on Goals+Assists and Expected Goals+Assists metrics. The K-means algorithm effectively separated players into distinct performance clusters, revealing which young talents most closely match the statistical profiles of these veterans. My data-mining approach determined the optimal number of clusters (2) for each position group, creating visual representations that clearly highlighted promising replacement candidates with similar performance characteristics to the established players.</p>
+            
+            <h2>Prerequisites & Packages</h2>
+            <p> R Packages </p>
+            <p> readr, tidyr, ggplot2, dplyr, ggpubr, factoextra, readxl, stats, ggforify & mclust </p>
+            
+            <h2>Considerations & Limitations</h2>
+            <p>My K-means clustering analysis faced several constraints. Using only G+A and xG+A metrics provided a limited view of player performance, especially for defensive players like Fernandinho. The dataset lacked defensive statistics, biasing the analysis toward attacking contributions. Using just two clustering variables created simplistic groupings, while the freely accessible FBRef data lacked the granularity of professional datasets like Statsbomb.com. In future analyses, I would incorporate position-specific metrics and multiple clustering variables to reveal more nuanced statistical relationships and strengthen replacement recommendations. Additionally, including psychological and contextual data would better predict player adaptation to new environments, as statistical similarities alone are insufficient for predicting transfer success.</p>
+        </div>
+        
+        <div class="text-section">
+            <h2>Step 1</h2>
+            <p>Using R, install the required packages. The main ones being stats for the K-means clustering algorithm & factoextra / ggplot2 for clustering visualisation</p>
+        </div>
+        
+        <div class="code-section">
+            <pre><code>
+              # Install packages (run once)
+install.packages(c("readr", "tidyr", "ggplot2", "dplyr", "ggpubr", 
+                  "factoextra", "readxl", "stats", "ggfortify", "mclust"))
+
+# Load packages
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(dplyr)
+library(ggpubr)
+library(factoextra)
+library(readxl)
+library(stats)
+library(ggfortify)
+library(mclust)
+        </div>
+                <div class="text-section">
+            <h2>Step 2</h2>
+            <p>Import Data</p>
+        </div>
+        
+        <div class="code-section">
+            <pre><code> 
+              # Read player data from Excel/CSV file
+player_data <- read_excel("player_dataset.xlsx")
+
+# Convert to data frame
+player_data <- as.data.frame(player_data)
+        </div>
+
+        <div class="text-section">
+            <h2>Step 3</h2>
+            <p>Filter Data for Each Player Analysis</p>
+        </div>
+        
+        <div class="code-section">
+            <pre><code> 
+              # Example for Giroud replacement (Chelsea forward)
+giroud_replacement <- player_data %>%
+  filter((Pos == "FW" & YOB > 1997) | RK == "909")
+
+# Example for Fernandinho replacement (Man City midfielder)
+fernandinho_replacement <- player_data %>%
+  filter((Pos == "MD" & YOB > 1997) | RK == "806")
+
+# Example for Vardy replacement (Leicester forward)
+vardy_replacement <- player_data %>%
+  filter((Pos == "FW" & YOB > 1997) | RK == "2469")
+        </div>
+              
+        <div class="text-section">
+            <h2>Step 4</h2>
+            <p>Clean the Data</p>
+        </div>
+        
+        <div class="code-section">
+            <pre><code> 
+              # Remove NA values and clean data structure
+giroud_clean <- na.omit(giroud_replacement)
+giroud_clean <- as.data.frame(giroud_clean)
+
+fernandinho_clean <- na.omit(fernandinho_replacement)
+fernandinho_clean <- as.data.frame(fernandinho_clean)
+
+vardy_clean <- na.omit(vardy_replacement)
+vardy_clean <- as.data.frame(vardy_clean)
+        </div>
+        
+        <div class="text-section">
+            <h2>Step 5</h2>
+            <p>Select Variables for Analysis</p>
+        </div>
+        
+        <div class="code-section">
+            <pre><code>
+              # For Giroud analysis (example)
+giroud_vars <- giroud_clean %>%
+  select(Player, `G+A`, `xG+xA`)
+        </div>
+                      
+        <div class="text-section">
+            <h2>Step 6</h2>
+            <p>Determine Optimal Number of Clusters</p>
+        </div>
+        
+        <div class="code-section">
+            <pre><code>
+              # Set seed for reproducibility
+set.seed(123)
+
+# Find optimal number of clusters
+fviz_nbclust(giroud_vars %>% select(-Player), kmeans, method = "wss")
+        </div>
+              
+        <div class="text-section">
+            <h2>Step 7</h2>
+            <p>Perform K-means Cluster Analysis</p>
+        </div>
+        
+        <div class="code-section">
+            <pre><code> 
+              # Using 2 clusters based on optimal number found
+km_giroud <- kmeans(giroud_vars %>% select(-Player), centers = 2)
+
+# Visualize the clusters
+fviz_cluster(km_giroud, data = giroud_vars %>% select(-Player),
+             palette = "jco",
+             geom = "point",
+             ellipse.type = "convex")
+        </div>
+        
+        <div class="text-section">
+            <h2>Step 8</h2>
+            <p>Create Labeled Scatter Plot for Player Identification</p>
+        </div>
+        
+        <div class="code-section">
+            <pre><code> 
+              # Create scatter plot with player names
+ggplot(giroud_vars, aes(x = `G+A`, y = `xG+xA`)) +
+  geom_point() +
+  geom_text(aes(label = Player), vjust = 1.5, size = 3) +
+  labs(title = "Potential Giroud Replacements",
+       x = "Goals + Assists",
+       y = "Expected Goals + Expected Assists") +
+  theme_minimal()
+        </div>
+
+        <div class="text-section">
+            <h2>Step 9</h2>
+            <p>Repeat Steps 5-8 for Each Player</p>
+        </div>
+        
+        <div class="text-section">
+            <h2>Step 10</h2>
+            <p>Analysis of Results - Olivier Giroud</p>
+          <p>The K-means cluster analysis identified three potential replacements for Olivier Giroud: Phil Foden, Ferran Torres, and Eddie Nketiah.</p>
+          <p>Giroud's current statistical profile shows 0.56 G+A/90 and 0.57 xG+xA/90. Each replacement candidate offers different strengths:</p>
+          <p><strong>Phil Foden (Manchester City):</strong> Shows higher G+A/90 at 0.65 but slightly lower xG+xA/90 at 0.52, suggesting potential overachievement this season. His versatility across attacking positions is valuable.</p>
+          <p><strong>Ferran Torres (Manchester City):</strong> With 0.49 G+A/90 and 0.46 xG+xA/90, Torres scores slightly below Giroud but represents one of the closest statistical matches in the dataset. His age and potential for growth offset current statistical gaps.</p>
+          <p><strong>Eddie Nketiah (Arsenal):</strong> Demonstrating 0.55 G+A/90 and 0.48 xG+xA/90, Nketiah's numbers are only slightly below Giroud's (by 0.02 and 0.09 respectively), making him the second most suitable candidate while being more mature than other options.</p>
+        </div>
+    </div>
+</body>
+</html>
