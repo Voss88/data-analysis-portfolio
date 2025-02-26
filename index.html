@@ -147,9 +147,9 @@
 
         .carousel-card {
             scroll-snap-align: center;
-            min-width: 80%;
-            max-width: 80%;
-            height: 500px;
+            min-width: 100%;
+            max-width: 100%;
+            height: 100%;
             background-color: white;
             border-radius: 16px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -215,10 +215,12 @@
             text-decoration: none;
             color: inherit;
             display: block;
+            scroll-snap-align: center;
+            /* Keep original dimensions */
             min-width: 80%;
             max-width: 80%;
+            height: 500px;
             margin: 0 auto;
-            scroll-snap-align: center;
         }
 
         /* Navigation arrows for carousel */
@@ -356,6 +358,7 @@
             .carousel-card-link {
                 min-width: 60%;
                 max-width: 60%;
+                height: 450px;
             }
             
             .navbar-brand img {
@@ -371,6 +374,7 @@
             .carousel-card-link {
                 min-width: 45%;
                 max-width: 45%;
+                height: 450px;
             }
             
             .navbar-brand img {
@@ -399,6 +403,7 @@
             .carousel-card-link {
                 min-width: 85%;
                 max-width: 85%;
+                height: 450px;
             }
 
             .about-card {
@@ -457,6 +462,7 @@
             .carousel-card-link {
                 min-width: 90%;
                 max-width: 90%;
+                height: 300px;
             }
 
             .about-card {
@@ -500,6 +506,10 @@
             }
 
             .carousel-card {
+                height: 275px;
+            }
+
+            .carousel-card-link {
                 height: 275px;
             }
 
