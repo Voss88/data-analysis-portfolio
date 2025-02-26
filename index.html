@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thomas Voss - Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <style>
@@ -268,14 +269,60 @@
         .about-image-placeholder {
             width: 100px;
             height: 100px;
-            background-color: #eee;
+            background-color: var(--primary-color);
             border-radius: 50%;
             margin: 1.5rem auto 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-color);
+            color: white;
             align-self: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .about-card:hover .about-image-placeholder {
+            transform: scale(1.1);
+            background: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            );
+        }
+
+        .linkedin-link {
+            text-decoration: none;
+            cursor: pointer;
+            display: block;
+            align-self: center;
+        }
+        
+        .linkedin-link .about-image-placeholder {
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .linkedin-link:hover .about-image-placeholder {
+            transform: scale(1.1);
+            background: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            );
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Optional: Add a subtle animation for better user experience */
+        .linkedin-link .about-image-placeholder i {
+            transition: transform 0.3s ease;
+        }
+        
+        .linkedin-link:hover .about-image-placeholder i {
+            transform: translateY(-2px);
         }
 
         /* Photo section */
@@ -496,31 +543,37 @@
         <h2 class="text-center mb-4">About Me</h2>
         
         <div class="about-card-container">
-            <!-- Main About Card -->
-            <div class="about-card">
-                <p>
-                    I'm a Data Analyst with a strong background in SQL, Python, R, and machine learning, and I love turning complex data into clear, actionable insights. Throughout my career, I've worked on everything from optimising ad performance at Snap Inc. to running A/B tests and building machine learning models at AutoTrader. Whether it's web tracking, automation, or statistical modelling, I enjoy finding ways to make data work smarter.
-                </p>
-                <div class="about-image-placeholder">Image</div>
-            </div>
-            
-            <!-- Second About Card -->
-            <div class="about-card">
-                <p>
-                    But outside of work, my real passion lies in football data analytics. I love using data science to break down the beautiful game, analyse player performance, and uncover insights that go beyond what you see on the pitch. This portfolio is my way of bringing that passion to life—showcasing projects that blend my technical skills with my love for the sport.
-                </p>
-                <div class="about-image-placeholder">Image</div>
-            </div>
-            
-            <!-- Third About Card -->
-            <div class="about-card">
-                <p>
-                    So whether it's tracking marketing campaigns, optimising websites, or digging into football data, I'm always looking for new ways to push the boundaries of analytics. If you share the same passion for data as I do, let's connect!
-                </p>
-                <div class="about-image-placeholder">Image</div>
+        <!-- Main About Card -->
+        <div class="about-card">
+            <p>
+                I'm a Data Analyst with a strong background in SQL, Python, R, and machine learning, and I love turning complex data into clear, actionable insights. Throughout my career, I've worked on everything from optimising ad performance at Snap Inc. to running A/B tests and building machine learning models at AutoTrader. Whether it's web tracking, automation, or statistical modelling, I enjoy finding ways to make data work smarter.
+            </p>
+            <div class="about-image-placeholder">
+                <i class="fas fa-chart-line fa-3x"></i>
             </div>
         </div>
-    </div>
+                    
+        <!-- Second About Card -->
+        <div class="about-card">
+            <p>
+                But outside of work, my real passion lies in football data analytics. I love using data science to break down the beautiful game, analyse player performance, and uncover insights that go beyond what you see on the pitch. This portfolio is my way of bringing that passion to life—showcasing projects that blend my technical skills with my love for the sport.
+            </p>
+            <div class="about-image-placeholder">
+                <i class="fas fa-futbol fa-3x"></i>
+            </div>
+        </div>
+                    
+         <!-- Third About Card -->
+        <div class="about-card">
+            <p>
+                So whether it's tracking marketing campaigns, optimising websites, or digging into football data, I'm always looking for new ways to push the boundaries of analytics. If you share the same passion for data as I do, let's connect!
+            </p>
+            <a href="https://www.linkedin.com/in/your-profile" target="_blank" class="linkedin-link">
+                <div class="about-image-placeholder">
+                    <i class="fab fa-linkedin-in fa-3x"></i>
+                </div>
+            </a>
+        </div>
 
     <!-- Photo Section -->
     <div class="container mb-5">
