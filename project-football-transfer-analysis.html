@@ -438,7 +438,7 @@
         
         <div class="code-section">
             <pre><code>
-              # Install packages (run once)
+# Install packages (run once)
 install.packages(c("readr", "tidyr", "ggplot2", "dplyr", "ggpubr", 
                   "factoextra", "readxl", "stats", "ggfortify", "mclust"))
 
@@ -453,6 +453,7 @@ library(readxl)
 library(stats)
 library(ggfortify)
 library(mclust)
+            </code></pre>
         </div>
                 <div class="text-section">
             <h2>Step 2</h2>
@@ -461,11 +462,12 @@ library(mclust)
         
         <div class="code-section">
             <pre><code> 
-              # Read player data from Excel/CSV file
+# Read player data from Excel/CSV file
 player_data <- read_excel("player_dataset.xlsx")
 
 # Convert to data frame
 player_data <- as.data.frame(player_data)
+        </code></pre>
         </div>
 
         <div class="text-section">
@@ -475,7 +477,7 @@ player_data <- as.data.frame(player_data)
         
         <div class="code-section">
             <pre><code> 
-              # Example for Giroud replacement (Chelsea forward)
+# Example for Giroud replacement (Chelsea forward)
 giroud_replacement <- player_data %>%
   filter((Pos == "FW" & YOB > 1997) | RK == "909")
 
@@ -486,6 +488,7 @@ fernandinho_replacement <- player_data %>%
 # Example for Vardy replacement (Leicester forward)
 vardy_replacement <- player_data %>%
   filter((Pos == "FW" & YOB > 1997) | RK == "2469")
+        </code></pre>
         </div>
               
         <div class="text-section">
@@ -495,7 +498,7 @@ vardy_replacement <- player_data %>%
         
         <div class="code-section">
             <pre><code> 
-              # Remove NA values and clean data structure
+#Remove NA values and clean data structure
 giroud_clean <- na.omit(giroud_replacement)
 giroud_clean <- as.data.frame(giroud_clean)
 
@@ -504,8 +507,9 @@ fernandinho_clean <- as.data.frame(fernandinho_clean)
 
 vardy_clean <- na.omit(vardy_replacement)
 vardy_clean <- as.data.frame(vardy_clean)
+        </code></pre>
         </div>
-        
+
         <div class="text-section">
             <h2>Step 5</h2>
             <p>Select Variables for Analysis</p>
@@ -513,9 +517,10 @@ vardy_clean <- as.data.frame(vardy_clean)
         
         <div class="code-section">
             <pre><code>
-              # For Giroud analysis (example)
+# For Giroud analysis (example)
 giroud_vars <- giroud_clean %>%
   select(Player, `G+A`, `xG+xA`)
+        </code></pre>
         </div>
                       
         <div class="text-section">
@@ -525,11 +530,12 @@ giroud_vars <- giroud_clean %>%
         
         <div class="code-section">
             <pre><code>
-              # Set seed for reproducibility
+# Set seed for reproducibility
 set.seed(123)
 
 # Find optimal number of clusters
 fviz_nbclust(giroud_vars %>% select(-Player), kmeans, method = "wss")
+        </code></pre>
         </div>
               
         <div class="text-section">
@@ -539,7 +545,7 @@ fviz_nbclust(giroud_vars %>% select(-Player), kmeans, method = "wss")
         
         <div class="code-section">
             <pre><code> 
-              # Using 2 clusters based on optimal number found
+# Using 2 clusters based on optimal number found
 km_giroud <- kmeans(giroud_vars %>% select(-Player), centers = 2)
 
 # Visualize the clusters
@@ -547,6 +553,7 @@ fviz_cluster(km_giroud, data = giroud_vars %>% select(-Player),
              palette = "jco",
              geom = "point",
              ellipse.type = "convex")
+        </code></pre>
         </div>
         
         <div class="text-section">
@@ -556,7 +563,7 @@ fviz_cluster(km_giroud, data = giroud_vars %>% select(-Player),
         
         <div class="code-section">
             <pre><code> 
-              # Create scatter plot with player names
+# Create scatter plot with player names
 ggplot(giroud_vars, aes(x = `G+A`, y = `xG+xA`)) +
   geom_point() +
   geom_text(aes(label = Player), vjust = 1.5, size = 3) +
@@ -564,6 +571,7 @@ ggplot(giroud_vars, aes(x = `G+A`, y = `xG+xA`)) +
        x = "Goals + Assists",
        y = "Expected Goals + Expected Assists") +
   theme_minimal()
+        </code></pre>
         </div>
 
         <div class="text-section">
