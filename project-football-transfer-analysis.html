@@ -648,15 +648,6 @@
             <p>My K-means clustering analysis faced several constraints. Using only G+A and xG+A metrics provided a limited view of player performance, especially for defensive players like Fernandinho. The dataset lacked defensive statistics, biasing the analysis toward attacking contributions. Using just two clustering variables created simplistic groupings, while the freely accessible FBRef data lacked the granularity of professional datasets like Statsbomb.com. In future analyses, I would incorporate position-specific metrics and multiple clustering variables to reveal more nuanced statistical relationships and strengthen replacement recommendations. Additionally, including psychological and contextual data would better predict player adaptation to new environments, as statistical similarities alone are insufficient for predicting transfer success.</p>
         </div>
         
-        <!-- Example Photo Section -->
-        <div class="photo-section">
-            <figure>
-                <!-- Replace with actual image path -->
-                <img src="cluster_analysis_visualization.jpg" alt="K-means Cluster Analysis Visualization">
-                <figcaption>Figure 1: K-means Cluster Analysis showing player groupings based on G+A and xG+xA metrics</figcaption>
-            </figure>
-        </div>
-        
         <div class="text-section">
             <h2>Step 1</h2>
             <p>Using R, install the required packages. The main ones being stats for the K-means clustering algorithm & factoextra / ggplot2 for clustering visualisation</p>
@@ -805,15 +796,6 @@ fviz_cluster(km_giroud, data = giroud_vars %>% select(-Player),
              geom = "point",
              ellipse.type = "convex")
         </code></pre>
-        </div>
-        
-        <!-- Photo Section for Results -->
-        <div class="photo-section">
-            <figure>
-                <!-- Replace with actual image path -->
-                <img src="clustering_results.jpg" alt="Final Clustering Results">
-                <figcaption>Figure 3: Final clustering results showing Giroud (highlighted) and potential replacement candidates in the same cluster</figcaption>
-            </figure>
         </div>
         
         <div class="text-section">
