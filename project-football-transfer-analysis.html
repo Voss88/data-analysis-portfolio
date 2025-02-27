@@ -285,6 +285,105 @@
             opacity: 1;
         }
 
+        /* New Photo Section */
+        .photo-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .photo-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .photo-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .photo-section figcaption {
+            margin-top: 1rem;
+            font-style: italic;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .photo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(to right, 
+                rgba(233,0,236,1), 
+                rgba(245,0,132,1), 
+                rgba(248,0,105,1), 
+                rgba(255,44,31,1), 
+                rgba(255,27,29,1), 
+                rgba(255,130,27,1)
+            ); 
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .photo-section:hover::before {
+            opacity: 1;
+        }
+
+        /* Package Buttons */
+        .package-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .package-button {
+            min-width: 25px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            background-color: #FAFAFA;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .package-button i {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .package-button:hover {
+            background: linear-gradient(to right, 
+                rgba(233,0,236,0.1), 
+                rgba(245,0,132,0.1), 
+                rgba(248,0,105,0.1), 
+                rgba(255,44,31,0.1), 
+                rgba(255,27,29,0.1), 
+                rgba(255,130,27,0.1)
+            );
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
         /* Media queries */
         @media (min-width: 992px) {
             .navbar-brand img {
@@ -318,6 +417,11 @@
             
             .hero-text-box {
                 padding: 2rem;
+            }
+            
+            .package-button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
             }
         }
 
@@ -374,8 +478,18 @@
             }
             
             .text-section,
-            .code-section {
+            .code-section,
+            .photo-section {
                 padding: 1.5rem;
+            }
+            
+            .package-button {
+                padding: 0.3rem 0.7rem;
+                font-size: 0.8rem;
+            }
+            
+            .package-buttons {
+                gap: 0.5rem;
             }
         }
 
@@ -433,12 +547,24 @@
             }
             
             .text-section,
-            .code-section {
+            .code-section,
+            .photo-section {
                 padding: 1rem;
             }
             
             .content-container {
                 margin: 1rem auto 2rem;
+            }
+            
+            .package-button {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+                flex-grow: 1;
+                justify-content: center;
+            }
+            
+            .package-buttons {
+                gap: 0.4rem;
             }
         }
     </style>
@@ -473,11 +599,62 @@
             <p>By using K-means cluster analysis in R, I was able to identify potential young replacements for aging Premier League players (Giroud, Fernandinho, and Vardy). By applying K-means clustering to my filtered dataset of players born after 1997 in the same positions, I created statistical groupings based on Goals+Assists and Expected Goals+Assists metrics. The K-means algorithm effectively separated players into distinct performance clusters, revealing which young talents most closely match the statistical profiles of these veterans. My data-mining approach determined the optimal number of clusters (2) for each position group, creating visual representations that clearly highlighted promising replacement candidates with similar performance characteristics to the established players.</p>
             
             <h2>Prerequisites & Packages</h2>
-            <p> R Packages </p>
-            <p> readr, tidyr, ggplot2, dplyr, ggpubr, factoextra, readxl, stats, ggforify & mclust </p>
+            <p>R Packages</p>
+            
+            <div class="package-buttons">
+                <div class="package-button">
+                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;></i>
+                    readr
+                </div>
+                <div class="package-button">
+                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;></i>
+                    tidyr
+                </div>
+                <div class="package-button">
+                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;></i>
+                    ggplot2
+                </div>
+                <div class="package-button">
+                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;"></i>
+                    dplyr
+                </div>
+                <div class="package-button">
+                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;"></i>
+                    ggpubr
+                </div>
+                <div class="package-button">
+                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;"></i>
+                    factoextra
+                </div>
+                <div class="package-button">
+                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;"></i>
+                    readxl
+                </div>
+                <div class="package-button">
+                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;"></i>
+                    stats
+                </div>
+                <div class="package-button">
+                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;"></i>
+                    ggfortify
+                </div>
+                <div class="package-button">
+                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;"></i>
+                    mclust
+                </div>
+            </div>
             
             <h2>Considerations & Limitations</h2>
             <p>My K-means clustering analysis faced several constraints. Using only G+A and xG+A metrics provided a limited view of player performance, especially for defensive players like Fernandinho. The dataset lacked defensive statistics, biasing the analysis toward attacking contributions. Using just two clustering variables created simplistic groupings, while the freely accessible FBRef data lacked the granularity of professional datasets like Statsbomb.com. In future analyses, I would incorporate position-specific metrics and multiple clustering variables to reveal more nuanced statistical relationships and strengthen replacement recommendations. Additionally, including psychological and contextual data would better predict player adaptation to new environments, as statistical similarities alone are insufficient for predicting transfer success.</p>
+        </div>
+        
+        <!-- Example Photo Section -->
+        <div class="photo-section">
+            <figure>
+                <!-- Replace with actual image path -->
+                <img src="cluster_analysis_visualization.jpg" alt="K-means Cluster Analysis Visualization">
+                <figcaption>Figure 1: K-means Cluster Analysis showing player groupings based on G+A and xG+xA metrics</figcaption>
+            </figure>
         </div>
         
         <div class="text-section">
@@ -518,7 +695,15 @@ player_data <- read_excel("player_dataset.xlsx")
 player_data <- as.data.frame(player_data)
         </code></pre>
         </div>
-
+                        
+        <div class="photo-section">
+            <figure>
+                <!-- Replace with actual image path -->
+                <img src="cluster_analysis_visualization.jpg" alt="K-means Cluster Analysis Visualization">
+                <figcaption>Figure 1: Data Preview</figcaption>
+            </figure>
+        </div>
+                        
         <div class="text-section">
             <h2>Step 3</h2>
             <p>Filter Data for Each Player Analysis</p>
@@ -559,6 +744,15 @@ vardy_clean <- as.data.frame(vardy_clean)
         </code></pre>
         </div>
 
+        <!-- Another Photo Section Example -->
+        <div class="photo-section">
+            <figure>
+                <!-- Replace with actual image path -->
+                <img src="data_exploration.jpg" alt="Data Exploration Visualization">
+                <figcaption>Figure 2: Data exploration showing the distribution of player stats before clustering</figcaption>
+            </figure>
+        </div>
+
         <div class="text-section">
             <h2>Step 5</h2>
             <p>Select Variables for Analysis</p>
@@ -586,7 +780,15 @@ set.seed(123)
 fviz_nbclust(giroud_vars %>% select(-Player), kmeans, method = "wss")
         </code></pre>
         </div>
-              
+
+        <div class="photo-section">
+            <figure>
+                <!-- Replace with actual image path -->
+                <img src="cluster_analysis_visualization.jpg" alt="K-means Cluster Analysis Visualization">
+                <figcaption>Figure 2: Optimal Clusters Plot</figcaption>
+            </figure>
+        </div>
+        
         <div class="text-section">
             <h2>Step 7</h2>
             <p>Perform K-means Cluster Analysis</p>
@@ -605,6 +807,15 @@ fviz_cluster(km_giroud, data = giroud_vars %>% select(-Player),
         </code></pre>
         </div>
         
+        <!-- Photo Section for Results -->
+        <div class="photo-section">
+            <figure>
+                <!-- Replace with actual image path -->
+                <img src="clustering_results.jpg" alt="Final Clustering Results">
+                <figcaption>Figure 3: Final clustering results showing Giroud (highlighted) and potential replacement candidates in the same cluster</figcaption>
+            </figure>
+        </div>
+        
         <div class="text-section">
             <h2>Step 8</h2>
             <p>Create Labeled Scatter Plot for Player Identification</p>
@@ -621,6 +832,14 @@ ggplot(giroud_vars, aes(x = `G+A`, y = `xG+xA`)) +
        y = "Expected Goals + Expected Assists") +
   theme_minimal()
         </code></pre>
+        </div>
+
+        <div class="photo-section">
+            <figure>
+                <!-- Replace with actual image path -->
+                <img src="cluster_analysis_visualization.jpg" alt="K-means Cluster Analysis Visualization">
+                <figcaption>Figure 3: Labeled Scatter Plot</figcaption>
+            </figure>
         </div>
 
         <div class="text-section">
