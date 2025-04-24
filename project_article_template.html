@@ -58,12 +58,13 @@
             background: var(--nav-bg-color);
             border-bottom: 5px solid transparent;
             border-image: linear-gradient(to right, 
-                rgba(233,0,236,1), 
-                rgba(245,0,132,1), 
-                rgba(248,0,105,1), 
-                rgba(255,44,31,1), 
-                rgba(255,27,29,1), 
-                rgba(255,130,27,1)
+                rgba(17,193,223,255),
+                rgba(29,203,188,255),
+                rgba(71,217,134,255),
+                rgba(171,229,117,255),
+                rgba(219,238,99,255),
+                rgba(236,242,91,255)
+
             );
             border-image-slice: 1;
         }
@@ -98,12 +99,13 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(to right, 
-                rgba(233,0,236,1), 
-                rgba(245,0,132,1), 
-                rgba(248,0,105,1), 
-                rgba(255,44,31,1), 
-                rgba(255,27,29,1), 
-                rgba(255,130,27,1)
+                rgba(17,193,223,255),
+                rgba(29,203,188,255),
+                rgba(71,217,134,255),
+                rgba(171,229,117,255),
+                rgba(219,238,99,255),
+                rgba(236,242,91,255)
+
             );
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -176,9 +178,6 @@
             transition: transform 0.3s ease;
         }
 
-        .hero-text-box:hover {
-            transform: translate(-50%, -52%);
-        }
 
         .hero-text-box h1 {
             color: var(--text-color);
@@ -207,10 +206,6 @@
             transition: transform 0.3s ease;
         }
 
-        .text-section:hover {
-            transform: translateY(-5px);
-        }
-
         .text-section h2 {
             color: var(--text-color);
             margin-bottom: 1.25rem;
@@ -218,12 +213,13 @@
             border-bottom: 2px solid;
             display: inline-block;
             border-image: linear-gradient(to right, 
-                rgba(233,0,236,1), 
-                rgba(245,0,132,1), 
-                rgba(248,0,105,1), 
-                rgba(255,44,31,1), 
-                rgba(255,27,29,1), 
-                rgba(255,130,27,1)
+                rgba(17,193,223,255),
+                rgba(29,203,188,255),
+                rgba(71,217,134,255),
+                rgba(171,229,117,255),
+                rgba(219,238,99,255),
+                rgba(236,242,91,255)
+
             ) 1;
         }
 
@@ -245,10 +241,6 @@
             transition: transform 0.3s ease;
         }
 
-        .code-section:hover {
-            transform: translateY(-5px);
-        }
-
         .code-section pre {
             margin: 0;
             white-space: pre-wrap;
@@ -265,12 +257,13 @@
             border-radius: 16px;
             padding: 3px;
             background: linear-gradient(to right, 
-                rgba(233,0,236,1), 
-                rgba(245,0,132,1), 
-                rgba(248,0,105,1), 
-                rgba(255,44,31,1), 
-                rgba(255,27,29,1), 
-                rgba(255,130,27,1)
+                rgba(17,193,223,255),
+                rgba(29,203,188,255),
+                rgba(71,217,134,255),
+                rgba(171,229,117,255),
+                rgba(219,238,99,255),
+                rgba(236,242,91,255)
+
             ); 
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -297,10 +290,6 @@
             overflow: hidden;
         }
 
-        .photo-section:hover {
-            transform: translateY(-5px);
-        }
-
         .photo-section img {
             width: 100%;
             height: auto;
@@ -325,12 +314,13 @@
             border-radius: 16px;
             padding: 3px;
             background: linear-gradient(to right, 
-                rgba(233,0,236,1), 
-                rgba(245,0,132,1), 
-                rgba(248,0,105,1), 
-                rgba(255,44,31,1), 
-                rgba(255,27,29,1), 
-                rgba(255,130,27,1)
+                rgba(17,193,223,255),
+                rgba(29,203,188,255),
+                rgba(71,217,134,255),
+                rgba(171,229,117,255),
+                rgba(219,238,99,255),
+                rgba(236,242,91,255)
+
             ); 
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -339,10 +329,6 @@
             transition: opacity 0.3s ease;
             z-index: 1;
             pointer-events: none;
-        }
-
-        .photo-section:hover::before {
-            opacity: 1;
         }
 
         /* Package Buttons */
@@ -370,19 +356,7 @@
             margin-right: 0.5rem;
             font-size: 1.1rem;
         }
-        
-        .package-button:hover {
-            background: linear-gradient(to right, 
-                rgba(233,0,236,0.1), 
-                rgba(245,0,132,0.1), 
-                rgba(248,0,105,0.1), 
-                rgba(255,44,31,0.1), 
-                rgba(255,27,29,0.1), 
-                rgba(255,130,27,0.1)
-            );
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+
 
         /* Media queries */
         @media (min-width: 992px) {
@@ -606,7 +580,7 @@
                 </div>
                     
                 <div class="package-button">
-                    <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;"></i>
+                    <i class="fa-brands fa-python fa-lg me-2" style="color: #276DC3;"></i>
                     examplePy
                 </div>
             </div>
