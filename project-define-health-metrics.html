@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WSS3DYFH3Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project - Finding Replacement Players in the Transfer Market using K-means Cluster Analysis in R</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((el) => {
+            hljs.highlightElement(el);
+        });
+    });
+    </script>
+    <style>
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --dark-green: #06231A;
+            --text-color: #333333;
+            --nav-bg-color: #F5F5F7;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            padding-top: 18vh;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15vh;
+            z-index: 1000;
+            padding: 0;
+            background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right,
+                rgba(17,193,223,255),
+                rgba(29,203,188,255),
+                rgba(71,217,134,255),
+                rgba(171,229,117,255),
+                rgba(219,238,99,255),
+                rgba(236,242,91,255)
+
+            );
+            border-image-slice: 1;
+        }
+
+        .nav-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem;
+        }
+
+        .nav-content a.nav-link {
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+            margin: 0 1rem;
+        }
+
+        .nav-content a.nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right,
+                rgba(17,193,223,255),
+                rgba(29,203,188,255),
+                rgba(71,217,134,255),
+                rgba(171,229,117,255),
+                rgba(219,238,99,255),
+                rgba(236,242,91,255)
+
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-content a.nav-link:hover {
+            color: white !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-content a.nav-link:hover::before {
+            opacity: 1;
+        }
+
+        .navbar-brand.mx-2 {
+            background: none;
+            overflow: visible;
+            padding: 0 !important;
+            border-radius: 0;
+        }
+
+        .navbar-brand.mx-2:hover::before {
+            opacity: 0;
+            display: none;
+        }
+
+        .navbar-brand {
+            margin: 0 2rem;
+            z-index: 3;
+        }
+
+        .navbar-brand img {
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1; /* Added line */
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.9);
+        }
+
+        .hero-text-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 80%;
+            transition: transform 0.3s ease;
+        }
+
+
+        .hero-text-box h1 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-text-box p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        /* Content Sections */
+        .content-container {
+            max-width: 1000px;
+            margin: 2rem auto 4rem;
+            padding: 0;
+        }
+
+        .text-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .text-section h2 {
+            color: var(--text-color);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid;
+            display: inline-block;
+            border-image: linear-gradient(to right,
+                rgba(17,193,223,255),
+                rgba(29,203,188,255),
+                rgba(71,217,134,255),
+                rgba(171,229,117,255),
+                rgba(219,238,99,255),
+                rgba(236,242,91,255)
+
+            ) 1;
+        }
+
+        .text-section p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .code-section {
+            background-color: #1E1E1E;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            color: #D4D4D4;
+            font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+            overflow-x: auto;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .code-section pre {
+            margin: 0;
+            white-space: pre-wrap;
+            font-size: 0.75rem;
+        }
+
+        .code-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(to right,
+                rgba(17,193,223,255),
+                rgba(29,203,188,255),
+                rgba(71,217,134,255),
+                rgba(171,229,117,255),
+                rgba(219,238,99,255),
+                rgba(236,242,91,255)
+
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+
+        /* New Photo Section */
+        .photo-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .photo-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .photo-section figcaption {
+            margin-top: 1rem;
+            font-style: italic;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .photo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(to right,
+                rgba(17,193,223,255),
+                rgba(29,203,188,255),
+                rgba(71,217,134,255),
+                rgba(171,229,117,255),
+                rgba(219,238,99,255),
+                rgba(236,242,91,255)
+
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Package Buttons */
+        .package-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .package-button {
+            min-width: 25px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            background-color: #FAFAFA;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .package-button i {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+
+        /* Media queries */
+        @media (min-width: 992px) {
+            .navbar-brand img {
+                max-height: 85px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .navbar-brand img {
+                max-height: 100px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            /* iPad */
+            .navbar {
+                height: 15vh;
+            }
+
+            .navbar-brand img {
+                max-height: 70px;
+            }
+
+            body {
+                padding-top: 15vh;
+            }
+
+            .hero-container {
+                height: 50vh;
+            }
+
+            .hero-text-box {
+                padding: 2rem;
+            }
+
+            .package-button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            /* Mobile */
+            .navbar {
+                height: 13vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
+            }
+
+            body {
+                padding-top: 15vh; /* Changed from 12vh to 15vh */
+            }
+
+            .nav-content {
+                padding: 0.5rem;
+            }
+
+            .navbar-brand {
+                margin: 0 1rem !important;
+            }
+
+            .nav-link {
+                padding: 0.5rem !important;
+                margin: 0 0.25rem;
+                font-size: 0.9rem;
+            }
+
+            .hero-container {
+                height: 40vh;
+                margin-top: 2rem; /* Changed from 1rem to 2rem */
+            }
+
+            .hero-image {
+                padding: 0.25rem;
+            }
+
+            .hero-text-box {
+                padding: 1.25rem; /* Changed from 1.5rem to 1.25rem */
+                max-width: 90%;
+            }
+
+            .hero-text-box h1 {
+                font-size: 1.3rem; /* Changed from 1.5rem to 1.3rem */
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-text-box p {
+                font-size: 0.85rem; /* Changed from 0.9rem to 0.85rem */
+                line-height: 1.3;
+            }
+
+            .text-section,
+            .code-section,
+            .photo-section {
+                padding: 1.5rem;
+            }
+
+            .package-button {
+                padding: 0.3rem 0.7rem;
+                font-size: 0.8rem;
+            }
+
+            .package-buttons {
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                height: 12vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
+            }
+
+            body {
+                padding-top: 13vh; /* Changed from 10vh to 13vh */
+            }
+
+            .nav-content {
+                padding: 0.25rem;
+            }
+
+            .navbar-brand {
+                margin: 0 0.5rem !important;
+            }
+
+            .nav-link {
+                padding: 0.25rem !important;
+                font-size: 0.8rem;
+            }
+
+            .hero-image {
+                padding: 0.25rem;
+            }
+
+            .hero-container {
+                height: 35vh;
+                margin-top: 2.5rem; /* Changed from 1rem to 2.5rem */
+            }
+
+            .hero-text-box {
+                padding: 0.75rem; /* Changed from 1rem to 0.75rem */
+                max-width: 95%; /* Changed from 90% to 95% */
+            }
+
+            .hero-text-box h1 {
+                font-size: 1.1rem; /* Changed from 1.3rem to 1.1rem */
+            }
+
+            .hero-text-box p {
+                font-size: 0.75rem; /* Changed from 0.8rem to 0.75rem */
+                line-height: 1.2;
+            }
+
+            .text-section,
+            .code-section,
+            .photo-section {
+                padding: 1rem;
+            }
+
+            .content-container {
+                margin: 1rem auto 2rem;
+            }
+
+            .package-button {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+                flex-grow: 1;
+                justify-content: center;
+            }
+
+            .package-buttons {
+                gap: 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="projects.html">Projects</a>
+            <a class="navbar-brand mx-2" href="index.html">
+                <img src="logo.png" alt="Thomas Voss Logo">
+            </a>
+            <a class="nav-link" href="cv.html">View CV</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container-fluid px-3">
+        <div class="hero-container">
+            <img src="project-image/project-image-health.jpg" alt="Project Background" class="hero-image">
+            <div class="hero-text-box">
+                <h1>Creating a Health Metric Calculator [1/2]</h1>
+                <p>Phase 1: Defining Health Metric Calculations and Create Aggregated Function</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="content-container">
+        <div class="text-section">
+            <h2>TL;DR</h2>
+        <p>This project aims to recreate popular health metric calculators found online, which help users determine their Body Mass Index (BMI), Maintenance Calories, Daily Protein Intake, and other health measurements. The project is structured in two phases:</p>
+        <p><strong>Phase 1: Define Core Functionality</strong></p>
+        <p>This phase focuses on developing the core functionality by creating custom Python functions for each health metric calculation. These functions will form the computational backbone of the application.</p>
+        <p>The following metrics will be defined:</p>
+        <ul>
+            <li>Body Mass Index (BMI)</li>
+            <li>Basal Metabolic Rate (BMR) in calories</li>
+            <li>Maintenance Calories</li>
+            <li>Mild Weight Loss Calories</li>
+            <li>Moderate Weight Loss Calories</li>
+            <li>Extreme Weight Loss Calories</li>
+            <li>Daily Protein Intake in grams</li>
+        </ul>
+        <p><strong>Phase 2: Graphic User Interface Development</strong></p>
+        <p>This phase involves building a user-friendly Graphic User Interface (GUI)
+
+            <h2>Prerequisites & Packages</h2>
+            <div class="package-buttons">
+                <div class="package-button">
+                    <i class="fa-brands fa-python fa-lg me-2" style="color: #276DC3;"></i>
+                    Python
+                </div>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Step 1</h2>
+            <p>Firstly I created the Body Mass Index (BMI) function, This requires weight & height inputs. It's important to note that this code only takes weight in KG and height in CM, a future improvement will be to allow users to select between metric and imperial measures </p>
+        </div>
+
+        <div class="code-section">
+            <pre><code class="python">
+ def bmi(weight, height):
+    """Calculate BMI using weight and height"""
+    bmi_value = weight / (height / 100) ** 2
+    return bmi_value
+        </code></pre>
+        </div>
+
+        <div class="text-section">
+            <h2>Step 2</h2>
+            <p>The next function I created was to calculate Basal Metabolic Rate (BMR) using weight, height, sex and age. We require sex as there is a different calculation for BMR depending on if the person is male or female and can be seen in the if statement below.</p>
+        </div>
+
+<div class="code-section">
+    <pre><code class="python">
+def bmr(weight, height, sex, age):
+    """Calculate BMR using weight, height, sex and age"""
+    if sex == 'f':
+        bmr_value = (10 * weight) + (6.25 * height) - (5 * age) - 161
+    elif sex == 'm':
+        bmr_value = (10 * weight) + (6.25 * height) - (5 * age) + 5
+    else:
+        print("sex was not selected")
+        return None
+    return bmr_value
+</code></pre>
+</div>
+
+        <div class="text-section">
+            <h2>Step 3</h2>
+            <p>To calculate Maintenance Calories, we need inputs for weight, height, sex, age, and exercise level. This function builds upon the Basal Metabolic Rate (BMR) calculations and applies an activity multiplier based on exercise level. The multiplier reflects the fact that higher activity levels require more calories to maintain - the more exercise you do, the more calories your body needs to sustain that level of activity. This code takes the previously calculated BMR and multiplies it by the appropriate activity factor found in the IF statement to determine the total daily calories needed to maintain current weight.</p>
+        </div>
+
+        <div class="code-section">
+            <pre><code class="Python">
+def maintain_cal(weight, height, sex, age, exercise):
+    """Calculate maintenance calories using  weight, height, sex, age and exercise level"""
+    if sex == 'f':
+        bmr_value = (10 * weight) + (6.25 * height) - (5 * age) - 161
+    elif sex == 'm':
+        bmr_value = (10 * weight) + (6.25 * height) - (5 * age) + 5
+    else:
+        print("sex was not selected")
+        return None
+
+    if exercise == 1:
+        maintain_value = bmr_value * 1.2
+    elif exercise == 2:
+        maintain_value = bmr_value * 1.375
+    elif exercise == 3:
+        maintain_value = bmr_value * 1.55
+    elif exercise == 4:
+        maintain_value = bmr_value * 1.725
+    elif exercise == 5:
+        maintain_value = bmr_value * 1.9
+    else:
+        print("Exercise level was not selected")
+        return None
+    return maintain_value
+        </code></pre>
+        </div>
+
+        <div class="text-section">
+            <h2>Step 4</h2>
+            <p>The next three functions define the weight loss metrics: mild, moderate, and extreme. They build upon the same calculations used in the maintenance calories function and simply apply percentage reductions to the user's maintenance calories. Mild weight loss targets 90% of maintenance calories, moderate weight loss aims for 79%, and extreme weight loss reduces to 58% of maintenance calories.</p>
+        </div>
+
+        <div class="code-section">
+            <pre><code class="Python">
+def mild_weight_loss(weight, height, sex, age, exercise):
+    """Calculate Mild Weight Loss Calories using weight, height, sex, age and exercise level"""
+    if sex == 'f':
+        bmr_value = (10 * weight) + (6.25 * height) - (5 * age) - 161
+    elif sex == 'm':
+        bmr_value = (10 * weight) + (6.25 * height) - (5 * age) + 5
+    else:
+        print("sex was not selected")
+        return None
+
+    if exercise == 1:
+        maintain_value = bmr_value * 1.2
+    elif exercise == 2:
+        maintain_value = bmr_value * 1.375
+    elif exercise == 3:
+        maintain_value = bmr_value * 1.55
+    elif exercise == 4:
+        maintain_value = bmr_value * 1.725
+    elif exercise == 5:
+        maintain_value = bmr_value * 1.9
+    else:
+        print("Exercise level was not selected")
+        return None
+
+    mild_weight_loss_value = maintain_value * 0.90
+    return mild_weight_loss_value
+        </code></pre>
+        </div>
+
+        <div class="code-section">
+            <pre><code class="Python">
+def moderate_weight_loss(weight, height, sex, age, exercise):
+    """Calculate Moderate Weight Loss Calories using weight, height, sex, age and exercise level"""
+    if sex == 'f':
+        bmr_value = (10 * weight) + (6.25 * height) - (5 * age) - 161
+    elif sex == 'm':
+        bmr_value = (10 * weight) + (6.25 * height) - (5 * age) + 5
+    else:
+        print("sex was not selected")
+        return None
+
+    if exercise == 1:
+        maintain_value = bmr_value * 1.2
+    elif exercise == 2:
+        maintain_value = bmr_value * 1.375
+    elif exercise == 3:
+        maintain_value = bmr_value * 1.55
+    elif exercise == 4:
+        maintain_value = bmr_value * 1.725
+    elif exercise == 5:
+        maintain_value = bmr_value * 1.9
+    else:
+        print("Exercise level was not selected")
+        return None
+
+    moderate_weight_loss_value = maintain_value * 0.79
+    return moderate_weight_loss_value
+        </code></pre>
+        </div>
+
+        <div class="code-section">
+            <pre><code class="Python">
+def extreme_weight_loss(weight, height, sex, age, exercise):
+    """Calculate Extreme Weight Loss Calories using weight, height, sex, age and exercise level"""
+    if sex == 'f':
+        bmr_value = (10 * weight) + (6.25 * height) - (5 * age) - 161
+    elif sex == 'm':
+        bmr_value = (10 * weight) + (6.25 * height) - (5 * age) + 5
+    else:
+        print("sex was not selected")
+        return None
+
+    if exercise == 1:
+        maintain_value = bmr_value * 1.2
+    elif exercise == 2:
+        maintain_value = bmr_value * 1.375
+    elif exercise == 3:
+        maintain_value = bmr_value * 1.55
+    elif exercise == 4:
+        maintain_value = bmr_value * 1.725
+    elif exercise == 5:
+        maintain_value = bmr_value * 1.9
+    else:
+        print("Exercise level was not selected")
+        return None
+
+    extreme_weight_loss_value = maintain_value * 0.58
+    return extreme_weight_loss_value
+        </code></pre>
+        </div>
+
+        <div class="text-section">
+            <h2>Step 5</h2>
+            <p>Example Text</p>
+        </div>
+
+        <div class="code-section">
+            <pre><code class="Python">
+def daily_protein(weight):
+    """Calculate Recommended Daily Protein Intake using weight"""
+    protein_value = weight * 2.2
+    return protein_value
+        </code></pre>
+        </div>
+
+        <div class="text-section">
+            <h2>Step 6</h2>
+            <p>To create the final aggregated function for this project, we combine all the necessary inputs required by our individual calculation functions. The aggregated function collects user data (weight, height, sex, age, and exercise level) and passes these values to each specialized function. Results are rounded to make the metrics more readable in the final display. The output is a formatted string containing all health metrics, which will update dynamically when a user inputs different values.</p>
+        </div>
+
+        <div class="code-section">
+            <pre><code class="Python">
+def health_metric(weight, height, sex, age, exercise):
+    """Include weight in kg, height in cm, age in years, exercise level as an integer from 1 to 5.
+    1 = Sedentary, 2 = Lightly active, 3 = Moderately active, 4 = Very active, 5 = Super active."""
+
+    health_bmi_value = bmi(weight, height)
+    health_bmr_value = bmr(weight, height, sex, age)
+    health_maintain_cal_value = maintain_cal(weight, height, sex, age, exercise)
+    health_mild_weight_loss_value = mild_weight_loss(weight, height, sex, age, exercise)
+    health_moderate_weight_loss_value = moderate_weight_loss(weight, height, sex, age, exercise)
+    health_extreme_weight_loss_value = extreme_weight_loss(weight, height, sex, age, exercise)
+    health_daily_protein_value = daily_protein(weight)
+
+    rounded_bmi_value = round(health_bmi_value, 2)
+    rounded_bmr_value = round(health_bmr_value, 2)
+    rounded_maintain_cal_value = round(health_maintain_cal_value, 2)
+    rounded_mild_weight_loss_value = round(health_mild_weight_loss_value, 2)
+    rounded_moderate_weight_loss_value = round(health_moderate_weight_loss_value, 2)
+    rounded_extreme_weight_loss_value = round(health_extreme_weight_loss_value, 2)
+    rounded_daily_protein_value = round(health_daily_protein_value, 2)
+
+    result_string = f"""BMI: {rounded_bmi_value}
+BMR: {rounded_bmr_value} calories
+Maintain Calories: {rounded_maintain_cal_value} calories
+Mild Weight Loss Calories: {rounded_mild_weight_loss_value} calories
+Moderate Weight Loss Calories: {rounded_moderate_weight_loss_value} calories
+Extreme Weight Loss Calories: {rounded_extreme_weight_loss_value} calories
+Daily Protein Intake: {rounded_daily_protein_value} g"""
+
+    print(result_string)
+
+    return result_string
+        </code></pre>
+        </div>
+
+        <div class="text-section">
+            <h2>Step 7</h2>
+            <p>Here is an example of the aggregated function, taking the weight, height, sex, age, and exercise level inputs with the result which is found in the python console</p>
+        </div>
+
+        <div class="code-section">
+            <pre><code class="Python">
+health_metric(57, 156, 'f', 24, 3)
+        </code></pre>
+        </div>
+
+        <div class="photo-section">
+            <figure>
+                <!-- Replace with actual image path -->
+                <img src="project-image/fig-1-python-console-results.png" alt="fig-1-python-console-results.png">
+                <figcaption>Figure 1: Results displayed in Python Console</figcaption>
+            </figure>
+        </div>
+
+    </div>
+</body>
+</html>
