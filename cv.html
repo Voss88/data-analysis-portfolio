@@ -21,7 +21,7 @@
             --secondary-color: #F5F5F7;
             --dark-green: #06231A;
             --text-color: #333333;
-            --nav-bg-color: #F5F5F7;
+            --nav-bg-color: #f1f1f1;
         }
 
         body {
@@ -47,12 +47,12 @@
             background: var(--nav-bg-color);
             border-bottom: 5px solid transparent;
             border-image: linear-gradient(to right, 
-                rgba(17,193,223,255),
-                rgba(29,203,188,255),
-                rgba(71,217,134,255),
-                rgba(171,229,117,255),
-                rgba(219,238,99,255),
-                rgba(236,242,91,255)
+rgba(253, 9, 6, 1),
+rgba(253, 51, 5, 1),
+rgba(254, 93, 3, 1),
+rgba(254, 135, 2, 1),
+rgba(255, 177, 0, 1),
+rgba(255, 220, 0, 1)
             );
             border-image-slice: 1;
         }
@@ -87,12 +87,12 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(to right, 
-                rgba(17,193,223,255),
-                rgba(29,203,188,255),
-                rgba(71,217,134,255),
-                rgba(171,229,117,255),
-                rgba(219,238,99,255),
-                rgba(236,242,91,255)
+rgba(253, 9, 6, 1),
+rgba(253, 51, 5, 1),
+rgba(254, 93, 3, 1),
+rgba(254, 135, 2, 1),
+rgba(255, 177, 0, 1),
+rgba(255, 220, 0, 1)
             );
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -131,6 +131,24 @@
             transition: all 0.3s ease;
         }
 
+        .nav-link i {
+            margin-right: 8px;
+        }
+
+        .desktop-logo {
+            display: block;
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-logo {
+            display: none;
+            max-height: 55px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
         .cv-container {
             max-width: 900px;
             margin: 2rem auto 4rem;
@@ -158,12 +176,12 @@
             color: var(--text-color);
             border-bottom: 2px solid;
             border-image: linear-gradient(to right, 
-                rgba(17,193,223,255),
-                rgba(29,203,188,255),
-                rgba(71,217,134,255),
-                rgba(171,229,117,255),
-                rgba(219,238,99,255),
-                rgba(236,242,91,255)
+rgba(253, 9, 6, 1),
+rgba(253, 51, 5, 1),
+rgba(254, 93, 3, 1),
+rgba(254, 135, 2, 1),
+rgba(255, 177, 0, 1),
+rgba(255, 220, 0, 1)
             ) 1;
         }
 
@@ -351,11 +369,38 @@
                 font-size: 0.9rem;
             }
 
+            .nav-link .nav-text {
+                 display: none;
+            }
+
+            .nav-link i {
+                margin-right: 0;
+                font-size: 1.2rem;
+            }
+
+            .nav-content a.nav-link {
+                padding: 0.5rem !important;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
             .cv-container {
                 padding: 1.5rem;
                 margin: 1rem 1rem 3rem;
                 width: auto;
                 max-width: 100%;
+            }
+
+            .desktop-logo {
+                display: none;
+            }
+
+             .mobile-logo {
+                display: block;
+                max-height: 55px;
             }
         }
 
@@ -400,19 +445,30 @@
             .skill-item {
                 width: 100%;
             }
+
+            .mobile-logo {
+                max-height: 55px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
-        <div class="nav-content">
-            <a class="nav-link" href="projects.html">Projects</a>
-            <a class="navbar-brand mx-2" href="index.html">
-                <img src="logo.png" alt="Thomas Voss Logo">
-            </a>
-            <a class="nav-link" href="cv.html">View CV</a>
-        </div>
+    <div class="nav-content">
+        <a class="nav-link" href="projects.html">
+            <i class="fas fa-folder-open"></i>
+            <span class="nav-text">Projects</span>
+        </a>
+        <a class="navbar-brand mx-2" href="index.html">
+            <img src="logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+            <img src="mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+        </a>
+        <a class="nav-link" href="cv.html">
+            <i class="fas fa-file-alt"></i>
+            <span class="nav-text">View CV</span>
+        </a>
+    </div>
     </nav>
 
     <!-- LinkedIn Button -->
