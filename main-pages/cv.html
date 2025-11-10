@@ -461,8 +461,8 @@ rgba(255, 220, 0, 1)
             <span class="nav-text">Projects</span>
         </a>
         <a class="navbar-brand mx-2" href="index.html">
-            <img src="logo.png" alt="Thomas Voss Logo" class="desktop-logo">
-            <img src="mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+            <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
         </a>
         <a class="nav-link" href="cv.html">
             <i class="fas fa-file-alt"></i>
@@ -481,22 +481,34 @@ rgba(255, 220, 0, 1)
     <!-- CV Content -->
     <div class="container cv-container">
         <h1>Curriculum Vitae</h1>
+
+        <div class="cv-section">
+            <h2>About</h2>
+            <div class="experience-item">
+                <ul>
+                    <p>I've spent over four years across both AutoTrader and Snap Inc working across the entire data discipline. Whether it's running A/B tests to figure out what improves CX journeys, building machine learning models that predict user behaviour, or creating pipelines that keep data clean and flowing smoothly.</p>
+                    <p>At AutoTrader, I've been involved with optimising the key pages on the site, both Search and advert pages. This has involved designing and reporting on A/B tests to high level executives, building and maintaining data products, and supporting cross functional teams with ad hoc analysis.</p>
+                    <p>Before that at Snap Inc, I ran advertising analytics for the French market and built an alerting system that caught performance issues before they affected marketing campaigns, saving time and money for advertisers.</p>
+                    <p>With my MSc in Data Science and experience using everything from SQL to Python to DBT, I am able to add value to any data project. What sets me apart is making the technical solutions I create understandable for everyone, whether they're engineers who want the technical details or executives who just need to know if it works.</p>
+                </ul>
+            </div>
+        </div>
         
         <div class="cv-section">
-            <h2>Work Experience</h2>
+            <h2>Experience</h2>
             <div class="experience-item">
-                <h3><img src="icons/autotrader_icon.jpeg" alt="AutoTrader Icon" class="icon">Data Analyst | AutoTrader</h3>
+                <h3><img src="../icons/autotrader_icon.jpeg" alt="AutoTrader Icon" class="icon">Data Analyst | AutoTrader</h3>
                 <div class="date">Jun 2024 - Present</div>
                 <ul>
                     <li>Designed, executed and reported on A/B tests using Bayesian statistics to optimize website performance.</li>
                     <li>Presented statistical experiment results to key stakeholders, influencing business decisions.</li>
                     <li>Developed user classification models using K-nearest neighbors to enhance personalization strategies.</li>
                     <li>Expanded ML capabilities by leveraging scikit-learn for predictive analytics.</li>
-                    <li>Improved data-driven decision-making by integrating advanced statistical methods into experimentation workflows.</li>
+                    <li>Improved DBT modelling and created new data products</li>
                 </ul>
             </div>
             <div class="experience-item">
-                <h3><img src="icons/snapchat_icon.jpeg" alt="Snap Inc Icon" class="icon">Data Analyst II | Snap Inc</h3>
+                <h3><img src="../icons/snapchat_icon.jpeg" alt="Snap Inc Icon" class="icon">Data Analyst II | Snap Inc</h3>
                 <div class="date">Oct 2023 - Jun 2024</div>
                 <ul>
                     <li>Took ownership of technical analytics support for the French market, driving performance improvements.</li>
@@ -507,7 +519,7 @@ rgba(255, 220, 0, 1)
                 </ul>
             </div>
             <div class="experience-item">
-                <h3><img src="icons/snapchat_icon.jpeg" alt="Snap Inc Icon" class="icon">Data Analyst I | Snap Inc</h3>
+                <h3><img src="../icons/snapchat_icon.jpeg" alt="Snap Inc Icon" class="icon">Data Analyst I | Snap Inc</h3>
                 <div class="date">May 2022 - Oct 2023</div>
                 <ul>
                     <li>Led data analytics support for the French sales team, collaborating closely with Paris-based stakeholders.</li>
@@ -518,7 +530,7 @@ rgba(255, 220, 0, 1)
                 </ul>
             </div>
             <div class="experience-item">
-                <h3><img src="icons/snapchat_icon.jpeg" alt="Snap Inc Icon" class="icon">Data Analyst I [Contract] | Snap Inc</h3>
+                <h3><img src="../icons/snapchat_icon.jpeg" alt="Snap Inc Icon" class="icon">Data Analyst I [Contract] | Snap Inc</h3>
                 <div class="date">Nov 2021 - May 2022</div>
                 <ul>
                     <li>Developed tailored data-driven advertising solutions by leveraging demographic insights.</li>
@@ -533,12 +545,12 @@ rgba(255, 220, 0, 1)
         <div class="cv-section">
             <h2>Education</h2>
             <div class="experience-item">
-                <h3><img src="icons/plymouth_university_icon.jpeg" alt="University Icon" class="icon">MSc Data Science & Business Analytics | University of Plymouth</h3>
+                <h3><img src="../icons/plymouth_university_icon.jpeg" alt="University Icon" class="icon">MSc Data Science & Business Analytics | University of Plymouth</h3>
                 <div class="date">2020 - 2021</div>
                 <p>Merit</p>
             </div>
             <div class="experience-item">
-                <h3><img src="icons/plymouth_university_icon.jpeg" alt="University Icon" class="icon">BSc (Hons) Business Management | University of Plymouth</h3>
+                <h3><img src="../icons/plymouth_university_icon.jpeg" alt="University Icon" class="icon">BSc (Hons) Business Management | University of Plymouth</h3>
                 <div class="date">2018 - 2020</div>
                 <p>First Class Honours</p>
             </div>
@@ -562,6 +574,10 @@ rgba(255, 220, 0, 1)
                     <i class="fab fa-r-project fa-lg me-2" style="color: #276DC3;"></i>
                     <span>R</span>
                 </div>
+                <div class="skill-item">
+                    <i class="fa fa-code-fork fa-lg me-2" style="color: #000000;"></i>
+                    <span>DBT</span>
+                </div>
             </div>
         </div>
         
@@ -574,19 +590,7 @@ rgba(255, 220, 0, 1)
                 </div>
                 <div class="skill-item">
                     <i class="fa-brands fa-google fa-lg me-2" style="color: #4285F4;"></i>
-                    <span>Looker</span>
-                </div>
-                <div class="skill-item">
-                    <i class="fa-brands fa-google fa-lg me-2" style="color: #4285F4;"></i>
-                    <span>Data Studio</span>
-                </div>
-                <div class="skill-item">
-                    <i class="fa-brands fa-google fa-lg me-2" style="color: #4285F4;"></i>
-                    <span>Google App Script</span>
-                </div>
-                <div class="skill-item">
-                    <i class="fa fa-code me-2" aria-hidden="true" style="color: #000000;"></i>
-                    <span>PyCharm</span>
+                    <span>Looker & Looker Studio</span>
                 </div>
                 <div class="skill-item">
                     <i class="fa fa-book fa-lg me-2" style="color: #FF3621;"></i>
@@ -599,10 +603,6 @@ rgba(255, 220, 0, 1)
                 <div class="skill-item">
                     <i class="fab fa-github-square fa-lg me-2" aria-hidden="true" style="color: #000000;"></i>
                     <span>Git</span>
-                </div>
-                <div class="skill-item">
-                    <i class="fa fa-code-fork fa-lg me-2" style="color: #000000;"></i>
-                    <span>DBT</span>
                 </div>
                     </div>
                 </div>
