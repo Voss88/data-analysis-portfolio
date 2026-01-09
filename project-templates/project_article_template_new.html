@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WSS3DYFH3Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ============================================
+         TEMPLATE INSTRUCTIONS:
+         1. Update the <title> tag below
+         2. Replace all [PLACEHOLDER] text with your content
+         3. Update image paths in the photo sections
+         4. Add/remove finding cards and approach steps as needed
+         5. Save as: project-[your-project-name].html
+         ============================================ -->
+
+    <title>Project - [PROJECT TITLE]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --dark-green: #06231A;
+            --text-color: #333333;
+            --nav-bg-color: #f1f1f1;
+            --gradient-start: rgba(253, 9, 6, 1);
+            --gradient-end: rgba(255, 220, 0, 1);
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            padding-top: 18vh;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15vh;
+            z-index: 1000;
+            padding: 0;
+            background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            border-image-slice: 1;
+        }
+
+        .nav-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem;
+        }
+
+        .nav-content a.nav-link {
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+            margin: 0 1rem;
+        }
+
+        .nav-content a.nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-content a.nav-link:hover {
+            color: white !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-content a.nav-link:hover::before {
+            opacity: 1;
+        }
+
+        .navbar-brand.mx-2 {
+            background: none;
+            overflow: visible;
+            padding: 0 !important;
+            border-radius: 0;
+        }
+
+        .navbar-brand.mx-2:hover::before {
+            opacity: 0;
+            display: none;
+        }
+
+        .navbar-brand {
+            margin: 0 2rem;
+            z-index: 3;
+        }
+
+        .navbar-brand img {
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+        }
+
+        .desktop-logo {
+            display: block;
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-logo {
+            display: none;
+            max-height: 55px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.9);
+        }
+
+        .hero-text-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 80%;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-text-box h1 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-text-box p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        /* Content Sections */
+        .content-container {
+            max-width: 1000px;
+            margin: 2rem auto 4rem;
+            padding: 0;
+        }
+
+        .text-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .text-section h2 {
+            color: var(--text-color);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid;
+            display: inline-block;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            ) 1;
+        }
+
+        .text-section p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .text-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* TL;DR Section - Highlighted */
+        .tldr-section {
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 0.9),
+                rgba(254, 135, 2, 0.9),
+                rgba(255, 177, 0, 0.9)
+            );
+            color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tldr-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tldr-section p {
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* Data Context Box */
+        .data-context {
+            background: #f8f9fa;
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .data-context .item {
+            margin-bottom: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .data-context .item:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-context .label {
+            font-weight: 600;
+            color: var(--text-color);
+            min-width: 140px;
+        }
+
+        .data-context .value {
+            color: #555;
+            flex: 1;
+        }
+
+        /* Approach Steps */
+        .approach-steps {
+            margin: 1.5rem 0;
+        }
+
+        .approach-step {
+            display: flex;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .approach-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            min-width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 1),
+                rgba(255, 177, 0, 1)
+            );
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            padding-top: 0.4rem;
+        }
+
+        /* Findings Grid */
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .finding-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-top: 4px solid;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .finding-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .finding-card h3 {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .finding-card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* Photo Section */
+        .photo-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .photo-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .photo-section figcaption {
+            margin-top: 1rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .photo-section figcaption strong {
+            color: var(--text-color);
+        }
+
+        .photo-section figcaption .insight {
+            display: block;
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 0.25rem;
+        }
+
+        .photo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Tools Section */
+        .tools-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .tools-section h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            display: inline-block;
+        }
+
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .tool-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.6rem 1.25rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-tag:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .tool-tag i {
+            margin-right: 0.5rem;
+        }
+
+        /* Reflection Box */
+        .reflection-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #555;
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+        }
+
+        /* Key Decision Highlight */
+        .key-decision {
+            background: linear-gradient(135deg, rgba(253, 51, 5, 0.05), rgba(255, 177, 0, 0.05));
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid rgba(254, 135, 2, 1);
+        }
+
+        .key-decision strong {
+            color: rgba(253, 51, 5, 1);
+        }
+
+        /* Media queries */
+        @media (min-width: 992px) {
+            .navbar-brand img {
+                max-height: 85px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .navbar-brand img {
+                max-height: 80px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .navbar {
+                height: 15vh;
+            }
+
+            .navbar-brand img {
+                max-height: 70px;
+            }
+
+            body {
+                padding-top: 15vh;
+            }
+
+            .hero-container {
+                height: 50vh;
+            }
+
+            .hero-text-box {
+                padding: 2rem;
+            }
+
+            .findings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav-link .nav-text {
+                display: none;
+            }
+
+            .nav-link i {
+                margin-right: 0;
+                font-size: 1.2rem;
+            }
+
+            .nav-content a.nav-link {
+                padding: 0.5rem !important;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .desktop-logo {
+                display: none;
+            }
+
+            .mobile-logo {
+                display: block;
+                max-height: 55px;
+            }
+
+            .navbar {
+                height: 13vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
+            }
+
+            body {
+                padding-top: 15vh;
+            }
+
+            .nav-content {
+                padding: 0.5rem;
+            }
+
+            .navbar-brand {
+                margin: 0 1rem !important;
+            }
+
+            .nav-link {
+                padding: 0.5rem !important;
+                margin: 0 0.25rem;
+                font-size: 0.9rem;
+            }
+
+            .hero-container {
+                height: 40vh;
+                margin-top: 2rem;
+            }
+
+            .hero-image {
+                padding: 0.25rem;
+            }
+
+            .hero-text-box {
+                padding: 1.25rem;
+                max-width: 90%;
+            }
+
+            .hero-text-box h1 {
+                font-size: 1.3rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-text-box p {
+                font-size: 0.85rem;
+                line-height: 1.3;
+            }
+
+            .text-section,
+            .tldr-section,
+            .photo-section,
+            .tools-section {
+                padding: 1.5rem;
+            }
+
+            .data-context .item {
+                flex-direction: column;
+            }
+
+            .data-context .label {
+                margin-bottom: 0.25rem;
+            }
+
+            .tool-tag {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                height: 12vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
+            }
+
+            body {
+                padding-top: 13vh;
+            }
+
+            .nav-content {
+                padding: 0.25rem;
+            }
+
+            .navbar-brand {
+                margin: 0 0.5rem !important;
+            }
+
+            .nav-link {
+                padding: 0.25rem !important;
+                font-size: 0.8rem;
+            }
+
+            .hero-image {
+                padding: 0.25rem;
+            }
+
+            .hero-container {
+                height: 35vh;
+                margin-top: 2.5rem;
+            }
+
+            .hero-text-box {
+                padding: 0.75rem;
+                max-width: 95%;
+            }
+
+            .hero-text-box h1 {
+                font-size: 1.1rem;
+            }
+
+            .hero-text-box p {
+                font-size: 0.75rem;
+                line-height: 1.2;
+            }
+
+            .text-section,
+            .tldr-section,
+            .photo-section,
+            .tools-section {
+                padding: 1rem;
+            }
+
+            .content-container {
+                margin: 1rem auto 2rem;
+            }
+
+            .step-number {
+                min-width: 28px;
+                height: 28px;
+                font-size: 0.85rem;
+            }
+
+            .finding-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         NAVIGATION BAR
+         No changes needed here
+         ============================================ -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="../main-pages/projects.html">
+                <i class="fas fa-folder-open"></i>
+                <span class="nav-text">Projects</span>
+            </a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-text">View CV</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO SECTION
+         Update:
+         - hero image path
+         - h1 title
+         - p tagline
+         ============================================ -->
+    <div class="container-fluid px-3">
+        <div class="hero-container">
+            <!-- UPDATE: Change image path -->
+            <img src="../project-image/[YOUR-HERO-IMAGE].png" alt="Project Background" class="hero-image">
+            <div class="hero-text-box">
+                <!-- UPDATE: Project title -->
+                <h1>[Your Project Title]</h1>
+                <!-- UPDATE: One-line tagline -->
+                <p>[One sentence describing what you did and why it matters]</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         CONTENT SECTIONS
+         ============================================ -->
+    <div class="content-container">
+
+        <!-- ========================================
+             SECTION 1: TL;DR
+             3-4 sentences covering:
+             - What method you used
+             - What you did
+             - Key finding(s)
+             - Impact/implication
+             ======================================== -->
+        <div class="tldr-section">
+            <h2>TL;DR</h2>
+            <p>
+                By using <strong>[METHOD/TOOL]</strong>, I [WHAT YOU DID] to address [PROBLEM/QUESTION].
+                The analysis revealed <strong>[KEY FINDING]</strong>.
+                [PRACTICAL IMPLICATION OR RECOMMENDATION].
+            </p>
+        </div>
+
+        <!-- ========================================
+             SECTION 2: THE CHALLENGE
+             Structure:
+             - Paragraph 1: Context/background
+             - Paragraph 2: The specific question (bold "The question:")
+             - Paragraph 3: Why it matters/stakes
+             ======================================== -->
+        <div class="text-section">
+            <h2>The Challenge</h2>
+            <p>[CONTEXT: Brief background on the domain or situation. What's the landscape? What problem exists?]</p>
+            <p><strong>The question:</strong> [The specific question or challenge you set out to address]</p>
+            <p>[STAKES: Why does this matter? Who benefits from solving it? What's the impact of getting it right or wrong?]</p>
+        </div>
+
+        <!-- ========================================
+             SECTION 3: DATA & CONTEXT
+             Fill in the 4 items below
+             ======================================== -->
+        <div class="text-section">
+            <h2>Data & Context</h2>
+            <div class="data-context">
+                <div class="item">
+                    <span class="label">Source:</span>
+                    <span class="value">[Where the data came from - be specific]</span>
+                </div>
+                <div class="item">
+                    <span class="label">Scope:</span>
+                    <span class="value">[Time period, number of records, geographic coverage, etc.]</span>
+                </div>
+                <div class="item">
+                    <span class="label">Key Variables:</span>
+                    <span class="value">[The main features/metrics you analyzed]</span>
+                </div>
+                <div class="item">
+                    <span class="label">Limitations:</span>
+                    <span class="value">[Be honest about constraints - this shows analytical maturity]</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================
+             SECTION 4: MY APPROACH
+             Structure:
+             - Opening paragraph: Why you chose this method
+             - Numbered steps (add/remove as needed)
+             - Key decision box (optional but recommended)
+             ======================================== -->
+        <div class="text-section">
+            <h2>My Approach</h2>
+            <p>I chose <strong>[METHOD/TECHNIQUE]</strong> because [REASONING - why was this the right approach for this problem?].</p>
+
+            <!-- Add or remove steps as needed -->
+            <div class="approach-steps">
+                <div class="approach-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">[HIGH-LEVEL DESCRIPTION - What you did first and why. No code, just narrative.]</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">[HIGH-LEVEL DESCRIPTION - What you did next. Focus on the thinking, not the syntax.]</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">[HIGH-LEVEL DESCRIPTION - Final steps. What did this produce?]</div>
+                </div>
+            </div>
+
+            <!-- Optional: Highlight an interesting decision you made -->
+            <div class="key-decision">
+                <strong>Key decision:</strong> [Describe an interesting choice you made during the analysis and why you made it. This shows your analytical thinking.]
+            </div>
+        </div>
+
+        <!-- ========================================
+             SECTION 5: KEY VISUALIZATIONS
+             Include 2-4 images
+
+             IMPORTANT: Write INSIGHT-DRIVEN captions
+             ❌ Bad: "Figure 1: Bar chart of sales by region"
+             ✅ Good: "Figure 1: Europe leads with 45% of total sales,
+                       nearly double North America's contribution"
+             ======================================== -->
+
+        <!-- Visualization 1 -->
+        <div class="photo-section">
+            <figure>
+                <!-- UPDATE: Image path and alt text -->
+                <img src="../project-image/[YOUR-IMAGE-1].png" alt="[Descriptive alt text]">
+                <figcaption>
+                    <!-- UPDATE: Title and insight -->
+                    <strong>Figure 1: [Descriptive Title]</strong>
+                    <span class="insight">[What INSIGHT does this visualization reveal? Not just what it shows, but what it MEANS.]</span>
+                </figcaption>
+            </figure>
+        </div>
+
+        <!-- Visualization 2 -->
+        <div class="photo-section">
+            <figure>
+                <!-- UPDATE: Image path and alt text -->
+                <img src="../project-image/[YOUR-IMAGE-2].png" alt="[Descriptive alt text]">
+                <figcaption>
+                    <!-- UPDATE: Title and insight -->
+                    <strong>Figure 2: [Descriptive Title]</strong>
+                    <span class="insight">[Key takeaway from this visual - what should the reader understand?]</span>
+                </figcaption>
+            </figure>
+        </div>
+
+        <!--
+        OPTIONAL: Add more visualizations by copying the photo-section block above
+        Recommended: 2-4 total images. Quality over quantity.
+        -->
+
+        <!-- ========================================
+             SECTION 6: FINDINGS
+             Structure:
+             - Finding cards (add/remove as needed, 2-4 recommended)
+             - Recommendation paragraph
+
+             Tips:
+             - Be SPECIFIC and QUANTIFY where possible
+             - Each finding should be actionable or insightful
+             ======================================== -->
+        <div class="text-section">
+            <h2>Findings</h2>
+
+            <!-- Add or remove finding cards as needed -->
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <h3>[Finding 1 Headline]</h3>
+                    <p>[1-2 sentences with specific, quantified detail. What did you discover? Include numbers where possible.]</p>
+                </div>
+                <div class="finding-card">
+                    <h3>[Finding 2 Headline]</h3>
+                    <p>[1-2 sentences with specific detail. What's the implication of this finding?]</p>
+                </div>
+                <div class="finding-card">
+                    <h3>[Finding 3 Headline]</h3>
+                    <p>[1-2 sentences. Consider including a limitation or caveat as one of your findings - it shows rigor.]</p>
+                </div>
+            </div>
+
+            <!-- Recommendation/conclusion paragraph -->
+            <p style="margin-top: 1.5rem;">
+                <strong>Recommendation:</strong> [Based on your findings, what should someone DO with this information? Who should take what action?]
+            </p>
+        </div>
+
+        <!-- ========================================
+             SECTION 7: REFLECTION
+             Structure:
+             - What you learned/reinforced
+             - What you'd improve with more time
+             - Potential future extensions
+
+             This section shows growth mindset and self-awareness
+             ======================================== -->
+        <div class="text-section">
+            <h2>Reflection</h2>
+            <div class="reflection-box">
+                <p>[What skill, concept, or technique did this project reinforce or teach you?]</p>
+                <p style="margin-top: 1rem; margin-bottom: 0;">
+                    If I revisited this analysis, I would [IMPROVEMENT 1] and [IMPROVEMENT 2].
+                    A natural extension would be [FUTURE IDEA] — something I may explore in a future project.
+                </p>
+            </div>
+        </div>
+
+        <!-- ========================================
+             SECTION 8: TOOLS & TECHNOLOGIES
+             List all relevant tools, languages, libraries, techniques
+
+             Icons available (Font Awesome):
+             - fab fa-python (Python)
+             - fab fa-r-project (R)
+             - fab fa-js (JavaScript)
+             - fas fa-database (SQL/Database)
+             - Or just use text without icons
+             ======================================== -->
+        <div class="tools-section">
+            <h2>Tools & Technologies</h2>
+            <div class="tools-grid">
+                <!-- UPDATE: Add your tools. Include icons where relevant -->
+                <span class="tool-tag"><i class="fab fa-python"></i>Python</span>
+                <span class="tool-tag"><i class="fab fa-r-project"></i>R</span>
+                <span class="tool-tag">[Library 1]</span>
+                <span class="tool-tag">[Library 2]</span>
+                <span class="tool-tag">[Technique]</span>
+                <span class="tool-tag">[Platform/Tool]</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================================
+         CHECKLIST BEFORE PUBLISHING
+         Delete this comment block when done
+
+         [ ] Title updated in <title> tag
+         [ ] Hero image path updated
+         [ ] Hero title and tagline filled in
+         [ ] TL;DR is 3-4 sentences, can stand alone
+         [ ] Challenge section has context, question, stakes
+         [ ] Data context box completely filled
+         [ ] Approach steps are narrative (NO code)
+         [ ] All image paths updated
+         [ ] Image captions are INSIGHT-driven
+         [ ] Findings are specific and quantified
+         [ ] Reflection shows what you learned
+         [ ] Tools section includes all relevant tech
+         [ ] File saved as: project-[name].html
+         ============================================ -->
+
+</body>
+</html>
