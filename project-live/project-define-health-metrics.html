@@ -548,7 +548,7 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            /* margin-bottom: 1rem; */
         }
 
         /* Next Phase Link */
@@ -824,7 +824,7 @@
         <div class="hero-container">
             <img src="../project-image/project-image-health.jpg" alt="Project Background" class="hero-image">
             <div class="hero-text-box">
-                <h1>Building a Personal Health Metrics Calculator</h1>
+                <h1>Building a Health Metrics Calculator</h1>
                 <p>Creating multiple Python functions that calculates BMI, BMR, and calorie targets in one unified tool</p>
             </div>
         </div>
@@ -835,8 +835,7 @@
 
         <!-- Phase Badge -->
         <div class="text-section" style="text-align: center; padding: 1.5rem;">
-            <span class="phase-badge">Phase 1 of 2: Core Engine Development</span>
-            <p style="margin: 0.5rem 0 0 0; color: #666;">This project documents the backend logic for the tool. <a href="project-health-metric-gui.html">Phase 2</a> covers the GUI implementation.</p>
+            <span class="phase-badge">Part 1 of 2: Back-End Function Development</span>
         </div>
 
         <!-- TL;DR Section -->
@@ -849,7 +848,7 @@
         <div class="text-section">
             <h2>The Objective</h2>
             <p>Online health calculators are everywhere, but most only compute one metric at a time. Want your BMI? One website. Maintenance calories? Another. Protein intake? A third. This fragmented experience forces users to re-enter the same data repeatedly across multiple tools.</p>
-            <p><strong>The question:</strong> Can I build a unified calculator that takes a user's information once and returns all their key health metrics instantly—while keeping the code clean enough to extend later with a graphical interface?</p>
+            <p><strong>Goal:</strong> Can I build a unified calculator that takes a user's information and returns all their key health metrics</p>
         </div>
 
         <!-- Data & Context Section -->
@@ -858,19 +857,19 @@
             <div class="data-context">
                 <div class="item">
                     <span class="label">BMI Formula:</span>
-                    <span class="value">Weight (kg) ÷ Height (m)² — standard WHO calculation</span>
+                    <span class="value">Weight (kg) ÷ Height (m)²</span>
                 </div>
                 <div class="item">
                     <span class="label">BMR Formula:</span>
                     <span class="value">Mifflin-St Jeor equation (more accurate than Harris-Benedict for modern populations)</span>
                 </div>
                 <div class="item">
-                    <span class="label">Activity Multipliers:</span>
-                    <span class="value">1.2 (sedentary) to 1.9 (super active) — applied to BMR for calorie targets</span>
+                    <span class="label">Exercise Level:</span>
+                    <span class="value">1.2 (sedentary) to 1.9 (super active)</span>
                 </div>
                 <div class="item">
                     <span class="label">Limitations:</span>
-                    <span class="value">Currently metric-only (kg/cm). Imperial unit support planned for future iteration.</span>
+                    <span class="value">    Currently metric-only (kg/cm). Imperial unit would be included in a future iteration.</span>
                 </div>
             </div>
         </div>
@@ -947,7 +946,7 @@
                 <img src="../project-image/fig-1-python-console-results.png" alt="Health metrics output in Python console">
                 <figcaption>
                     <strong>Figure 1: Sample Output</strong>
-                    <span class="insight">Output string from the final combined function, taking 5 inputs and returning all 7 health metrics. This output structure will feed directly into the GUI in Phase 2.</span>
+                    <span class="insight">Output string from the final combined function, taking 5 inputs and returning all 7 health metrics. This output structure will feed directly into the GUI in Part 2.</span>
                 </figcaption>
             </figure>
         </div>
@@ -972,11 +971,11 @@
             </div>
 
             <p style="margin-top: 1.5rem;">
-                <strong>What's Next:</strong> With the calculation engine built, Phase 2 will wrap this logic in a user-friendly Tkinter GUI. Allowing users to input their data through form fields and see results update in real time.
+                <strong>What's Next:</strong> With the calculation engine built, Part 2 will wrap this logic in a user-friendly Tkinter GUI. Allowing users to input their data through form fields and see results update in real time.
             </p>
 
             <a href="project-health-metric-gui.html" class="next-phase-link">
-                Continue to Phase 2: GUI Development <i class="fas fa-arrow-right"></i>
+                Continue to Part 2: GUI Development <i class="fas fa-arrow-right"></i>
             </a>
         </div>
 
