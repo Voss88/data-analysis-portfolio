@@ -11,21 +11,20 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- ============================================
-         TEMPLATE INSTRUCTIONS:
-         1. Update the <title> tag below
-         2. Replace all [PLACEHOLDER] text with your content
-         3. Update image paths in the photo sections
-         4. Add/remove finding cards and approach steps as needed
-         5. Save as: project-[your-project-name].html
-         ============================================ -->
-
-    <title>Project - [PROJECT TITLE]</title>
+    <title>Project - Building a Personal Health Metrics Calculator GUI</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((el) => {
+            hljs.highlightElement(el);
+        });
+    });
+    </script>
     <style>
         :root {
             --primary-color: #0F5741;
@@ -350,6 +349,39 @@
             padding-top: 0.4rem;
         }
 
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .metric-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            border-top: 3px solid;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .metric-card .metric-name {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-card .metric-desc {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
         /* Findings Grid */
         .findings-grid {
             display: grid;
@@ -446,6 +478,52 @@
             pointer-events: none;
         }
 
+        /* Code Section */
+        .code-section {
+            background-color: #1E1E1E;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            color: #D4D4D4;
+            font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+            overflow-x: auto;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .code-section pre {
+            margin: 0;
+            white-space: pre-wrap;
+            font-size: 0.85rem;
+        }
+
+        .code-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
         /* Tools Section */
         .tools-section {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -513,6 +591,47 @@
             color: rgba(253, 51, 5, 1);
         }
 
+        /* Phase Badge */
+        .phase-badge {
+            display: inline-block;
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 0.9),
+                rgba(255, 177, 0, 0.9)
+            );
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Previous Phase Link */
+        .prev-phase-link {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 1),
+                rgba(255, 177, 0, 1)
+            );
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .prev-phase-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(253, 51, 5, 0.3);
+            color: white;
+        }
+
+        .prev-phase-link i {
+            margin-right: 0.5rem;
+        }
+
         /* Media queries */
         @media (min-width: 992px) {
             .navbar-brand img {
@@ -549,6 +668,10 @@
 
             .findings-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -633,21 +756,18 @@
             .text-section,
             .tldr-section,
             .photo-section,
-            .tools-section {
+            .tools-section,
+            .code-section {
                 padding: 1.5rem;
-            }
-
-            .data-context .item {
-                flex-direction: column;
-            }
-
-            .data-context .label {
-                margin-bottom: 0.25rem;
             }
 
             .tool-tag {
                 padding: 0.4rem 0.8rem;
                 font-size: 0.8rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
@@ -703,7 +823,8 @@
             .text-section,
             .tldr-section,
             .photo-section,
-            .tools-section {
+            .tools-section,
+            .code-section {
                 padding: 1rem;
             }
 
@@ -720,14 +841,15 @@
             .finding-card {
                 padding: 1rem;
             }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- ============================================
-         NAVIGATION BAR
-         No changes needed here
-         ============================================ -->
+    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-content">
             <a class="nav-link" href="../main-pages/projects.html">
@@ -745,261 +867,224 @@
         </div>
     </nav>
 
-    <!-- ============================================
-         HERO SECTION
-         Update:
-         - hero image path
-         - h1 title
-         - p tagline
-         ============================================ -->
+    <!-- Hero Section -->
     <div class="container-fluid px-3">
         <div class="hero-container">
-            <!-- UPDATE: Change image path -->
-            <img src="../project-image/[YOUR-HERO-IMAGE].png" alt="Project Background" class="hero-image">
+            <img src="../project-image/project-image-health.jpg" alt="Project Background" class="hero-image">
             <div class="hero-text-box">
-                <!-- UPDATE: Project title -->
-                <h1>[Your Project Title]</h1>
-                <!-- UPDATE: One-line tagline -->
-                <p>[One sentence describing what you did and why it matters]</p>
+                <h1>Building a Health Metrics Calculator GUI</h1>
+                <p>Transforming Python functions into an interactive desktop application with PyQt5</p>
             </div>
         </div>
     </div>
 
-    <!-- ============================================
-         CONTENT SECTIONS
-         ============================================ -->
+    <!-- Content Sections -->
     <div class="content-container">
 
-        <!-- ========================================
-             SECTION 1: TL;DR
-             3-4 sentences covering:
-             - What method you used
-             - What you did
-             - Key finding(s)
-             - Impact/implication
-             ======================================== -->
+        <!-- Phase Badge -->
+        <div class="text-section" style="text-align: center; padding: 1.5rem;">
+            <span class="phase-badge">Part 2 of 2: GUI Development</span>
+        </div>
+
+        <!-- TL;DR Section -->
         <div class="tldr-section">
             <h2>TL;DR</h2>
-            <p>
-                By using <strong>[METHOD/TOOL]</strong>, I [WHAT YOU DID] to address [PROBLEM/QUESTION].
-                The analysis revealed <strong>[KEY FINDING]</strong>.
-                [PRACTICAL IMPLICATION OR RECOMMENDATION].
-            </p>
+            <p>I wrapped the calculation engine from Part 1 in a <strong>PyQt5 graphical interface</strong>, creating a desktop application where users input their metrics through form fields and receive instant results. The GUI uses <strong>5 different widget types</strong> (text inputs, radio buttons, dropdowns, buttons, and display areas) to collect data and present all 7 health metrics in a clean, formatted output.</p>
         </div>
 
-        <!-- ========================================
-             SECTION 2: THE CHALLENGE
-             Structure:
-             - Paragraph 1: Context/background
-             - Paragraph 2: The specific question (bold "The question:")
-             - Paragraph 3: Why it matters/stakes
-             ======================================== -->
+        <!-- The Objective Section -->
         <div class="text-section">
             <h2>The Objective</h2>
-            <p>[CONTEXT: Brief background on the domain or situation. What's the landscape? What problem exists?]</p>
-            <p><strong>The question:</strong> [The specific question or challenge you set out to address]</p>
-            <p>[STAKES: Why does this matter? Who benefits from solving it? What's the impact of getting it right or wrong?]</p>
+            <p>The back-end functions from Part 1 work perfectly in a Python console, but asking users to run scripts and type function calls isn't practical. A graphical interface removes this barrier entirely.</p>
+            <p><strong>Goal:</strong> Build a user-friendly desktop application that collects health data through intuitive form controls and displays calculated metrics without requiring any coding knowledge from the user.</p>
         </div>
 
-        <!-- ========================================
-             SECTION 3: DATA & CONTEXT
-             Fill in the 4 items below
-             ======================================== -->
+        <!-- Tech & Context Section -->
         <div class="text-section">
-            <h2>Data & Context</h2>
+            <h2>Tech Stack & Context</h2>
             <div class="data-context">
                 <div class="item">
-                    <span class="label">Source:</span>
-                    <span class="value">[Where the data came from]</span>
+                    <span class="label">Framework:</span>
+                    <span class="value">PyQt5 (Python bindings for Qt)</span>
                 </div>
                 <div class="item">
-                    <span class="label">Columns:</span>
-                    <span class="value">[Columns, Data Types]</span>
+                    <span class="label">Integration:</span>
+                    <span class="value">Imports health_metric function from Part 1 module</span>
                 </div>
                 <div class="item">
-                    <span class="label">Key Variables:</span>
-                    <span class="value">[The main features/metrics you analyzed]</span>
+                    <span class="label">Window Size:</span>
+                    <span class="value">400×570 pixels (compact, focused layout)</span>
                 </div>
                 <div class="item">
-                    <span class="label">Limitations:</span>
-                    <span class="value">[Be honest about constraints - this shows analytical maturity]</span>
+                    <span class="label">Limitation:</span>
+                    <span class="value">No input validation yet—accepts any text, requires integers</span>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================
-             SECTION 4: MY APPROACH
-             Structure:
-             - Opening paragraph: Why you chose this method
-             - Numbered steps (add/remove as needed)
-             - Key decision box (optional but recommended)
-             ======================================== -->
+        <!-- Widgets Used -->
+        <div class="text-section">
+            <h2>PyQt5 Widgets Used</h2>
+            <p>Each input type was matched to the most appropriate widget for usability:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-name">QLineEdit</div>
+                    <div class="metric-desc">Text input for weight, height, age</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">QRadioButton</div>
+                    <div class="metric-desc">Binary choice for sex selection</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">QComboBox</div>
+                    <div class="metric-desc">Dropdown for activity level</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">QPushButton</div>
+                    <div class="metric-desc">Triggers calculation</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">QTextEdit</div>
+                    <div class="metric-desc">Read-only results display</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">QLabel</div>
+                    <div class="metric-desc">Field labels and headings</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Approach Section -->
         <div class="text-section">
             <h2>My Approach</h2>
-            <p>I chose <strong>[METHOD/TECHNIQUE]</strong> because [REASONING - why was this the right approach for this problem?].</p>
+            <p>I structured the GUI build in layers: first creating all input widgets, then wiring them to the processing function, and finally handling the output display.</p>
 
-            <!-- Add or remove steps as needed -->
             <div class="approach-steps">
                 <div class="approach-step">
                     <div class="step-number">1</div>
-                    <div class="step-content">[HIGH-LEVEL DESCRIPTION - What you did first and why. No code, just narrative.]</div>
+                    <div class="step-content"><strong>Set up the application window:</strong> Initialized QApplication and QWidget, set dimensions (400×570px), title, and created a vertical layout container for all elements.</div>
                 </div>
                 <div class="approach-step">
                     <div class="step-number">2</div>
-                    <div class="step-content">[HIGH-LEVEL DESCRIPTION - What you did next. Focus on the thinking, not the syntax.]</div>
+                    <div class="step-content"><strong>Built input widgets:</strong> Created QLineEdit fields for weight/height/age, QRadioButtons for sex (grouped with QButtonGroup), and a QComboBox dropdown with 5 activity levels.</div>
                 </div>
                 <div class="approach-step">
                     <div class="step-number">3</div>
-                    <div class="step-content">[HIGH-LEVEL DESCRIPTION - Final steps. What did this produce?]</div>
+                    <div class="step-content"><strong>Created translation function:</strong> The dropdown returns strings like "1 = Sedentary" but our function needs integers. Built a helper function to convert these to the required 1-5 values.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content"><strong>Wired the processing logic:</strong> Connected the Run button to a function that extracts all inputs, converts types appropriately, calls the health_metric function, and displays results in a read-only QTextEdit.</div>
                 </div>
             </div>
 
-            <!-- Optional: Highlight an interesting decision you made -->
             <div class="key-decision">
-                <strong>Key decision:</strong> [Describe an interesting choice you made during the analysis and why you made it. This shows your analytical thinking.]
+                <strong>Key decision:</strong> I used a separate translation function for the activity dropdown rather than storing just integers. This keeps the dropdown user-friendly ("Moderately active" is clearer than "3") while maintaining clean separation between UI labels and data values.
             </div>
         </div>
 
-        <!-- ========================================
-             SECTION 5: KEY VISUALIZATIONS
-             Include 2-4 images
-
-             IMPORTANT: Write INSIGHT-DRIVEN captions
-             ❌ Bad: "Figure 1: Bar chart of sales by region"
-             ✅ Good: "Figure 1: Europe leads with 45% of total sales,
-                       nearly double North America's contribution"
-             ======================================== -->
-
-        <!-- Visualization 1 -->
-        <div class="photo-section">
-            <figure>
-                <!-- UPDATE: Image path and alt text -->
-                <img src="../project-image/[YOUR-IMAGE-1].png" alt="[Descriptive alt text]">
-                <figcaption>
-                    <!-- UPDATE: Title and insight -->
-                    <strong>Figure 1: [Descriptive Title]</strong>
-                    <span class="insight">[What INSIGHT does this visualization reveal? Not just what it shows, but what it MEANS.]</span>
-                </figcaption>
-            </figure>
-        </div>
-
-        <!-- Visualization 2 -->
-        <div class="photo-section">
-            <figure>
-                <!-- UPDATE: Image path and alt text -->
-                <img src="../project-image/[YOUR-IMAGE-2].png" alt="[Descriptive alt text]">
-                <figcaption>
-                    <!-- UPDATE: Title and insight -->
-                    <strong>Figure 2: [Descriptive Title]</strong>
-                    <span class="insight">[Key takeaway from this visual - what should the reader understand?]</span>
-                </figcaption>
-            </figure>
-        </div>
-
-        <!--
-        OPTIONAL: Add more visualizations by copying the photo-section block above
-        Recommended: 2-4 total images. Quality over quantity.
-        -->
-
-        <!-- ========================================
-             SECTION 6: FINDINGS
-             Structure:
-             - Finding cards (add/remove as needed, 2-4 recommended)
-             - Recommendation paragraph
-
-             Tips:
-             - Be SPECIFIC and QUANTIFY where possible
-             - Each finding should be actionable or insightful
-             ======================================== -->
+        <!-- Code Highlight -->
         <div class="text-section">
-            <h2>Findings</h2>
+            <h2>Core Processing Function</h2>
+            <p>The heart of the GUI—this function extracts inputs from all widgets, converts them to the correct types, runs the calculation, and updates the display:</p>
+        </div>
 
-            <!-- Add or remove finding cards as needed -->
+        <div class="code-section">
+            <pre><code class="python">def process_input():
+    try:
+        # Get input text
+        weight_value = textbox_weight.text()
+        height_value = textbox_height.text()
+        sex_value = sex_group.checkedId()
+        age_value = textbox_age.text()
+        exercise_value = textbox_exercise.currentText()
+
+        exercise_value_translate = translate_exercise_level(exercise_value)
+
+        if sex_value == 1:
+            sex_value_new = "m"
+        elif sex_value == 2:
+            sex_value_new = "f"
+
+        # Convert to appropriate types
+        weight_value = int(weight_value)
+        height_value = int(height_value)
+        sex_value = str(sex_value_new)
+        age_value = int(age_value)
+        exercise_value = int(exercise_value_translate)
+
+        # Process the input
+        result = health_metric(weight_value, height_value, sex_value,
+                              age_value, exercise_value)
+
+        # Display the result
+        result_display.setText(result)
+    except Exception as e:
+        result_display.setText(f"Error: {str(e)}")</code></pre>
+        </div>
+
+        <!-- Visualization -->
+        <div class="photo-section">
+            <figure>
+                <img src="../project-image/fig-1-gui-example.png" alt="Health Metrics Calculator GUI">
+                <figcaption>
+                    <strong>Figure 1: Complete GUI Application</strong>
+                    <span class="insight">The finished interface showing all input fields, the Run button, and the formatted results display area with calculated health metrics.</span>
+                </figcaption>
+            </figure>
+        </div>
+
+        <!-- Findings Section -->
+        <div class="text-section">
+            <h2>Key Outcomes</h2>
+
             <div class="findings-grid">
                 <div class="finding-card">
-                    <h3>[Finding 1 Headline]</h3>
-                    <p>[1-2 sentences with specific, quantified detail. What did you discover? Include numbers where possible.]</p>
+                    <h3>5 Inputs → 7 Outputs</h3>
+                    <p>Users fill in just 5 fields and receive all health metrics instantly in a formatted, easy-to-read display area.</p>
                 </div>
                 <div class="finding-card">
-                    <h3>[Finding 2 Headline]</h3>
-                    <p>[1-2 sentences with specific detail. What's the implication of this finding?]</p>
+                    <h3>Clean Separation of Concerns</h3>
+                    <p>GUI code handles presentation only—all calculation logic stays in the imported Part 1 module, making both easier to maintain.</p>
                 </div>
                 <div class="finding-card">
-                    <h3>[Finding 3 Headline]</h3>
-                    <p>[1-2 sentences. Consider including a limitation or caveat as one of your findings - it shows rigor.]</p>
+                    <h3>Error Handling Built In</h3>
+                    <p>The try/except block catches invalid inputs and displays meaningful error messages instead of crashing the application.</p>
                 </div>
             </div>
 
-            <!-- Recommendation/conclusion paragraph -->
             <p style="margin-top: 1.5rem;">
-                <strong>Recommendation:</strong> [Based on your findings, what should someone DO with this information? Who should take what action?]
+                <strong>Looking Back:</strong> This project connects directly to the back-end work completed in Part 1, demonstrating how modular function design pays off when building user interfaces.
             </p>
+
+            <a href="project-define-health-metrics.html" class="prev-phase-link">
+                <i class="fas fa-arrow-left"></i> Back to Part 1: Back-End Development
+            </a>
         </div>
 
-        <!-- ========================================
-             SECTION 7: REFLECTION
-             Structure:
-             - What you learned/reinforced
-             - What you'd improve with more time
-             - Potential future extensions
-
-             This section shows growth mindset and self-awareness
-             ======================================== -->
+        <!-- Reflection Section -->
         <div class="text-section">
             <h2>Reflection</h2>
             <div class="reflection-box">
-                <p>[What skill, concept, or technique did this project reinforce or teach you?]</p>
+                <p>Building this GUI taught me how important it is to plan widget-to-function mapping before writing code. The dropdown translation issue, for example, would have been avoided with better upfront design.</p>
                 <p style="margin-top: 1rem; margin-bottom: 0;">
-                    If I revisited this analysis, I would [IMPROVEMENT 1] and [IMPROVEMENT 2].
-                    A natural extension would be [FUTURE IDEA] — something I may explore in a future project.
+                    Future improvements would include: adding input validation (preventing negative numbers or text in numeric fields), implementing unit conversion toggles (metric/imperial), and perhaps adding visual charts to display results graphically rather than as text only.
                 </p>
             </div>
         </div>
 
-        <!-- ========================================
-             SECTION 8: TOOLS & TECHNOLOGIES
-             List all relevant tools, languages, libraries, techniques
-
-             Icons available (Font Awesome):
-             - fab fa-python (Python)
-             - fab fa-r-project (R)
-             - fab fa-js (JavaScript)
-             - fas fa-database (SQL/Database)
-             - Or just use text without icons
-             ======================================== -->
+        <!-- Tools Section -->
         <div class="tools-section">
             <h2>Tools & Technologies</h2>
             <div class="tools-grid">
-                <!-- UPDATE: Add your tools. Include icons where relevant -->
                 <span class="tool-tag"><i class="fab fa-python"></i>Python</span>
-                <span class="tool-tag"><i class="fab fa-r-project"></i>R</span>
-                <span class="tool-tag">[Library 1]</span>
-                <span class="tool-tag">[Library 2]</span>
-                <span class="tool-tag">[Technique]</span>
-                <span class="tool-tag">[Platform/Tool]</span>
+                <span class="tool-tag">PyQt5</span>
+                <span class="tool-tag">QWidgets</span>
+                <span class="tool-tag">Modular Imports</span>
             </div>
         </div>
 
     </div>
-
-    <!-- ============================================
-         CHECKLIST BEFORE PUBLISHING
-         Delete this comment block when done
-
-         [ ] Title updated in <title> tag
-         [ ] Hero image path updated
-         [ ] Hero title and tagline filled in
-         [ ] TL;DR is 3-4 sentences, can stand alone
-         [ ] Challenge section has context, question, stakes
-         [ ] Data context box completely filled
-         [ ] Approach steps are narrative (NO code)
-         [ ] All image paths updated
-         [ ] Image captions are INSIGHT-driven
-         [ ] Findings are specific and quantified
-         [ ] Reflection shows what you learned
-         [ ] Tools section includes all relevant tech
-         [ ] File saved as: project-[name].html
-         ============================================ -->
-
 </body>
 </html>
