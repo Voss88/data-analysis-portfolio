@@ -11,7 +11,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project - Building a Personal Health Metrics Calculator GUI</title>
+    <title>Project - Finding Replacement Players in the Transfer Market using K-means Cluster Analysis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -591,47 +591,6 @@
             color: rgba(253, 51, 5, 1);
         }
 
-        /* Phase Badge */
-        .phase-badge {
-            display: inline-block;
-            background: linear-gradient(135deg,
-                rgba(253, 51, 5, 0.9),
-                rgba(255, 177, 0, 0.9)
-            );
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        /* Previous Phase Link */
-        .prev-phase-link {
-            display: inline-flex;
-            align-items: center;
-            background: linear-gradient(135deg,
-                rgba(253, 51, 5, 1),
-                rgba(255, 177, 0, 1)
-            );
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-        }
-
-        .prev-phase-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(253, 51, 5, 0.3);
-            color: white;
-        }
-
-        .prev-phase-link i {
-            margin-right: 0.5rem;
-        }
-
         /* Media queries */
         @media (min-width: 992px) {
             .navbar-brand img {
@@ -870,10 +829,10 @@
     <!-- Hero Section -->
     <div class="container-fluid px-3">
         <div class="hero-container">
-            <img src="../project-image/project-image-health.jpg" alt="Project Background" class="hero-image">
+            <img src="../project-image/project-background-1.png" alt="Project Background" class="hero-image">
             <div class="hero-text-box">
-                <h1>Building a Health Metrics Calculator GUI</h1>
-                <p>Transforming Python functions into an interactive desktop application with PyQt5</p>
+                <h1>Finding Replacement Players in the Transfer Market</h1>
+                <p>Using K-means clustering in R to find younger, cheaper replacements based on statistical profiles</p>
             </div>
         </div>
     </div>
@@ -881,76 +840,64 @@
     <!-- Content Sections -->
     <div class="content-container">
 
-        <!-- Phase Badge -->
-        <div class="text-section" style="text-align: center; padding: 1.5rem;">
-            <span class="phase-badge">Part 2 of 2: GUI Development</span>
-        </div>
-
         <!-- TL;DR Section -->
         <div class="tldr-section">
             <h2>TL;DR</h2>
-            <p>I wrapped the calculation engine from Part 1 in a <strong>PyQt5 graphical interface</strong>, creating a desktop application where users input their metrics through form fields and receive instant results. The GUI uses <strong>5 different widget types</strong> (text inputs, radio buttons, dropdowns, buttons, and display areas) to collect data and present all 7 health metrics in a clean, formatted output.</p>
+            <p>I used <strong>K-means clustering in R</strong> to find potential replacements for three aging Premier League players: Giroud, Fernandinho, and Vardy. By grouping younger players (born after 1997) based on their <strong>Goals+Assists and Expected Goals+Assists per 90 minutes</strong>, the algorithm identified which young talents have the most similar statistical profiles to these veterans. The analysis found Phil Foden, Ferran Torres, and Eddie Nketiah as the closest matches for Giroud.</p>
         </div>
 
         <!-- The Objective Section -->
         <div class="text-section">
             <h2>The Objective</h2>
-            <p>The back-end functions from Part 1 work perfectly in a Python console, but asking users to run scripts and type function calls isn't practical. A graphical interface removes this barrier entirely.</p>
-            <p><strong>Goal:</strong> Build a user-friendly desktop application that collects health data through intuitive form controls and displays calculated metrics without requiring any coding knowledge from the user.</p>
+            <p>Football clubs constantly face the challenge of replacing aging players. Finding someone who can fill a specific role is difficult because raw stats alone do not tell the full story. A player might score the same number of goals but play in a completely different style.</p>
+            <p><strong>Goal:</strong> Use clustering analysis to group players by statistical output, then identify which young players fall into the same cluster as established veterans.</p>
+            <p>Getting transfers right saves clubs millions. A data driven approach can narrow down a shortlist before scouts even watch a single match.</p>
         </div>
 
-        <!-- Tech & Context Section -->
+        <!-- Data & Context Section -->
         <div class="text-section">
-            <h2>Tech Stack & Context</h2>
+            <h2>Data & Context</h2>
             <div class="data-context">
                 <div class="item">
-                    <span class="label">Framework:</span>
-                    <span class="value">PyQt5 (Python bindings for Qt)</span>
+                    <span class="label">Source:</span>
+                    <span class="value">FBRef (free, publicly available football statistics)</span>
                 </div>
                 <div class="item">
-                    <span class="label">Integration:</span>
-                    <span class="value">Imports health_metric function from Part 1 module</span>
+                    <span class="label">Scope:</span>
+                    <span class="value">Players born after 1997 in same positions as target players</span>
                 </div>
                 <div class="item">
-                    <span class="label">Window Size:</span>
-                    <span class="value">400×570 pixels (compact, focused layout)</span>
+                    <span class="label">Key Variables:</span>
+                    <span class="value">Goals+Assists per 90, Expected Goals+Assists per 90</span>
                 </div>
                 <div class="item">
-                    <span class="label">Limitation:</span>
-                    <span class="value">No input validation yet—accepts any text, requires integers</span>
+                    <span class="label">Limitations:</span>
+                    <span class="value">Only attacking metrics available. Defensive stats missing, which affects players like Fernandinho</span>
                 </div>
             </div>
         </div>
 
-        <!-- Widgets Used -->
+        <!-- Metrics Analyzed -->
         <div class="text-section">
-            <h2>PyQt5 Widgets Used</h2>
-            <p>Each input type was matched to the most appropriate widget for usability:</p>
+            <h2>Metrics Analyzed</h2>
+            <p>I focused on two key metrics that capture attacking output while also factoring in expected performance:</p>
 
             <div class="metrics-grid">
                 <div class="metric-card">
-                    <div class="metric-name">QLineEdit</div>
-                    <div class="metric-desc">Text input for weight, height, age</div>
+                    <div class="metric-name">G+A / 90</div>
+                    <div class="metric-desc">Goals plus assists per 90 minutes played</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-name">QRadioButton</div>
-                    <div class="metric-desc">Binary choice for sex selection</div>
+                    <div class="metric-name">xG+xA / 90</div>
+                    <div class="metric-desc">Expected goals plus expected assists per 90</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-name">QComboBox</div>
-                    <div class="metric-desc">Dropdown for activity level</div>
+                    <div class="metric-name">Position</div>
+                    <div class="metric-desc">Forward or Midfielder filter</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-name">QPushButton</div>
-                    <div class="metric-desc">Triggers calculation</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-name">QTextEdit</div>
-                    <div class="metric-desc">Read-only results display</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-name">QLabel</div>
-                    <div class="metric-desc">Field labels and headings</div>
+                    <div class="metric-name">Birth Year</div>
+                    <div class="metric-desc">Born after 1997 for youth focus</div>
                 </div>
             </div>
         </div>
@@ -958,79 +905,97 @@
         <!-- My Approach Section -->
         <div class="text-section">
             <h2>My Approach</h2>
-            <p>I structured the GUI build in layers: first creating all input widgets, then wiring them to the processing function, and finally handling the output display.</p>
+            <p>I chose K-means clustering because it groups players by similarity across multiple variables at once. This reveals natural groupings in the data rather than relying on arbitrary cutoffs.</p>
 
             <div class="approach-steps">
                 <div class="approach-step">
                     <div class="step-number">1</div>
-                    <div class="step-content"><strong>Set up the application window:</strong> Initialized QApplication and QWidget, set dimensions (400×570px), title, and created a vertical layout container for all elements.</div>
+                    <div class="step-content"><strong>Filtered the dataset:</strong> Selected only players in the same position as each target and born after 1997, plus included the veteran player for comparison.</div>
                 </div>
                 <div class="approach-step">
                     <div class="step-number">2</div>
-                    <div class="step-content"><strong>Built input widgets:</strong> Created QLineEdit fields for weight/height/age, QRadioButtons for sex (grouped with QButtonGroup), and a QComboBox dropdown with 5 activity levels.</div>
+                    <div class="step-content"><strong>Selected clustering variables:</strong> Extracted G+A/90 and xG+xA/90 for each player. These two metrics balance actual output with expected performance.</div>
                 </div>
                 <div class="approach-step">
                     <div class="step-number">3</div>
-                    <div class="step-content"><strong>Created translation function:</strong> The dropdown returns strings like "1 = Sedentary" but our function needs integers. Built a helper function to convert these to the required 1-5 values.</div>
+                    <div class="step-content"><strong>Determined optimal clusters:</strong> Used the elbow method (within cluster sum of squares) to find that 2 clusters gave the best separation without overfitting.</div>
                 </div>
                 <div class="approach-step">
                     <div class="step-number">4</div>
-                    <div class="step-content"><strong>Wired the processing logic:</strong> Connected the Run button to a function that extracts all inputs, converts types appropriately, calls the health_metric function, and displays results in a read-only QTextEdit.</div>
+                    <div class="step-content"><strong>Applied K-means algorithm:</strong> Ran the clustering with k=2 and visualized which players landed in the same group as the veterans.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content"><strong>Created labeled scatter plots:</strong> Built visualizations with player names so I could easily identify the closest statistical matches.</div>
                 </div>
             </div>
 
             <div class="key-decision">
-                <strong>Key decision:</strong> I used a separate translation function for the activity dropdown rather than storing just integers. This keeps the dropdown user-friendly ("Moderately active" is clearer than "3") while maintaining clean separation between UI labels and data values.
+                <strong>Key decision:</strong> I used only 2 clusters based on the elbow method results. More clusters would have created artificial separations in what was actually a continuous distribution of player ability.
             </div>
         </div>
 
         <!-- Code Highlight -->
         <div class="text-section">
-            <h2>Core Processing Function</h2>
-            <p>The heart of the GUI—this function extracts inputs from all widgets, converts them to the correct types, runs the calculation, and updates the display:</p>
+            <h2>Core Clustering Code</h2>
+            <p>The main analysis filters the data, runs K-means, and produces a labeled scatter plot showing which players group together:</p>
         </div>
 
         <div class="code-section">
-            <pre><code class="python">def process_input():
-    try:
-        # Get input text
-        weight_value = textbox_weight.text()
-        height_value = textbox_height.text()
-        sex_value = sex_group.checkedId()
-        age_value = textbox_age.text()
-        exercise_value = textbox_exercise.currentText()
+            <pre><code class="r"># Filter for Giroud replacement candidates
+giroud_replacement <- player_data %>%
+  filter((Pos == "FW" & Born > 1997) | Rk == "909")
 
-        exercise_value_translate = translate_exercise_level(exercise_value)
+# Select clustering variables
+giroud_vars <- giroud_clean %>%
+  select(Player, `Goal & Assist / 90`, `Expected Goals & Assists / 90`)
 
-        if sex_value == 1:
-            sex_value_new = "m"
-        elif sex_value == 2:
-            sex_value_new = "f"
+# Find optimal number of clusters
+fviz_nbclust(giroud_vars %>% select(-Player), kmeans, method = "wss")
 
-        # Convert to appropriate types
-        weight_value = int(weight_value)
-        height_value = int(height_value)
-        sex_value = str(sex_value_new)
-        age_value = int(age_value)
-        exercise_value = int(exercise_value_translate)
+# Run K-means with 2 clusters
+km_giroud <- kmeans(giroud_vars %>% select(-Player), centers = 2)
 
-        # Process the input
-        result = health_metric(weight_value, height_value, sex_value,
-                              age_value, exercise_value)
-
-        # Display the result
-        result_display.setText(result)
-    except Exception as e:
-        result_display.setText(f"Error: {str(e)}")</code></pre>
+# Create labeled scatter plot
+ggplot(giroud_vars, aes(x = `Goal & Assist / 90`,
+                        y = `Expected Goals & Assists / 90`)) +
+  geom_point() +
+  geom_text(aes(label = Player), vjust = 1.5, size = 3) +
+  labs(title = "Potential Giroud Replacements",
+       x = "Goals + Assists / 90",
+       y = "Expected Goals + Expected Assists / 90") +
+  theme_minimal()</code></pre>
         </div>
 
-        <!-- Visualization -->
+        <!-- Visualization 1 -->
         <div class="photo-section">
             <figure>
-                <img src="../project-image/fig-1-gui-example.png" alt="Health Metrics Calculator GUI">
+                <img src="../project-image/fig-2-optimal-clusters.png" alt="Elbow method plot showing optimal clusters">
                 <figcaption>
-                    <strong>Figure 1: Complete GUI Application</strong>
-                    <span class="insight">The finished interface showing all input fields, the Run button, and the formatted results display area with calculated health metrics.</span>
+                    <strong>Figure 1: Finding the Optimal Number of Clusters</strong>
+                    <span class="insight">The elbow appears at k=2, meaning two clusters capture most of the variance without creating artificial groupings.</span>
+                </figcaption>
+            </figure>
+        </div>
+
+        <!-- Visualization 2 -->
+        <div class="photo-section">
+            <figure>
+                <img src="../project-image/fig-3-scatter-plot.png" alt="Scatter plot of player statistics">
+                <figcaption>
+                    <strong>Figure 2: Player Distribution by Performance Metrics</strong>
+                    <span class="insight">Players cluster naturally into two groups. Those near Giroud in the top right represent the closest statistical matches.</span>
+                </figcaption>
+            </figure>
+        </div>
+
+        <!-- Visualization 3 -->
+        <div class="photo-section">
+            <figure>
+                <img src="../project-image/fig-3-scatter-close.png" alt="Close up of scatter plot">
+                <figcaption>
+                    <strong>Figure 3: Close Up View of Top Performers</strong>
+                    <span class="insight">Foden, Torres, and Nketiah appear closest to Giroud's position, making them the strongest candidates based on statistical similarity.</span>
                 </figcaption>
             </figure>
         </div>
@@ -1041,35 +1006,31 @@
 
             <div class="findings-grid">
                 <div class="finding-card">
-                    <h3>5 Inputs → 7 Outputs</h3>
-                    <p>Users fill in just 5 fields and receive all health metrics instantly in a formatted, easy-to-read display area.</p>
+                    <h3>Three Replacement Candidates for Giroud</h3>
+                    <p>Phil Foden (0.65 G+A/90), Ferran Torres (0.49 G+A/90), and Eddie Nketiah (0.55 G+A/90) all clustered closest to Giroud's profile of 0.56 G+A/90.</p>
                 </div>
                 <div class="finding-card">
-                    <h3>Clean Separation of Concerns</h3>
-                    <p>GUI code handles presentation only—all calculation logic stays in the imported Part 1 module, making both easier to maintain.</p>
+                    <h3>xG Reveals Overperformers</h3>
+                    <p>Foden's actual output (0.65) exceeds his expected output (0.52), suggesting he may be overperforming this season. Nketiah's numbers align more closely with expectations.</p>
                 </div>
                 <div class="finding-card">
-                    <h3>Error Handling Built In</h3>
-                    <p>The try/except block catches invalid inputs and displays meaningful error messages instead of crashing the application.</p>
+                    <h3>Limited Defensive Insight</h3>
+                    <p>For Fernandinho, the analysis was less useful since the dataset lacked defensive metrics. Midfielders need different variables for accurate clustering.</p>
                 </div>
             </div>
 
             <p style="margin-top: 1.5rem;">
-                <strong>Looking Back:</strong> This project connects directly to the back-end work completed in Part 1, demonstrating how modular function design pays off when building user interfaces.
+                <strong>Recommendation:</strong> Clubs should use this as a starting point for scouting, not a final answer. Nketiah appears the safest choice since his actual output matches his expected numbers, suggesting sustainable performance.
             </p>
-
-            <a href="project-define-health-metrics.html" class="prev-phase-link">
-                <i class="fas fa-arrow-left"></i> Back to Part 1: Back-End Development
-            </a>
         </div>
 
         <!-- Reflection Section -->
         <div class="text-section">
             <h2>Reflection</h2>
             <div class="reflection-box">
-                <p>Building this GUI taught me how important it is to plan widget-to-function mapping before writing code. The dropdown translation issue, for example, would have been avoided with better upfront design.</p>
+                <p>This project taught me that clustering works best when you pick variables that actually matter for the specific role. Using only attacking stats made the Giroud analysis useful but limited the Fernandinho analysis significantly.</p>
                 <p style="margin-top: 1rem; margin-bottom: 0;">
-                    Future improvements would include: adding input validation (preventing negative numbers or text in numeric fields), implementing unit conversion toggles (metric/imperial), and perhaps adding visual charts to display results graphically rather than as text only.
+                    Future improvements would include: adding defensive metrics (tackles, interceptions, pressures), using more than two clustering variables to reveal finer distinctions, and accessing professional data sources like StatsBomb for better granularity.
                 </p>
             </div>
         </div>
@@ -1078,10 +1039,12 @@
         <div class="tools-section">
             <h2>Tools & Technologies</h2>
             <div class="tools-grid">
-                <span class="tool-tag"><i class="fab fa-python"></i>Python</span>
-                <span class="tool-tag">PyQt5</span>
-                <span class="tool-tag">QWidgets</span>
-                <span class="tool-tag">Modular Imports</span>
+                <span class="tool-tag"><i class="fab fa-r-project"></i>R</span>
+                <span class="tool-tag">K-means Clustering</span>
+                <span class="tool-tag">ggplot2</span>
+                <span class="tool-tag">dplyr</span>
+                <span class="tool-tag">factoextra</span>
+                <span class="tool-tag">Elbow Method</span>
             </div>
         </div>
 

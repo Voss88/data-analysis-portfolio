@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-WSS3DYFH3Z');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project - Finding Replacement Players in the Transfer Market using K-means Cluster Analysis in R</title>
+    <title>Project - Building a Personal Health Metrics Calculator GUI</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -33,6 +32,8 @@
             --dark-green: #06231A;
             --text-color: #333333;
             --nav-bg-color: #f1f1f1;
+            --gradient-start: rgba(253, 9, 6, 1);
+            --gradient-end: rgba(255, 220, 0, 1);
         }
 
         body {
@@ -58,13 +59,12 @@
             background: var(--nav-bg-color);
             border-bottom: 5px solid transparent;
             border-image: linear-gradient(to right,
-rgba(253, 9, 6, 1),
-rgba(253, 51, 5, 1),
-rgba(254, 93, 3, 1),
-rgba(254, 135, 2, 1),
-rgba(255, 177, 0, 1),
-rgba(255, 220, 0, 1)
-
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
             );
             border-image-slice: 1;
         }
@@ -99,13 +99,12 @@ rgba(255, 220, 0, 1)
             right: 0;
             bottom: 0;
             background: linear-gradient(to right,
-rgba(253, 9, 6, 1),
-rgba(253, 51, 5, 1),
-rgba(254, 93, 3, 1),
-rgba(254, 135, 2, 1),
-rgba(255, 177, 0, 1),
-rgba(255, 220, 0, 1)
-
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
             );
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -162,7 +161,6 @@ rgba(255, 220, 0, 1)
             transition: all 0.3s ease;
         }
 
-
         /* Hero Section */
         .hero-container {
             position: relative;
@@ -172,7 +170,7 @@ rgba(255, 220, 0, 1)
             margin-bottom: 2rem;
             border-radius: 16px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            z-index: 1; /* Added line */
+            z-index: 1;
         }
 
         .hero-image {
@@ -188,7 +186,7 @@ rgba(255, 220, 0, 1)
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 2.5rem;
             border-radius: 16px;
             text-align: center;
@@ -196,7 +194,6 @@ rgba(255, 220, 0, 1)
             max-width: 80%;
             transition: transform 0.3s ease;
         }
-
 
         .hero-text-box h1 {
             color: var(--text-color);
@@ -232,13 +229,12 @@ rgba(255, 220, 0, 1)
             border-bottom: 2px solid;
             display: inline-block;
             border-image: linear-gradient(to right,
-rgba(253, 9, 6, 1),
-rgba(253, 51, 5, 1),
-rgba(254, 93, 3, 1),
-rgba(254, 135, 2, 1),
-rgba(255, 177, 0, 1),
-rgba(255, 220, 0, 1)
-
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
             ) 1;
         }
 
@@ -247,53 +243,180 @@ rgba(255, 220, 0, 1)
             margin-bottom: 1.5rem;
         }
 
-        .code-section {
-            background-color: #1E1E1E;
+        .text-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* TL;DR Section - Highlighted */
+        .tldr-section {
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 0.9),
+                rgba(254, 135, 2, 0.9),
+                rgba(255, 177, 0, 0.9)
+            );
+            color: white;
             padding: 2.5rem;
             margin-bottom: 2rem;
             border-radius: 16px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-            color: #D4D4D4;
-            font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
-            overflow-x: auto;
-            position: relative;
-            transition: transform 0.3s ease;
         }
 
-        .code-section pre {
-            margin: 0;
-            white-space: pre-wrap;
-            font-size: 0.75rem;
+        .tldr-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .code-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 16px;
-            padding: 3px;
-            background: linear-gradient(to right,
-rgba(253, 9, 6, 1),
-rgba(253, 51, 5, 1),
-rgba(254, 93, 3, 1),
-rgba(254, 135, 2, 1),
-rgba(255, 177, 0, 1),
-rgba(255, 220, 0, 1)
+        .tldr-section p {
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
 
+        /* Data Context Box */
+        .data-context {
+            background: #f8f9fa;
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .data-context .item {
+            margin-bottom: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .data-context .item:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-context .label {
+            font-weight: 600;
+            color: var(--text-color);
+            min-width: 140px;
+        }
+
+        .data-context .value {
+            color: #555;
+            flex: 1;
+        }
+
+        /* Approach Steps */
+        .approach-steps {
+            margin: 1.5rem 0;
+        }
+
+        .approach-step {
+            display: flex;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .approach-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            min-width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 1),
+                rgba(255, 177, 0, 1)
             );
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
-            pointer-events: none;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1rem;
+            flex-shrink: 0;
         }
 
-        /* New Photo Section */
+        .step-content {
+            padding-top: 0.4rem;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .metric-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            border-top: 3px solid;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .metric-card .metric-name {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-card .metric-desc {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Findings Grid */
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .finding-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-top: 4px solid;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .finding-card h3 {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .finding-card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* Photo Section */
         .photo-section {
             background-color: white;
             padding: 2.5rem;
@@ -314,9 +437,19 @@ rgba(255, 220, 0, 1)
 
         .photo-section figcaption {
             margin-top: 1rem;
-            font-style: italic;
             text-align: center;
             color: var(--text-color);
+        }
+
+        .photo-section figcaption strong {
+            color: var(--text-color);
+        }
+
+        .photo-section figcaption .insight {
+            display: block;
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 0.25rem;
         }
 
         .photo-section::before {
@@ -329,13 +462,12 @@ rgba(255, 220, 0, 1)
             border-radius: 16px;
             padding: 3px;
             background: linear-gradient(to right,
-rgba(253, 9, 6, 1),
-rgba(253, 51, 5, 1),
-rgba(254, 93, 3, 1),
-rgba(254, 135, 2, 1),
-rgba(255, 177, 0, 1),
-rgba(255, 220, 0, 1)
-
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
             );
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -346,32 +478,159 @@ rgba(255, 220, 0, 1)
             pointer-events: none;
         }
 
-        /* Package Buttons */
-        .package-buttons {
+        /* Code Section */
+        .code-section {
+            background-color: #1E1E1E;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            color: #D4D4D4;
+            font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+            overflow-x: auto;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .code-section pre {
+            margin: 0;
+            white-space: pre-wrap;
+            font-size: 0.85rem;
+        }
+
+        .code-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Tools Section */
+        .tools-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .tools-section h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            display: inline-block;
+        }
+
+        .tools-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1rem;
-            margin-bottom: 1.5rem;
+            justify-content: center;
+            gap: 1rem;
         }
 
-        .package-button {
-            min-width: 25px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            background-color: #FAFAFA;
-            padding: 0.5rem 1rem;
+        .tool-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.6rem 1.25rem;
             border-radius: 25px;
-            transition: all 0.3s ease;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .package-button i {
+        .tool-tag i {
             margin-right: 0.5rem;
-            font-size: 1.1rem;
         }
 
+        /* Reflection Box */
+        .reflection-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #555;
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+        }
+
+        /* Key Decision Highlight */
+        .key-decision {
+            background: linear-gradient(135deg, rgba(253, 51, 5, 0.05), rgba(255, 177, 0, 0.05));
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid rgba(254, 135, 2, 1);
+        }
+
+        .key-decision strong {
+            color: rgba(253, 51, 5, 1);
+        }
+
+        /* Phase Badge */
+        .phase-badge {
+            display: inline-block;
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 0.9),
+                rgba(255, 177, 0, 0.9)
+            );
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Previous Phase Link */
+        .prev-phase-link {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 1),
+                rgba(255, 177, 0, 1)
+            );
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .prev-phase-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(253, 51, 5, 0.3);
+            color: white;
+        }
+
+        .prev-phase-link i {
+            margin-right: 0.5rem;
+        }
 
         /* Media queries */
         @media (min-width: 992px) {
@@ -387,7 +646,6 @@ rgba(255, 220, 0, 1)
         }
 
         @media (max-width: 991px) {
-            /* iPad */
             .navbar {
                 height: 15vh;
             }
@@ -408,16 +666,18 @@ rgba(255, 220, 0, 1)
                 padding: 2rem;
             }
 
-            .package-button {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.85rem;
+            .findings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 767px) {
-            /* Mobile */
-             .nav-link .nav-text {
-                 display: none;
+            .nav-link .nav-text {
+                display: none;
             }
 
             .nav-link i {
@@ -434,11 +694,11 @@ rgba(255, 220, 0, 1)
                 justify-content: center;
             }
 
-             .desktop-logo {
+            .desktop-logo {
                 display: none;
             }
 
-             .mobile-logo {
+            .mobile-logo {
                 display: block;
                 max-height: 55px;
             }
@@ -452,7 +712,7 @@ rgba(255, 220, 0, 1)
             }
 
             body {
-                padding-top: 15vh; /* Changed from 12vh to 15vh */
+                padding-top: 15vh;
             }
 
             .nav-content {
@@ -471,7 +731,7 @@ rgba(255, 220, 0, 1)
 
             .hero-container {
                 height: 40vh;
-                margin-top: 2rem; /* Changed from 1rem to 2rem */
+                margin-top: 2rem;
             }
 
             .hero-image {
@@ -479,33 +739,35 @@ rgba(255, 220, 0, 1)
             }
 
             .hero-text-box {
-                padding: 1.25rem; /* Changed from 1.5rem to 1.25rem */
+                padding: 1.25rem;
                 max-width: 90%;
             }
 
             .hero-text-box h1 {
-                font-size: 1.3rem; /* Changed from 1.5rem to 1.3rem */
+                font-size: 1.3rem;
                 margin-bottom: 0.5rem;
             }
 
             .hero-text-box p {
-                font-size: 0.85rem; /* Changed from 0.9rem to 0.85rem */
+                font-size: 0.85rem;
                 line-height: 1.3;
             }
 
             .text-section,
-            .code-section,
-            .photo-section {
+            .tldr-section,
+            .photo-section,
+            .tools-section,
+            .code-section {
                 padding: 1.5rem;
             }
 
-            .package-button {
-                padding: 0.3rem 0.7rem;
+            .tool-tag {
+                padding: 0.4rem 0.8rem;
                 font-size: 0.8rem;
             }
 
-            .package-buttons {
-                gap: 0.5rem;
+            .metrics-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
@@ -519,7 +781,7 @@ rgba(255, 220, 0, 1)
             }
 
             body {
-                padding-top: 13vh; /* Changed from 10vh to 13vh */
+                padding-top: 13vh;
             }
 
             .nav-content {
@@ -541,26 +803,28 @@ rgba(255, 220, 0, 1)
 
             .hero-container {
                 height: 35vh;
-                margin-top: 2.5rem; /* Changed from 1rem to 2.5rem */
+                margin-top: 2.5rem;
             }
 
             .hero-text-box {
-                padding: 0.75rem; /* Changed from 1rem to 0.75rem */
-                max-width: 95%; /* Changed from 90% to 95% */
+                padding: 0.75rem;
+                max-width: 95%;
             }
 
             .hero-text-box h1 {
-                font-size: 1.1rem; /* Changed from 1.3rem to 1.1rem */
+                font-size: 1.1rem;
             }
 
             .hero-text-box p {
-                font-size: 0.75rem; /* Changed from 0.8rem to 0.75rem */
+                font-size: 0.75rem;
                 line-height: 1.2;
             }
 
             .text-section,
-            .code-section,
-            .photo-section {
+            .tldr-section,
+            .photo-section,
+            .tools-section,
+            .code-section {
                 padding: 1rem;
             }
 
@@ -568,15 +832,18 @@ rgba(255, 220, 0, 1)
                 margin: 1rem auto 2rem;
             }
 
-            .package-button {
-                padding: 0.25rem 0.5rem;
-                font-size: 0.75rem;
-                flex-grow: 1;
-                justify-content: center;
+            .step-number {
+                min-width: 28px;
+                height: 28px;
+                font-size: 0.85rem;
             }
 
-            .package-buttons {
-                gap: 0.4rem;
+            .finding-card {
+                padding: 1rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -584,20 +851,20 @@ rgba(255, 220, 0, 1)
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
-    <div class="nav-content">
-        <a class="nav-link" href="../main-pages/projects.html">
-            <i class="fas fa-folder-open"></i>
-            <span class="nav-text">Projects</span>
-        </a>
-        <a class="navbar-brand mx-2" href="../index.html">
-            <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
-            <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
-        </a>
-        <a class="nav-link" href="../main-pages/cv.html">
-            <i class="fas fa-file-alt"></i>
-            <span class="nav-text">View CV</span>
-        </a>
-    </div>
+        <div class="nav-content">
+            <a class="nav-link" href="../main-pages/projects.html">
+                <i class="fas fa-folder-open"></i>
+                <span class="nav-text">Projects</span>
+            </a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-text">View CV</span>
+            </a>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -605,292 +872,165 @@ rgba(255, 220, 0, 1)
         <div class="hero-container">
             <img src="../project-image/project-image-health.jpg" alt="Project Background" class="hero-image">
             <div class="hero-text-box">
-                <h1>Creating a Health Metric Calculator [2/2]</h1>
-                <p>Phase 2: Creating an effective GUI using the predefined health metric functions</p>
+                <h1>Building a Health Metrics Calculator GUI</h1>
+                <p>Transforming Python functions into an interactive desktop application with PyQt5</p>
             </div>
         </div>
     </div>
 
     <!-- Content Sections -->
     <div class="content-container">
-        <div class="text-section">
+
+        <!-- Phase Badge -->
+        <div class="text-section" style="text-align: center; padding: 1.5rem;">
+            <span class="phase-badge">Part 2 of 2: GUI Development</span>
+        </div>
+
+        <!-- TL;DR Section -->
+        <div class="tldr-section">
             <h2>TL;DR</h2>
-            <p>Phase 2 focuses on developing a Graphic User Interface (GUI) using PyQt5, transforming the mathematical functions from Phase 1 into a visual application that users can easily interact with.</p>
-        <p>The interface features a clean layout with input fields for key metrics: weight, height, age, sex, and activity level. To collect this data, the design incorporates several PyQt5 widgets:</p>
-        <ul>
-            <li>Text input fields (QLineEdit) for numerical values</li>
-            <li>Radio buttons (QRadioButton) for sex selection</li>
-            <li>Dropdown menu (QComboBox) for activity level</li>
-            <li>Push button (QPushButton) to trigger calculations</li>
-        </ul>
-            <p>Results appear in a read-only text display area (QTextEdit) that shows all health metrics clearly formatted with appropriate units. This display updates dynamically whenever new calculations are performed.</p>
+            <p>I wrapped the calculation engine from Part 1 in a <strong>PyQt5 graphical interface</strong>, creating a desktop application where users input their metrics through form fields and receive instant results. The GUI uses <strong>5 different widget types</strong> (text inputs, radio buttons, dropdowns, buttons, and display areas) to collect data and present all 7 health metrics in a clean, formatted output.</p>
+        </div>
 
-            <h2>Prerequisites & Packages</h2>
-            <div class="package-buttons">
-                <div class="package-button">
-                    <i class="fa-brands fa-python fa-lg me-2" style="color: #276DC3;"></i>
-                    Python
+        <!-- The Objective Section -->
+        <div class="text-section">
+            <h2>The Objective</h2>
+            <p>The back-end functions from Part 1 work perfectly in a Python console, but asking users to run scripts and type function calls isn't practical. A graphical interface removes this barrier entirely.</p>
+            <p><strong>Goal:</strong> Build a user-friendly desktop application that collects health data through intuitive form controls and displays calculated metrics without requiring any coding knowledge from the user.</p>
+        </div>
+
+        <!-- Tech & Context Section -->
+        <div class="text-section">
+            <h2>Tech Stack & Context</h2>
+            <div class="data-context">
+                <div class="item">
+                    <span class="label">Framework:</span>
+                    <span class="value">PyQt5 (Python bindings for Qt)</span>
                 </div>
-
-                <div class="package-button">
-                    <i class="fa-brands fa-python fa-lg me-2" style="color: #276DC3;"></i>
-                    PyQt5
+                <div class="item">
+                    <span class="label">Integration:</span>
+                    <span class="value">Imports health_metric function from Part 1 module</span>
+                </div>
+                <div class="item">
+                    <span class="label">Limitation:</span>
+                    <span class="value">No input validation on modular functions. This means it will accept any text string or integers</span>
                 </div>
             </div>
         </div>
 
+        <!-- Widgets Used -->
         <div class="text-section">
-            <h2>Step 1</h2>
-            <p>Here are the imports required for this project, all PyQt5 imports are for the application code and the health_metric import is bringing in the aggregated function from the Phase 1 project</p>
+            <h2>PyQt5 Widgets Used</h2>
+            <p>Each input type was matched to the most appropriate widget for usability:</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-name">QLineEdit</div>
+                    <div class="metric-desc">Text input for weight, height, age</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">QRadioButton</div>
+                    <div class="metric-desc">Binary choice for sex selection</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">QComboBox</div>
+                    <div class="metric-desc">Dropdown for activity level</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">QPushButton</div>
+                    <div class="metric-desc">Triggers calculation</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">QTextEdit</div>
+                    <div class="metric-desc">Read-only results display</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-name">QLabel</div>
+                    <div class="metric-desc">Field labels and headings</div>
+                </div>
+            </div>
         </div>
 
-        <div class="code-section">
-            <pre><code class="Python">
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import *
-import requests
-from health_metrics_calc import health_metric
-        </code></pre>
-        </div>
-
-                <div class="text-section">
-            <h2>Step 2</h2>
-            <p>This defines the start of the application code using 'app=' & 'window=', we also set the size & name of the application when launched using setGeometry & setWindowTitle</p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-def main():
-    app = QApplication([])
-    window = QWidget()
-    window.setGeometry(400, 400, 400, 570)
-    window.setWindowTitle("Health Metrics Calculator")
-    layout = QVBoxLayout()
-        </code></pre>
-        </div>
-
-                <div class="text-section">
-            <h2>Step 3</h2>
-            <p>This adds the first input widget, a textbox input for weight in KG. This allows the user to input any type of text but will only accept an integer</p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-label_weight = QLabel(window)
-label_weight.setText("Weight [kg]:")
-label_weight.setFont(QFont("Helvetica", 16, QFont.Bold))
-textbox_weight = QLineEdit()
-        </code></pre>
-        </div>
-
+        <!-- My Approach Section -->
         <div class="text-section">
-            <h2>Step 4</h2>
-            <p>Similar to the first widget, we create another textbox input for height in CM. Which again allows the user to input any type of text but will give errors if not an integer</p>
+            <h2>My Approach</h2>
+            <p>I tried to structure the GUI as it will appear to the user. Starting with the input widgets, connecting them to the backend functions, and ending with the output display.</p>
+
+            <div class="approach-steps">
+                <div class="approach-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content"><strong>Set up the base application:</strong> Initialized QApplication and QWidget, set dimensions (400×570px), title, and created a vertical layout container for all elements.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content"><strong>Built input widgets:</strong> Created QLineEdit fields for weight/height/age, QRadioButtons for sex (grouped with QButtonGroup), and a QComboBox dropdown with 5 activity levels.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content"><strong>Created translation function:</strong> The dropdown returns strings like "1 = Sedentary" but our function needs integers. Built a helper function to convert these to the required 1-5 values.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content"><strong>Wired the processing logic:</strong> Connected the Run button to a function that extracts all inputs, converts types appropriately, calls the health_metric function, and displays results in a read-only QTextEdit.</div>
+                </div>
+            </div>
+
+            <div class="key-decision">
+                <strong>Key decision:</strong> I used a separate translation function for the activity dropdown rather than storing just integers. This keeps the dropdown user-friendly ("Moderately active" is clearer than "3") while maintaining clean separation between UI labels and data values.
+            </div>
         </div>
 
-        <div class="code-section">
-            <pre><code class="Python">
-label_height = QLabel(window)
-label_height.setText("Height [cm]:")
-label_height.setFont(QFont("Helvetica", 16, QFont.Bold))
-textbox_height = QLineEdit()
-        </code></pre>
-        </div>
-
-        <div class="text-section">
-            <h2>Step 5</h2>
-            <p>The next input required is either male or female, and so we can use a radio button to allow users to easily pick one of these options instead of a textbox. This code defined the options, the starting selection and order of the radio buttons</p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-label_sex = QLabel(window)
-label_sex.setText("Sex:")
-label_sex.setFont(QFont("Helvetica", 16, QFont.Bold))
-male_radio = QRadioButton("Male")
-female_radio = QRadioButton("Female")
-sex_group = QButtonGroup(window)
-sex_group.addButton(male_radio, 1)  # ID 1 for male
-sex_group.addButton(female_radio, 2)  # ID 2 for female
-male_radio.setChecked(True)
-        </code></pre>
-        </div>
-
-        <div class="text-section">
-            <h2>Step 6</h2>
-            <p>The Age input again is a textbox input and has the same implementation as weight & height</p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-label_age = QLabel(window)
-label_age.setText("Age:")
-label_age.setFont(QFont("Helvetica", 16, QFont.Bold))
-textbox_age = QLineEdit()
-        </code></pre>
-        </div>
-
-        <div class="text-section">
-            <h2>Step 7</h2>
-            <p>Because exercise level is an arbitrary metric, we define 5 excerice levels which can be easy to calculate. The best way to communicate the options to the user is with a dropdown menu, which the options are defined in the 'levels' object. However, an issue caused by this implementation is the function requires just a number and not a number + text which is whats included in this drop down, so this will be considered in the process function later.</p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-label_exercise = QLabel(window)
-label_exercise.setText("Weekly Exercise Level:")
-label_exercise.setFont(QFont("Helvetica", 16, QFont.Bold))
-textbox_exercise = QComboBox()
-
-levels = ["1 = Sedentary", "2 = Lightly active", "3 = Moderately active", "4 = Very active", "5 = Super active"]
-textbox_exercise.addItems(levels)
-        </code></pre>
-        </div>
-
-        <div class="text-section">
-            <h2>Step 8</h2>
-            <p>To give users control on when they want to process their inputs, we add a push button called 'Run'</p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-run_button = QPushButton("Run", window)
-        </code></pre>
-        </div>
-
-        <div class="text-section">
-            <h2>Step 9</h2>
-            <p>To display results to users, we can add a readonly textbox. The reason for the textbox is because the process function used later will allow us to text the text within this textbox to the results string defined in the Phase 1 project</p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-result_label = QLabel("Results:")
-result_label.setFont(QFont("Helvetica", 16, QFont.Bold))
-result_display = QTextEdit()
-result_display.setReadOnly(True)
-        </code></pre>
-        </div>
-
-        <div class="text-section">
-            <h2>Step 10</h2>
-            <p>This code is how we give a layout to the GUI, with each line defining the order for each widget to appear</p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-layout.addWidget(label_weight)
-layout.addWidget(textbox_weight)
-layout.addWidget(label_height)
-layout.addWidget(textbox_height)
-layout.addWidget(label_sex)
-layout.addWidget(male_radio)
-layout.addWidget(female_radio)
-layout.addWidget(label_age)
-layout.addWidget(textbox_age)
-layout.addWidget(label_exercise)
-layout.addWidget(textbox_exercise)
-layout.addWidget(run_button)
-layout.addWidget(result_label)
-layout.addWidget(result_display)
-        </code></pre>
-        </div>
-
-        <div class="text-section">
-            <h2>Step 11</h2>
-            <p>As previously mentioned, the exercise dropdown input is now provide our function with a number + text when it can only read the numbers 1-5. This function translates the dropdown inputs and returns the number value required for our function</p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-def translate_exercise_level(input):
-        """Translate exercise level from string to integer."""
-        if input == "1 = Sedentary":
-            return 1
-        elif input == "2 = Lightly active":
-            return 2
-        elif input == "3 = Moderately active":
-            return 3
-        elif input == "4 = Very active":
-            return 4
-        elif input == "5 = Super active":
-            return 5
-        else:
-            raise ValueError("Invalid exercise level")
-        </code></pre>
-        </div>
-
-        <div class="text-section">
-            <h2>Step 12</h2>
-            <p>This is the main processing code for the application, which takes all the user inputs and applies them to the functions defined in Phase 1 of this project. To ensure proper data handling, each input is converted to the appropriate type - either integers for numerical values or strings for text inputs - based on what the underlying functions require. After processing the inputs through the health_metric function, the resulting formatted string is displayed in the results textbox, providing users with a clear presentation of their calculated health metrics.</p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-    def process_input():
-        try:
-            # Get input text
-            weight_value = textbox_weight.text()
-            height_value = textbox_height.text()
-            sex_value = sex_group.checkedId()
-            age_value = textbox_age.text()
-            exercise_value = textbox_exercise.currentText()
-
-            exercise_value_translate = translate_exercise_level(exercise_value)
-
-            if sex_value == 1:
-                sex_value_new = "m"
-            elif sex_value == 2:
-                sex_value_new = "f"
-
-            # Convert to appropriate types
-            weight_value = int(weight_value)
-            height_value = int(height_value)
-            sex_value = str(sex_value_new)
-            age_value = int(age_value)
-            exercise_value = int(exercise_value_translate)
-
-            # Process the input
-            result = health_metric(weight_value, height_value, sex_value, age_value, exercise_value)
-
-            # Display the result
-            result_display.setText(result)
-        except Exception as e:
-            # Show error in the result display
-            result_display.setText(f"Error: {str(e)}")
-        </code></pre>
-        </div>
-
-        <div class="text-section">
-            <h2>Step 13</h2>
-            <p>This code connects the run button to the process function, allowing the user to choose when to process their inputted metrics. The other lines below this define the layout & displays the window when required </p>
-        </div>
-
-        <div class="code-section">
-            <pre><code class="Python">
-run_button.clicked.connect(process_input)
-
-window.setLayout(layout)
-window.show()
-app.exec()
-
-if __name__ == '__main__':
-    main()
-        </code></pre>
-        </div>
-
-        <div class="text-section">
-            <h2>Step 14</h2>
-            <p>After running all of this code together, we get an effective GUI that presents health metrics to users in a clear and accessible format:</p>
-        </div>
-
+        <!-- Visualization -->
         <div class="photo-section">
             <figure>
-                <!-- Replace with actual image path -->
-                <img src="../project-image/fig-1-gui-example.png" alt="example.jpeg">
-                <figcaption>Figure 1: GUI Example</figcaption>
+                <img src="../project-image/fig-1-gui-example.png" alt="Health Metrics Calculator GUI">
+                <figcaption>
+                    <strong>Figure 1: Complete GUI Application</strong>
+                    <span class="insight">The finished interface showing all input fields, the Run button, and the formatted results display area with calculated health metrics.</span>
+                </figcaption>
             </figure>
+        </div>
+
+        <!-- Findings Section -->
+        <div class="text-section">
+            <h2>Key Outcomes</h2>
+
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <h3>5 Inputs → 7 Outputs</h3>
+                    <p>Users input just 5 fields and receive all health metrics instantly in a formatted, easy-to-read display area.</p>
+                </div>
+                <div class="finding-card">
+                    <h3>Clean Separation of Concerns</h3>
+                    <p>GUI code handles presentation only. All calculation logic stays in the imported Part 1 module, making both easier to maintain & debug.</p>
+                </div>
+            </div>
+
+            <a href="project-define-health-metrics.html" class="prev-phase-link">
+                <i class="fas fa-arrow-left"></i> Back to Part 1: Back-End Development
+            </a>
+        </div>
+
+        <!-- Reflection Section -->
+        <div class="text-section">
+            <h2>Reflection</h2>
+            <div class="reflection-box">
+                <p>Building this GUI taught me how important it is to plan widget-to-function mapping before writing code. The dropdown translation issue, for example, would have been avoided with better upfront design.</p>
+                <p style="margin-top: 1rem; margin-bottom: 0;">
+                    Future improvements would include: adding input validation (preventing negative numbers or text in numeric fields), implementing unit conversion toggles (metric/imperial), and perhaps adding visual charts to display results graphically rather than as text only.
+                </p>
+            </div>
+        </div>
+
+        <!-- Tools Section -->
+        <div class="tools-section">
+            <h2>Tools & Technologies</h2>
+            <div class="tools-grid">
+                <span class="tool-tag"><i class="fab fa-python"></i>Python</span>
+                <span class="tool-tag">PyQt5</span>
+                <span class="tool-tag">QWidgets</span>
+                <span class="tool-tag">Modular Imports</span>
+            </div>
         </div>
 
     </div>
