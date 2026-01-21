@@ -12,16 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- ============================================
-         TEMPLATE INSTRUCTIONS:
-         1. Update the <title> tag below
-         2. Replace all [PLACEHOLDER] text with your content
-         3. Update image paths in the photo sections
-         4. Add/remove finding cards and approach steps as needed
-         5. Save as: project-[your-project-name].html
-         ============================================ -->
-
-    <title>Project - [PROJECT TITLE]</title>
+    <title>Project - Bank Loan Approval Prediction</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -724,10 +715,7 @@
     </style>
 </head>
 <body>
-    <!-- ============================================
-         NAVIGATION BAR
-         No changes needed here
-         ============================================ -->
+    <!-- NAVIGATION BAR -->
     <nav class="navbar">
         <div class="nav-content">
             <a class="nav-link" href="../main-pages/projects.html">
@@ -745,261 +733,163 @@
         </div>
     </nav>
 
-    <!-- ============================================
-         HERO SECTION
-         Update:
-         - hero image path
-         - h1 title
-         - p tagline
-         ============================================ -->
+    <!-- HERO SECTION -->
     <div class="container-fluid px-3">
         <div class="hero-container">
-            <!-- UPDATE: Change image path -->
-            <img src="../project-image/[YOUR-HERO-IMAGE].png" alt="Project Background" class="hero-image">
+            <img src="" alt="Bank Loan Prediction Project Background" class="hero-image">
             <div class="hero-text-box">
-                <!-- UPDATE: Project title -->
-                <h1>[Your Project Title]</h1>
-                <!-- UPDATE: One-line tagline -->
-                <p>[One sentence describing what you did and why it matters]</p>
+                <h1>Bank Loan Approval Prediction</h1>
+                <p>Building an interpretable machine learning model to predict loan approval outcomes and identify the key factors driving lending decisions.</p>
             </div>
         </div>
     </div>
 
-    <!-- ============================================
-         CONTENT SECTIONS
-         ============================================ -->
+    <!-- CONTENT SECTIONS -->
     <div class="content-container">
 
-        <!-- ========================================
-             SECTION 1: TL;DR
-             3-4 sentences covering:
-             - What method you used
-             - What you did
-             - Key finding(s)
-             - Impact/implication
-             ======================================== -->
+        <!-- TL;DR -->
         <div class="tldr-section">
             <h2>TL;DR</h2>
             <p>
-                By using <strong>[METHOD/TOOL]</strong>, I [WHAT YOU DID] to address [PROBLEM/QUESTION].
-                The analysis revealed <strong>[KEY FINDING]</strong>.
-                [PRACTICAL IMPLICATION OR RECOMMENDATION].
+                Using <strong>Logistic Regression</strong>, I built a loan approval prediction model, using various stock & engineered features, which achieved an accuracy score of 75.7. My feature analysis revealed that <strong>Credit History is the most influential feature</strong> in loan approval decisions, while income-related features had surprisingly minimal impact.
             </p>
         </div>
 
-        <!-- ========================================
-             SECTION 2: THE CHALLENGE
-             Structure:
-             - Paragraph 1: Context/background
-             - Paragraph 2: The specific question (bold "The question:")
-             - Paragraph 3: Why it matters/stakes
-             ======================================== -->
+        <!-- THE OBJECTIVE -->
         <div class="text-section">
             <h2>The Objective</h2>
-            <p>[CONTEXT: Brief background on the domain or situation. What's the landscape? What problem exists?]</p>
-            <p><strong>Goal:</strong> [The specific question or challenge you set out to address]</p>
-            <p>[STAKES: Why does this matter? Who benefits from solving it? What's the impact of getting it right or wrong?]</p>
+            <p>Banks often process large amounts of loan applications daily, requiring quick yet accurate decisions that balance risk management with customer service. Understanding which factors truly drive approval decisions helps optimize business processes and aid applicants in submitting stronger applications.</p>
+            <p><strong>Goal:</strong> Can I build a logistic regression model that accurately predicts loan approval outcomes while revealing which applicant characteristics have the most impact to lenders?</p>
         </div>
 
-        <!-- ========================================
-             SECTION 3: DATA & CONTEXT
-             Fill in the 4 items below
-             ======================================== -->
+        <!-- DATA & CONTEXT -->
         <div class="text-section">
             <h2>Data & Context</h2>
             <div class="data-context">
                 <div class="item">
                     <span class="label">Source:</span>
-                    <span class="value">[Where the data came from]</span>
+                    <span class="value">Bank Loan data from Kaggle. 614 training records and 367 test records.</span>
                 </div>
                 <div class="item">
                     <span class="label">Columns:</span>
-                    <span class="value">[Columns, Data Types]</span>
+                    <span class="value">12 original features including Gender, Married, Dependents, Education, Self_Employed, ApplicantIncome, CoapplicantIncome, LoanAmount, Loan_Amount_Term, Credit_History, Property_Area and Loan_Status (binary target column).</span>
                 </div>
                 <div class="item">
-                    <span class="label">Key Variables:</span>
-                    <span class="value">[The main features/metrics you analyzed]</span>
+                    <span class="label">Engineered Features:</span>
+                    <span class="value">Total Income, Lead Applicant Income Percentage, and Loan Amount to Income Ratio.</span>
                 </div>
                 <div class="item">
                     <span class="label">Limitations:</span>
-                    <span class="value">[Be honest about constraints - this shows analytical maturity]</span>
+                    <span class="value">NULL values were filled with 0 (simplified approach) & dataset is relatively small for accurate analysis.</span>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================
-             SECTION 4: MY APPROACH
-             Structure:
-             - Opening paragraph: Why you chose this method
-             - Numbered steps (add/remove as needed)
-             - Key decision box (optional but recommended)
-             ======================================== -->
+        <!-- MY APPROACH -->
         <div class="text-section">
             <h2>My Approach</h2>
-            <p>I chose <strong>[METHOD/TECHNIQUE]</strong> because [REASONING - why was this the right approach for this problem?].</p>
+            <p>I selected <strong>Logistic Regression</strong> because interpretability was key to solving the business problem. Users not only want to know if their loan is rejected, but why it was rejected. This is something a 'black-box' model like XGBoost or random forest could not provide.</p>
 
-            <!-- Add or remove steps as needed -->
             <div class="approach-steps">
                 <div class="approach-step">
                     <div class="step-number">1</div>
-                    <div class="step-content">[HIGH-LEVEL DESCRIPTION - What you did first and why. No code, just narrative.]</div>
+                    <div class="step-content">Converted categorical variables to numerical. Mapping features like Gender, Education, and Property_Area to numeric values suitable for model training.</div>
                 </div>
                 <div class="approach-step">
                     <div class="step-number">2</div>
-                    <div class="step-content">[HIGH-LEVEL DESCRIPTION - What you did next. Focus on the thinking, not the syntax.]</div>
+                    <div class="step-content">Engineered three new features to capture financial health more holistically: Total Income (combining applicant and co-applicant), Lead Applicant Income Percentage, and Loan Amount to Income Ratio.</div>
                 </div>
                 <div class="approach-step">
                     <div class="step-number">3</div>
-                    <div class="step-content">[HIGH-LEVEL DESCRIPTION - Final steps. What did this produce?]</div>
+                    <div class="step-content">Built a correlation heatmap to understand feature relationships and identify potential multicollinearity issues before model training.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">Trained the Logistic Regression model with standardized features (using StandardScaler) and a 70/30 train-test split.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">Applied SHAP (Shapley Values) to analyze each individual feature contributions.</div>
                 </div>
             </div>
 
-            <!-- Optional: Highlight an interesting decision you made -->
             <div class="key-decision">
-                <strong>Key decision:</strong> [Describe an interesting choice you made during the analysis and why you made it. This shows your analytical thinking.]
+                <strong>Key decision:</strong> I looked to include Shapley values for model explainability from the start, which is why I chose Logistic Regression over more complex models. This allowed me to deliver predictions with explanations that stakeholders could trust and act upon.
             </div>
         </div>
 
-        <!-- ========================================
-             SECTION 5: KEY VISUALIZATIONS
-             Include 2-4 images
-
-             IMPORTANT: Write INSIGHT-DRIVEN captions
-             ❌ Bad: "Figure 1: Bar chart of sales by region"
-             ✅ Good: "Figure 1: Europe leads with 45% of total sales,
-                       nearly double North America's contribution"
-             ======================================== -->
-
-        <!-- Visualization 1 -->
+        <!-- VISUALIZATION 1: Correlation Heatmap -->
         <div class="photo-section">
             <figure>
-                <!-- UPDATE: Image path and alt text -->
-                <img src="../project-image/[YOUR-IMAGE-1].png" alt="[Descriptive alt text]">
+                <img src="../project-image/bank-loan-correlation-heatmap.png" alt="Correlation heatmap showing relationships between all numerical features in the loan dataset">
                 <figcaption>
-                    <!-- UPDATE: Title and insight -->
-                    <strong>Figure 1: [Descriptive Title]</strong>
-                    <span class="insight">[What INSIGHT does this visualization reveal? Not just what it shows, but what it MEANS.]</span>
+                    <strong>Figure 1: Feature Correlation Matrix</strong>
+                    <span class="insight">Credit History shows the strongest correlation (0.56). Engineered features like Total Income and Loan Amount to Income Ratio show expected mathematical relationships but limited predictive affect.</span>
                 </figcaption>
             </figure>
         </div>
 
-        <!-- Visualization 2 -->
+        <!-- VISUALIZATION 2: SHAP Summary Plot -->
         <div class="photo-section">
             <figure>
-                <!-- UPDATE: Image path and alt text -->
-                <img src="../project-image/[YOUR-IMAGE-2].png" alt="[Descriptive alt text]">
+                <img src="../project-image/bank-loan-shap-summary.png" alt="SHAP summary plot showing feature importance and impact direction on loan approval predictions">
                 <figcaption>
-                    <!-- UPDATE: Title and insight -->
-                    <strong>Figure 2: [Descriptive Title]</strong>
-                    <span class="insight">[Key takeaway from this visual - what should the reader understand?]</span>
+                    <strong>Figure 2: SHAP Feature Importance Summary</strong>
+                    <span class="insight">Credit History dominates all other features in predicting approval, with SHAP values ranging from -2 to +3. Property Area and Married status show moderate importance, while income-related features cluster near zero impact.</span>
                 </figcaption>
             </figure>
         </div>
 
-        <!--
-        OPTIONAL: Add more visualizations by copying the photo-section block above
-        Recommended: 2-4 total images. Quality over quantity.
-        -->
-
-        <!-- ========================================
-             SECTION 6: FINDINGS
-             Structure:
-             - Finding cards (add/remove as needed, 2-4 recommended)
-             - Recommendation paragraph
-
-             Tips:
-             - Be SPECIFIC and QUANTIFY where possible
-             - Each finding should be actionable or insightful
-             ======================================== -->
+        <!-- FINDINGS -->
         <div class="text-section">
             <h2>Findings</h2>
 
-            <!-- Add or remove finding cards as needed -->
             <div class="findings-grid">
                 <div class="finding-card">
-                    <h3>[Finding 1 Headline]</h3>
-                    <p>[1-2 sentences with specific, quantified detail. What did you discover? Include numbers where possible.]</p>
+                    <h3>Credit History is Crucial</h3>
+                    <p>With SHAP values 3-4x larger than any other feature, credit history overwhelmingly determines if the loan is approved or not. Applicants with positive credit history see approval rates dramatically higher than those without.</p>
                 </div>
                 <div class="finding-card">
-                    <h3>[Finding 2 Headline]</h3>
-                    <p>[1-2 sentences with specific detail. What's the implication of this finding?]</p>
+                    <h3>Income Matters Less Than Expected</h3>
+                    <p>At the start of this project, one of my pre-conceptions with loans would be the importance of income. However, income-related features showed minimal SHAP importance. The model suggests lenders weight repayment track record far above current earnings.</p>
                 </div>
                 <div class="finding-card">
-                    <h3>[Finding 3 Headline]</h3>
-                    <p>[1-2 sentences. Consider including a limitation or caveat as one of your findings - it shows rigor.]</p>
+                    <h3>75.7% Accuracy with Interpretability</h3>
+                    <p>The model correctly predicted 140 of 185 test cases (28 true negatives, 112 true positives), with particularly strong recall (85%) for approved loans. The 25 false positives indicate conservative tendencies in borderline cases.</p>
                 </div>
             </div>
 
-            <!-- Recommendation/conclusion paragraph -->
             <p style="margin-top: 1.5rem;">
-                <strong>Recommendation:</strong> [Based on your findings, what should someone DO with this information? Who should take what action?]
+                <strong>Recommendation:</strong> Financial institutions should value credit history above all else, as it's the primary decision driver. Applicants credit history should be communicated as being crucial for future loans and recommend prioritising credit history before income when preparing loan applications. For model deployment, the false positive rate suggests adding a manual review layer for predicted approvals with weaker predictive features.
             </p>
         </div>
 
-        <!-- ========================================
-             SECTION 7: REFLECTION
-             Structure:
-             - What you learned/reinforced
-             - What you'd improve with more time
-             - Potential future extensions
-
-             This section shows growth mindset and self-awareness
-             ======================================== -->
+        <!-- REFLECTION -->
         <div class="text-section">
             <h2>Reflection</h2>
             <div class="reflection-box">
-                <p>[What skill, concept, or technique did this project reinforce or teach you?]</p>
+                <p>This project reinforced the value of explainable AI in high-stakes domains. While a XGBoost or random forest model might have achieved 80%+ accuracy, the SHAP-based insights into lending behavior are more valuable to the business requirements, than those few extra percentage points.</p>
                 <p style="margin-top: 1rem; margin-bottom: 0;">
-                    If I revisited this analysis, I would [IMPROVEMENT 1] and [IMPROVEMENT 2].
-                    A natural extension would be [FUTURE IDEA] — something I may explore in a future project.
+                    If I revisited this analysis, I would trial different models before settling on Logistic Regression, and explore more feature engineering, as the features I created didn't meaningfully improve the models accuracy. I'd also review the predictions to ensure any biases embedded in credit history data don't disproportionately affect certain demographics, such as gender or age.
                 </p>
             </div>
         </div>
 
-        <!-- ========================================
-             SECTION 8: TOOLS & TECHNOLOGIES
-             List all relevant tools, languages, libraries, techniques
-
-             Icons available (Font Awesome):
-             - fab fa-python (Python)
-             - fab fa-r-project (R)
-             - fab fa-js (JavaScript)
-             - fas fa-database (SQL/Database)
-             - Or just use text without icons
-             ======================================== -->
+        <!-- TOOLS & TECHNOLOGIES -->
         <div class="tools-section">
             <h2>Tools & Technologies</h2>
             <div class="tools-grid">
-                <!-- UPDATE: Add your tools. Include icons where relevant -->
                 <span class="tool-tag"><i class="fab fa-python"></i>Python</span>
-                <span class="tool-tag"><i class="fab fa-r-project"></i>R</span>
-                <span class="tool-tag">[Library 1]</span>
-                <span class="tool-tag">[Library 2]</span>
-                <span class="tool-tag">[Technique]</span>
-                <span class="tool-tag">[Platform/Tool]</span>
+                <span class="tool-tag">Pandas</span>
+                <span class="tool-tag">NumPy</span>
+                <span class="tool-tag">Scikit-learn</span>
+                <span class="tool-tag">SHAP</span>
+                <span class="tool-tag">Logistic Regression</span>
+                <span class="tool-tag">Feature Engineering</span>
             </div>
         </div>
 
     </div>
-
-    <!-- ============================================
-         CHECKLIST BEFORE PUBLISHING
-         Delete this comment block when done
-
-         [ ] Title updated in <title> tag
-         [ ] Hero image path updated
-         [ ] Hero title and tagline filled in
-         [ ] TL;DR is 3-4 sentences, can stand alone
-         [ ] Challenge section has context, question, stakes
-         [ ] Data context box completely filled
-         [ ] Approach steps are narrative (NO code)
-         [ ] All image paths updated
-         [ ] Image captions are INSIGHT-driven
-         [ ] Findings are specific and quantified
-         [ ] Reflection shows what you learned
-         [ ] Tools section includes all relevant tech
-         [ ] File saved as: project-[name].html
-         ============================================ -->
 
 </body>
 </html>
