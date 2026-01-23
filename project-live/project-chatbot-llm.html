@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WSS3DYFH3Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project - LLM Chatbot for AutoTrader</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --dark-green: #06231A;
+            --text-color: #333333;
+            --nav-bg-color: #f1f1f1;
+            --gradient-start: rgba(253, 9, 6, 1);
+            --gradient-end: rgba(255, 220, 0, 1);
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            padding-top: 18vh;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15vh;
+            z-index: 1000;
+            padding: 0;
+            background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            border-image-slice: 1;
+        }
+
+        .nav-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem;
+        }
+
+        .nav-content a.nav-link {
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+            margin: 0 1rem;
+        }
+
+        .nav-content a.nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-content a.nav-link:hover {
+            color: white !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-content a.nav-link:hover::before {
+            opacity: 1;
+        }
+
+        .navbar-brand.mx-2 {
+            background: none;
+            overflow: visible;
+            padding: 0 !important;
+            border-radius: 0;
+        }
+
+        .navbar-brand.mx-2:hover::before {
+            opacity: 0;
+            display: none;
+        }
+
+        .navbar-brand {
+            margin: 0 2rem;
+            z-index: 3;
+        }
+
+        .navbar-brand img {
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+        }
+
+        .desktop-logo {
+            display: block;
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-logo {
+            display: none;
+            max-height: 55px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.9);
+        }
+
+        .hero-text-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 80%;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-text-box h1 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-text-box p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        /* Content Sections */
+        .content-container {
+            max-width: 1000px;
+            margin: 2rem auto 4rem;
+            padding: 0;
+        }
+
+        .text-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .text-section h2 {
+            color: var(--text-color);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid;
+            display: inline-block;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            ) 1;
+        }
+
+        .text-section p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .text-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* TL;DR Section - Highlighted */
+        .tldr-section {
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 0.9),
+                rgba(254, 135, 2, 0.9),
+                rgba(255, 177, 0, 0.9)
+            );
+            color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tldr-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tldr-section p {
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* Data Context Box */
+        .data-context {
+            background: #f8f9fa;
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .data-context .item {
+            margin-bottom: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .data-context .item:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-context .label {
+            font-weight: 600;
+            color: var(--text-color);
+            min-width: 140px;
+        }
+
+        .data-context .value {
+            color: #555;
+            flex: 1;
+        }
+
+        /* Approach Steps */
+        .approach-steps {
+            margin: 1.5rem 0;
+        }
+
+        .approach-step {
+            display: flex;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .approach-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            min-width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 1),
+                rgba(255, 177, 0, 1)
+            );
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            padding-top: 0.4rem;
+        }
+
+        /* Findings Grid */
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .finding-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-top: 4px solid;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .finding-card h3 {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .finding-card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* Photo Section */
+        .photo-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .photo-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .photo-section figcaption {
+            margin-top: 1rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .photo-section figcaption strong {
+            color: var(--text-color);
+        }
+
+        .photo-section figcaption .insight {
+            display: block;
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 0.25rem;
+        }
+
+        .photo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Tools Section */
+        .tools-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .tools-section h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            display: inline-block;
+        }
+
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .tool-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.6rem 1.25rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-tag i {
+            margin-right: 0.5rem;
+        }
+
+        /* Reflection Box */
+        .reflection-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #555;
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+        }
+
+        /* Key Decision Highlight */
+        .key-decision {
+            background: linear-gradient(135deg, rgba(253, 51, 5, 0.05), rgba(255, 177, 0, 0.05));
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid rgba(254, 135, 2, 1);
+        }
+
+        .key-decision strong {
+            color: rgba(253, 51, 5, 1);
+        }
+
+        /* Media queries */
+        @media (min-width: 992px) {
+            .navbar-brand img {
+                max-height: 85px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .navbar-brand img {
+                max-height: 80px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .navbar {
+                height: 15vh;
+            }
+
+            .navbar-brand img {
+                max-height: 70px;
+            }
+
+            body {
+                padding-top: 15vh;
+            }
+
+            .hero-container {
+                height: 50vh;
+            }
+
+            .hero-text-box {
+                padding: 2rem;
+            }
+
+            .findings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav-link .nav-text {
+                display: none;
+            }
+
+            .nav-link i {
+                margin-right: 0;
+                font-size: 1.2rem;
+            }
+
+            .nav-content a.nav-link {
+                padding: 0.5rem !important;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .desktop-logo {
+                display: none;
+            }
+
+            .mobile-logo {
+                display: block;
+                max-height: 55px;
+            }
+
+            .navbar {
+                height: 13vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
+            }
+
+            body {
+                padding-top: 15vh;
+            }
+
+            .nav-content {
+                padding: 0.5rem;
+            }
+
+            .navbar-brand {
+                margin: 0 1rem !important;
+            }
+
+            .nav-link {
+                padding: 0.5rem !important;
+                margin: 0 0.25rem;
+                font-size: 0.9rem;
+            }
+
+            .hero-container {
+                height: 40vh;
+                margin-top: 2rem;
+            }
+
+            .hero-image {
+                padding: 0.25rem;
+            }
+
+            .hero-text-box {
+                padding: 1.25rem;
+                max-width: 90%;
+            }
+
+            .hero-text-box h1 {
+                font-size: 1.3rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-text-box p {
+                font-size: 0.85rem;
+                line-height: 1.3;
+            }
+
+            .text-section,
+            .tldr-section,
+            .photo-section,
+            .tools-section {
+                padding: 1.5rem;
+            }
+
+            .data-context .item {
+                flex-direction: column;
+            }
+
+            .data-context .label {
+                margin-bottom: 0.25rem;
+            }
+
+            .tool-tag {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                height: 12vh;
+            }
+
+            .navbar-brand img {
+                max-height: 55px;
+            }
+
+            body {
+                padding-top: 13vh;
+            }
+
+            .nav-content {
+                padding: 0.25rem;
+            }
+
+            .navbar-brand {
+                margin: 0 0.5rem !important;
+            }
+
+            .nav-link {
+                padding: 0.25rem !important;
+                font-size: 0.8rem;
+            }
+
+            .hero-image {
+                padding: 0.25rem;
+            }
+
+            .hero-container {
+                height: 35vh;
+                margin-top: 2.5rem;
+            }
+
+            .hero-text-box {
+                padding: 0.75rem;
+                max-width: 95%;
+            }
+
+            .hero-text-box h1 {
+                font-size: 1.1rem;
+            }
+
+            .hero-text-box p {
+                font-size: 0.75rem;
+                line-height: 1.2;
+            }
+
+            .text-section,
+            .tldr-section,
+            .photo-section,
+            .tools-section {
+                padding: 1rem;
+            }
+
+            .content-container {
+                margin: 1rem auto 2rem;
+            }
+
+            .step-number {
+                min-width: 28px;
+                height: 28px;
+                font-size: 0.85rem;
+            }
+
+            .finding-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="../main-pages/projects.html">
+                <i class="fas fa-folder-open"></i>
+                <span class="nav-text">Projects</span>
+            </a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-text">View CV</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container-fluid px-3">
+        <div class="hero-container">
+            <img src="../project-image/project-chatbot-llm.png" alt="LLM Chatbot Project Background" class="hero-image">
+            <div class="hero-text-box">
+                <h1>Building a LLM Chatbot for Car Buyers</h1>
+                <p>Using Generative AI to help online car buyers find exactly what matters most to them</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="content-container">
+
+        <!-- TL;DR Section -->
+        <div class="tldr-section">
+            <h2>TL;DR</h2>
+            <p>
+                Using <strong>GCP, Vertex AI, and Gemini 2.0 Flash</strong>, I built a chatbot that reads car advert data from AutoTrader's marketplace and answers user questions about specific vehicles. The chatbot uses guardrails to stay polite, accurate, and on topic while refusing to make up information it does not have. The main takeaway is that while LLMs offer real value for personalising user experiences, the risk of incorrect or offensive outputs means businesses must carefully weigh innovation against brand reputation.
+            </p>
+        </div>
+
+        <!-- The Objective Section -->
+        <div class="text-section">
+            <h2>The Objective</h2>
+            <p>Buying a car online is a challenge. There are pages full of information, technical jargon, and details that force everyday buyers to learn a lot before making what is often their second largest purchase. So the question became: can we remove this friction and help users quickly find the information that matters most to them?</p>
+            <p><strong>Goal:</strong> Build a chatbot using an LLM, that reads advert data from an online car marketplace and ensures the AI is safe and reliable to use.</p>
+            <p>A chatbot like this could transform pages of dense information into a personalised conversation that speaks directly to each user. However, the risk of the LLM producing incorrect or offensive content is a concern, and businesses must balance the value of innovation against potential damage to their brand.</p>
+        </div>
+
+        <!-- Data & Context Section -->
+        <div class="text-section">
+            <h2>Data & Context</h2>
+            <div class="data-context">
+                <div class="item">
+                    <span class="label">Source:</span>
+                    <span class="value">Internal AutoTrader data</span>
+                </div>
+                <div class="item">
+                    <span class="label">Columns:</span>
+                    <span class="value">vehicle_make, vehicle_model, vehicle_price, vehicle_mileage, key_features, and more</span>
+                </div>
+                <div class="item">
+                    <span class="label">Key Variables:</span>
+                    <span class="value">Gemini 2.0 Flash model and live advert data</span>
+                </div>
+                <div class="item">
+                    <span class="label">Limitations:</span>
+                    <span class="value">LLM hallucinations and missing advert data fields</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Approach Section -->
+        <div class="text-section">
+            <h2>My Approach</h2>
+            <p>I chose <strong>Gemini 2.0 Flash from Vertex AI's Model Garden</strong> because I needed a model that was both cost effective and quick to deploy for a hackathon. This was not a production release, so speed and experimentation were our main priorities.</p>
+
+            <div class="approach-steps">
+                <div class="approach-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">Researched available models in Vertex AI's Model Garden, focusing on options that were cheaper and faster since this was a rapid prototype rather than a full release.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">Built an initial version in Databricks using a small static dataset with four or five variables. Created simple system instructions that limited the LLM to only answer questions based on the data passed through.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">Created an endpoint using GCP's Cloud Run so the LLM could communicate with the front end without needing to build an entire backend system.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">Added extraction functions which took the JSON request and mapped the data to variables which could be used by the LLM function.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">Tested the released LLM thoroughly across the team, making adjustments when responses were formatted poorly or when the LLM could be tricked into ignoring its instructions.</div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">Released a local version for colleague testing and gathered feedback on prompts that bypassed the guardrails. We patched these issues and continued testing.</div>
+                </div>
+            </div>
+
+            <div class="key-decision">
+                <strong>Key decision:</strong> I chose to use a pre-trained model rather than training our own. This meant working within the constraints we set through system instructions rather than customising the model itself, which saved significant time.
+            </div>
+        </div>
+
+        <!-- Visualisation Section -->
+        <div class="photo-section">
+            <figure>
+                <img src="../project-image/fig-1-chatbot-llm-frontend.jpeg" alt="Screenshot of the chatbot interface showing example queries">
+                <figcaption>
+                    <strong>Figure 1: Front End Chatbot Interface</strong>
+                    <span class="insight">The chatbot demonstrating basic but key queries it would likely receive and its response. (Internal Backend code will not be shown is this project)</span>
+                </figcaption>
+            </figure>
+        </div>
+
+        <!-- Findings Section -->
+        <div class="text-section">
+            <h2>Findings</h2>
+
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <h3>Real Value for Users</h3>
+                    <p>The chatbot successfully transformed dense advert pages into personalised conversations, letting users quickly find specific details like infotainment systems or finance options without having to read the entire advert.</p>
+                </div>
+                <div class="finding-card">
+                    <h3>Hallucinations Are a Challenge</h3>
+                    <p>LLMs are a challenge to wrangle. Even with clear instructions, the model would sometimes miss guidelines after longer or difficult conversations. It took a lot of trial and error to get consistent behaviour.</p>
+                </div>
+                <div class="finding-card">
+                    <h3>Accountability Concerns</h3>
+                    <p>I can see why businesses often outsource their LLM solutions. If something goes wrong, the blame can be shifted to the provider, and the service can be swapped out before serious brand damage occurs.</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 1.5rem;">
+                <strong>Recommendation:</strong> Whether building an LLM chatbot makes sense depends on how a business positions itself. While it offers an innovative way to personalise user experiences, the production costs and brand risks of building in house are significant and need careful consideration. This would only be recommended if the business could provide adequate support and monitoring to manage the LLM's behaviour over time.
+            </p>
+        </div>
+
+        <!-- Reflection Section -->
+        <div class="text-section">
+            <h2>Reflection</h2>
+            <div class="reflection-box">
+                <p>This project taught me a great deal about building endpoints, working with Vertex AI's Model Garden, and crafting effective system instructions for LLMs.</p>
+                <p style="margin-top: 1rem; margin-bottom: 0;">
+                    If I had more time, I would look to build and train a model instead of using a pre-trained version. I would also build a more robust backend instead of relying on just the GCP endpoint. I would also look to add monitoring and sentiment analysis to spot negative conversations and use those insights to improve the instructions. In future projects, I will have a much better starting point and will not need as much trial and error to get the LLM behaving as expected.
+                </p>
+            </div>
+        </div>
+
+        <!-- Tools & Technologies Section -->
+        <div class="tools-section">
+            <h2>Tools & Technologies</h2>
+            <div class="tools-grid">
+                <span class="tool-tag"><i class="fab fa-python"></i>Python</span>
+                <span class="tool-tag">Large Language Models</span>
+                <span class="tool-tag">Generative AI</span>
+                <span class="tool-tag">GCP</span>
+                <span class="tool-tag">Vertex AI</span>
+                <span class="tool-tag">APIs</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
