@@ -162,11 +162,32 @@ rgba(255, 220, 0, 1)
             overflow-x: hidden;
         }
 
-        .projects-container h1 {
+        .projects-header {
+            position: relative;
             text-align: center;
             margin-bottom: 2.5rem;
+        }
+
+        .projects-container h1 {
             color: var(--text-color);
             font-weight: 600;
+            display: inline;
+        }
+
+        .lock-icon-link {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ccc;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 4px;
+        }
+
+        .lock-icon-link:hover {
+            color: var(--primary-color);
         }
 
         .project-grid {
@@ -436,7 +457,12 @@ rgba(255, 220, 0, 1)
 
     <!-- Projects Section -->
     <div class="container projects-container">
-        <h1>My Projects</h1>
+        <div class="projects-header">
+            <h1>My Projects</h1>
+            <a href="../private-projects/private-login.html" class="lock-icon-link" title="Private Projects">
+                <i class="fas fa-lock"></i>
+            </a>
+        </div>
         <div class="project-grid">
             <!-- Project 1 -->
             <div class="project-card" data-link="../project-live/project-football-transfer-analysis.html">

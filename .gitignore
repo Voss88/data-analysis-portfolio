@@ -1,0 +1,7 @@
+# Private project pages — kept local only, not published to GitHub Pages
+private-projects/
+working-docs/
+
+# OS / IDE
+.DS_Store
+.idea/
