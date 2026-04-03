@@ -74,13 +74,11 @@ Built a chatbot using **GCP, Vertex AI, and Gemini 2.0 Flash** that reads car ad
 
 | Category | Tools |
 |---|---|
-| Languages | Python, R, HTML, CSS, JavaScript |
+| Languages | Python, R|
 | ML / Stats | scikit-learn, K-means, Logistic Regression |
 | Visualisation | ggplot2, Matplotlib, Seaborn |
 | AI / LLM | Vertex AI, Gemini 2.0 Flash, GCP |
 | GUI | PyQt5 |
-| Frontend | Bootstrap 5, Font Awesome, Highlight.js |
-| Hosting | GitHub Pages |
 
 ---
 
