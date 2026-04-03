@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WSS3DYFH3Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayesian A/B Testing — A Beginner's Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --dark-green: #06231A;
+            --text-color: #333333;
+            --nav-bg-color: #f1f1f1;
+            --gradient-start: rgba(253, 9, 6, 1);
+            --gradient-end: rgba(255, 220, 0, 1);
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            padding-top: 18vh;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 15vh;
+            z-index: 1000; padding: 0;
+            background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1), rgba(253, 51, 5, 1), rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1), rgba(255, 177, 0, 1), rgba(255, 220, 0, 1)
+            );
+            border-image-slice: 1;
+        }
+
+        .nav-content {
+            position: relative; z-index: 3;
+            display: flex; justify-content: center; align-items: center;
+            width: 100%; height: 100%; padding: 0.5rem;
+        }
+
+        .nav-content a.nav-link {
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative; overflow: hidden; z-index: 3; margin: 0 1rem;
+        }
+
+        .nav-content a.nav-link::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1), rgba(253, 51, 5, 1), rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1), rgba(255, 177, 0, 1), rgba(255, 220, 0, 1)
+            );
+            opacity: 0; transition: opacity 0.3s ease; z-index: -1;
+        }
+
+        .nav-content a.nav-link:hover { color: white !important; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .nav-content a.nav-link:hover::before { opacity: 1; }
+        .navbar-brand.mx-2 { background: none; overflow: visible; padding: 0 !important; border-radius: 0; }
+        .navbar-brand.mx-2:hover::before { opacity: 0; display: none; }
+        .navbar-brand { margin: 0 2rem; z-index: 3; }
+        .navbar-brand img { max-height: 90px; width: auto; transition: all 0.3s ease; }
+        .nav-link i { margin-right: 8px; }
+        .desktop-logo { display: block; max-height: 90px; width: auto; }
+        .mobile-logo { display: none; max-height: 55px; width: auto; }
+
+        /* ── HERO ── */
+        .hero-container {
+            position: relative;
+            width: 100%; height: 60vh; overflow: hidden;
+            margin-bottom: 2rem; border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 1;
+            background: linear-gradient(135deg, #1a1523 0%, #2e1e5c 50%, #3d2b6b 100%);
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .hero-bg-icon {
+            position: absolute;
+            font-size: 18rem;
+            color: rgba(108, 63, 197, 0.12);
+            user-select: none;
+            right: -2rem;
+            bottom: -2rem;
+        }
+
+        .hero-text-box {
+            position: relative; z-index: 2;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem; border-radius: 16px; text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            max-width: 80%;
+        }
+
+        .hero-text-box h1 { color: var(--text-color); margin-bottom: 1rem; font-weight: 600; }
+        .hero-text-box p { color: var(--text-color); font-size: 1.1rem; }
+
+        /* ── CONTENT WRAPPER ── */
+        .content-container {
+            max-width: 1000px;
+            margin: 2rem auto 4rem;
+            padding: 0;
+        }
+
+        /* ── TL;DR ── */
+        .tldr-section {
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 0.9), rgba(254, 135, 2, 0.9), rgba(255, 177, 0, 0.9)
+            );
+            color: white;
+            padding: 2.5rem; margin-bottom: 2rem;
+            border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .tldr-section h2 {
+            color: white; margin-bottom: 1rem;
+            padding-bottom: 0.5rem; border-bottom: 2px solid rgba(255,255,255,0.3);
+            display: inline-block; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        .tldr-section p { color: white; font-size: 1.1rem; line-height: 1.8; margin-bottom: 0; }
+
+        /* ── TEXT SECTION ── */
+        .text-section {
+            background-color: white;
+            padding: 2.5rem; margin-bottom: 2rem;
+            border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .text-section h2 {
+            color: var(--text-color); margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem; border-bottom: 2px solid;
+            display: inline-block;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1), rgba(253, 51, 5, 1), rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1), rgba(255, 177, 0, 1), rgba(255, 220, 0, 1)
+            ) 1;
+        }
+
+        .text-section h3 {
+            font-size: 1.1rem; font-weight: 600;
+            color: var(--text-color); margin: 1.75rem 0 0.75rem;
+            padding-left: 12px;
+            border-left: 3px solid rgba(254, 135, 2, 1);
+        }
+
+        .text-section p { color: var(--text-color); margin-bottom: 1.25rem; }
+        .text-section p:last-child { margin-bottom: 0; }
+        .text-section ul, .text-section ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        .text-section li { margin-bottom: 0.4rem; color: var(--text-color); line-height: 1.7; }
+
+        /* ── ASCII BLOCKS ── */
+        .ascii-block {
+            background: #1E1E1E;
+            color: #c8b8f0;
+            font-family: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
+            font-size: 0.8rem;
+            line-height: 1.65;
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 1.25rem 0 1.5rem;
+            border-left: 3px solid rgba(254, 135, 2, 0.6);
+            white-space: pre;
+        }
+
+        /* ── CALLOUT BOXES ── */
+        .callout {
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin: 1.25rem 0;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            display: flex; gap: 0.75rem; align-items: flex-start;
+        }
+
+        .callout-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+        .callout.tip { background: #f0ebff; border: 1px solid #cbb8f5; color: #3d2a6e; }
+        .callout.example { background: #edf8f1; border: 1px solid #a8dfc0; color: #1b4d32; }
+        .callout.warning { background: #fff6e8; border: 1px solid #f5d09a; color: #5c3b00; }
+
+        /* ── CONCEPT CARDS ── */
+        .concept-card {
+            background: #f8f9fa;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.25rem 0;
+        }
+
+        .concept-label {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(to right, rgba(253, 51, 5, 1), rgba(255, 177, 0, 1));
+            color: #fff;
+            padding: 4px 12px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .concept-card .definition {
+            font-size: 1rem; font-weight: 600;
+            color: var(--text-color); margin-bottom: 0.6rem; line-height: 1.5;
+        }
+
+        .concept-card .example-text {
+            font-size: 0.9rem; color: #555; line-height: 1.7; margin-bottom: 0.75rem;
+        }
+
+        /* ── TABLES ── */
+        .tbl-wrap { overflow-x: auto; margin: 1.25rem 0 1.5rem; border-radius: 8px; overflow: hidden; }
+        .tbl-wrap table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        .tbl-wrap thead tr { background: #1E1E1E; color: #fff; }
+        .tbl-wrap thead th { padding: 0.75rem 1rem; text-align: left; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.3px; }
+        .tbl-wrap tbody tr { border-bottom: 1px solid #f0f0f0; }
+        .tbl-wrap tbody tr:nth-child(even) { background: #fafafa; }
+        .tbl-wrap tbody td { padding: 0.7rem 1rem; color: #555; line-height: 1.5; }
+        .tbl-wrap tbody td strong { color: var(--text-color); }
+
+        /* ── MISTAKE CARDS ── */
+        .mistake-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+            border: 1px solid #e8e8e8;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .mistake-card > div { padding: 0.9rem 1rem; line-height: 1.6; }
+        .mistake-card .m-name { background: #f8f9fa; font-weight: 600; color: var(--text-color); border-right: 1px solid #e8e8e8; }
+        .mistake-card .m-why { background: #fff8f0; color: #5c3b00; border-right: 1px solid #e8e8e8; }
+        .mistake-card .m-fix { background: #f0fff6; color: #1b4d32; }
+
+        /* ── TOOLS SECTION ── */
+        .tools-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 2.5rem; margin-bottom: 2rem;
+            border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .tools-section h2 {
+            color: white; margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem; border-bottom: 2px solid rgba(255,255,255,0.2);
+            display: inline-block;
+        }
+
+        .tools-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+
+        .tool-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 0.6rem 1.25rem; border-radius: 25px;
+            font-size: 0.9rem; transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .tool-tag i { margin-right: 0.5rem; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 991px) {
+            .navbar { height: 15vh; }
+            body { padding-top: 15vh; }
+            .hero-container { height: 50vh; }
+            .hero-text-box { padding: 2rem; }
+            .mistake-card { grid-template-columns: 1fr; }
+            .mistake-card > div { border-right: none !important; border-bottom: 1px solid #e8e8e8; }
+            .mistake-card > div:last-child { border-bottom: none; }
+        }
+
+        @media (max-width: 767px) {
+            .nav-link .nav-text { display: none; }
+            .nav-link i { margin-right: 0; font-size: 1.2rem; }
+            .nav-content a.nav-link { padding: 0.5rem !important; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+            .desktop-logo { display: none; }
+            .mobile-logo { display: block; max-height: 55px; }
+            .navbar { height: 13vh; }
+            body { padding-top: 15vh; }
+            .navbar-brand { margin: 0 1rem !important; }
+            .hero-container { height: 40vh; }
+            .hero-text-box { padding: 1.25rem; max-width: 90%; }
+            .hero-text-box h1 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+            .hero-text-box p { font-size: 0.85rem; line-height: 1.3; }
+            .text-section, .tldr-section, .tools-section { padding: 1.5rem; }
+            .ascii-block { font-size: 0.7rem; padding: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .navbar { height: 12vh; }
+            body { padding-top: 13vh; }
+            .hero-container { height: 35vh; }
+            .hero-text-box { padding: 0.75rem; max-width: 95%; }
+            .hero-text-box h1 { font-size: 1.1rem; }
+            .hero-text-box p { font-size: 0.75rem; line-height: 1.2; }
+            .text-section, .tldr-section, .tools-section { padding: 1rem; }
+            .content-container { margin: 1rem auto 2rem; }
+            .ascii-block { font-size: 0.65rem; padding: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="../private-projects/private-projects-index.html">
+                <i class="fas fa-lock"></i>
+                <span class="nav-text">Private</span>
+            </a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-text">View CV</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="container-fluid px-3">
+        <div class="hero-container">
+            <i class="fas fa-flask hero-bg-icon"></i>
+            <div class="hero-text-box">
+                <h1>Bayesian A/B Testing</h1>
+                <p>A beginner's guide — from "what even is an A/B test?" to making confident decisions from data</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-container">
+
+        <!-- TL;DR -->
+        <div class="tldr-section">
+            <h2>TL;DR</h2>
+            <p>
+                Bayesian A/B testing replaces cryptic p-values with a direct answer: <strong>"there's a 94% probability that Version B is genuinely better."</strong>
+                By combining prior beliefs with observed data, it produces a posterior distribution — a full picture of all the plausible truths your data supports.
+                This guide walks through every step: the four core concepts, how to design and run a test properly, how to read the results, and the five mistakes that trip up even experienced practitioners.
+            </p>
+        </div>
+
+        <!-- SECTION 1 -->
+        <div class="text-section">
+            <h2>1 — Why A/B Testing Exists</h2>
+
+            <p>Imagine you run an online shop. Your "Buy Now" button is currently <strong>grey</strong>. Someone on your team says, "I bet if we made it <strong>orange</strong>, more people would click it." Should you just switch? What if it makes things worse? How would you even know?</p>
+
+            <p>This is exactly the problem A/B testing solves: <strong>making decisions based on evidence, not gut feeling.</strong></p>
+
+            <h3>The Core Problem: You Can't Know Without Trying</h3>
+
+            <p>Every day, companies make decisions — which headline to use, which button colour to pick, which email subject line to send. Most people just guess or go with what "feels right." But feelings are unreliable. An A/B test replaces guessing with a controlled experiment.</p>
+
+            <div class="callout example">
+                <span class="callout-icon">🛒</span>
+                <div><strong>Real scenario:</strong> Your shop gets 1,000 visitors a day. Your grey button converts at 3% (30 purchases). You <em>think</em> orange might be better — but you're not sure. If you're wrong and you switch, you might lose sales. If you're right and you don't switch, you're leaving money on the table.</div>
+            </div>
+
+            <h3>How an A/B Test Works</h3>
+
+            <p>You split your visitors into two groups — randomly, like flipping a coin for each visitor:</p>
+
+<pre class="ascii-block"> 1,000 visitors arrive today
+         │
+         ▼
+    ┌────┴────┐
+    │  SPLIT  │  (random 50/50)
+    └────┬────┘
+    ┌────┴────────────────┐
+    ▼                     ▼
+┌─────────┐         ┌─────────┐
+│ GROUP A │         │ GROUP B │
+│  (500)  │         │  (500)  │
+│  Grey   │         │ Orange  │
+│ button  │         │ button  │
+└────┬────┘         └────┬────┘
+     │                   │
+     ▼                   ▼
+  15 buy              22 buy
+  (3.0%)              (4.4%)</pre>
+
+            <p>Now you have <em>evidence</em>. Group B (orange) looks better. But wait — could this just be random luck? This is where Bayesian statistics comes in.</p>
+
+            <h3>Why "Bayesian"?</h3>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Approach</th><th>What it asks</th><th>What it tells you</th><th>Downside</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Frequentist</strong></td>
+                            <td>"If there's NO real difference, how weird is this result?"</td>
+                            <td>A p-value (hard to interpret!)</td>
+                            <td>Doesn't directly tell you probability that B is better</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bayesian</strong></td>
+                            <td>"Given this data, how probable is it that B beats A?"</td>
+                            <td>"There's a 94% chance orange is better"</td>
+                            <td>Requires you to specify starting beliefs (actually a feature!)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout tip">
+                <span class="callout-icon">🎯</span>
+                <div><strong>The key insight:</strong> A/B testing doesn't just tell you <em>which</em> button performed better in your sample — it tells you how <em>confident</em> you can be that it'll keep performing better in the future.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="text-section">
+            <h2>2 — The Core Concepts</h2>
+
+            <p>Bayesian statistics is built on four ideas. Don't be scared by the names — each one maps onto something completely intuitive.</p>
+
+            <div class="concept-card">
+                <div class="concept-label">Concept 1 · Prior</div>
+                <div class="definition">Your belief about something <em>before</em> you collect any data.</div>
+                <div class="example-text">Imagine you're about to flip a coin you've never seen before. Before it's flipped, you'd probably say "it's roughly 50/50." That's your prior. If someone hands you a coin they <em>tell</em> you is weighted, your prior shifts. You haven't flipped it yet; you're just encoding what you already believe.</div>
+<pre class="ascii-block">  Your prior belief about conversion rate
+  (before running the test):
+
+  Probability
+      │
+  High│    ╭────╮
+      │   ╭╯    ╰╮
+      │  ╭╯      ╰╮
+  Low │╭─╯        ╰────────
+      └──────────────────────▶ Conversion rate
+        0%   2%   5%   10%  20%
+
+  "I think it's probably around 3–5%, but I'm not sure."</pre>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-label">Concept 2 · Likelihood</div>
+                <div class="definition">The signal in your data — how consistent the results are with different possible truths.</div>
+                <div class="example-text">You run your experiment: 22 out of 500 people clicked. The likelihood answers: "If the true conversion rate were X%, how likely would we be to see exactly this result?" It's a measurement of what the data says, not a belief.</div>
+<pre class="ascii-block">  Likelihood: "The data saw 22/500 clicks"
+
+  How likely is this result if the true rate were...
+
+  True rate │ Likelihood
+  ──────────┼───────────────────────────────────
+    2%      │ ██ (unlikely — we'd expect only 10)
+    3%      │ ████ (possible)
+    4.4%    │ ██████████ (most likely! 22/500 = 4.4%)
+    6%      │ ████ (possible)
+    10%     │ ██ (unlikely — we'd expect 50)
+
+  The data "points to" 4.4% most strongly.</pre>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-label">Concept 3 · Posterior</div>
+                <div class="definition">Your <em>updated</em> belief after combining your prior with the data you collected.</div>
+                <div class="example-text">You start with what you believe (prior), collect evidence (likelihood), and blend them to get a smarter, updated belief (posterior). It's like being a detective who starts with a hunch, then updates it as clues come in. The more data you collect, the more the posterior is shaped by the data.</div>
+<pre class="ascii-block">  ┌──────────────────────────────────────────┐
+  │  Prior     +    Data    =   Posterior    │
+  │  (belief)    (evidence)   (new belief)   │
+  └──────────────────────────────────────────┘
+
+  Before test:          After test:
+  "Probably 3-5%"       "Almost certainly 3.8–5.2%"
+
+  Probability           Probability
+      │                     │
+  ████│                     │    ████
+  ████│    ╭──╮             │   ██████
+  ████│   ╭╯  ╰╮            │  ████████
+  ████│ ──╯    ╰──          │ ─╯        ╰─
+      └──────────▶          └─────────────▶
+       0%  5%  10%            0%  5%  10%
+
+  Wide & uncertain          Narrow & confident</pre>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-label">Concept 4 · Credible Interval</div>
+                <div class="definition">A range of values that you're, say, 95% sure contains the true answer.</div>
+                <div class="example-text">After your orange button test, your posterior might say the true conversion rate is between <strong>3.5% and 5.3%</strong> with 95% probability. Unlike a frequentist "confidence interval," a Bayesian credible interval means exactly what it sounds like: "We're 95% certain the true value is in here."</div>
+<pre class="ascii-block">  Orange button posterior distribution:
+
+  Prob.
+    │
+    │           ╭────╮
+    │          ╭╯    ╰╮
+    │         ╭╯      ╰╮
+    │      ───╯        ╰───
+    └───────────────────────▶ True conversion rate
+         3%  3.5%  4.4%  5.3%  6%
+              └──────────┘
+             95% Credible Interval
+           "The truth is probably here"
+
+  "We're 95% sure the orange button's
+  true conversion rate is between 3.5% and 5.3%"</pre>
+            </div>
+
+            <h3>How They All Fit Together</h3>
+<pre class="ascii-block">  ┌────────────────────────────────────────────────────┐
+  │                                                    │
+  │   PRIOR          LIKELIHOOD        POSTERIOR       │
+  │  (before)     ×  (from data)   =  (after)          │
+  │                                                    │
+  │  "I think it's   "The data        "Now I think     │
+  │   about 3–5%"     points to 4.4%"  it's 3.5–5.3%"  │
+  │                                                    │
+  │  ← What you      ← What the       ← Your updated  │
+  │    believed        data showed       smart belief  │
+  │    going in                                        │
+  └────────────────────────────────────────────────────┘</pre>
+
+            <div class="callout tip">
+                <span class="callout-icon">🧠</span>
+                <div><strong>The "detective" analogy:</strong> Your prior is your initial hunch. The likelihood is the evidence you find at the scene. The posterior is your updated conclusion after considering both. The credible interval is how confident you are in that conclusion.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="text-section">
+            <h2>3 — Designing the Test</h2>
+
+            <p>Before you flip the switch, you need a plan. A badly designed test wastes time, money, and can lead to wrong conclusions. Here are the three key design decisions.</p>
+
+            <h3>Decision 1: How Many Visitors Do You Need?</h3>
+
+            <p>The golden rule: <strong>the smaller the difference you want to detect, the more data you need.</strong></p>
+
+            <div class="callout example">
+                <span class="callout-icon">📏</span>
+                <div><strong>Rule of thumb:</strong> If your current conversion rate is around 5%, and you want to detect a 1 percentage point improvement (to 6%), you'll need roughly <strong>5,000 visitors per variant</strong> — so 10,000 total. If you only care about catching a 2pp improvement, you can get away with about 2,000 per variant.</div>
+            </div>
+
+<pre class="ascii-block">  How sample size relates to detectable difference:
+  (assuming ~5% baseline conversion rate)
+
+  Difference     Visitors per        Test duration
+  you want       variant needed      (at 500/day)
+  to detect
+  ─────────────────────────────────────────────────
+    0.5%         ~20,000             80 days  ████████████████
+    1.0%         ~5,000              20 days  ████
+    2.0%         ~1,300               5 days  █
+    3.0%         ~600                 2 days  ▌
+
+  Trying to detect tiny differences? You'll need patience!</pre>
+
+            <h3>Decision 2: What Prior Should You Use?</h3>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Your situation</th><th>Prior type</th><th>What it looks like</th><th>Effect on test</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Brand new shop</strong>, no history</td>
+                            <td>Weak (uninformative)</td>
+                            <td>"Any rate from 0–20% seems equally plausible"</td>
+                            <td>Data does most of the work — you need more of it</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Established shop</strong>, 6 months of data</td>
+                            <td>Strong (informative)</td>
+                            <td>"I know my rate is usually 4–6%"</td>
+                            <td>Prior pulls estimates toward known range — less data needed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Decision 3: What Does "Winning" Mean?</h3>
+
+            <p>Define upfront before the test starts:</p>
+            <ul>
+                <li><strong>Minimum Detectable Effect (MDE):</strong> The smallest improvement that would actually matter to your business</li>
+                <li><strong>Probability threshold:</strong> How confident do you need to be? (Typically 95%)</li>
+            </ul>
+
+<pre class="ascii-block">  Pre-test checklist:
+  ┌─────────────────────────────────────────┐
+  │  ☐  Baseline conversion rate: 3%        │
+  │  ☐  Minimum Detectable Effect: 1%       │
+  │  ☐  Required sample per variant: 5,000  │
+  │  ☐  Win threshold: P(B > A) ≥ 95%       │
+  │  ☐  Test duration: ~20 days             │
+  │  ☐  One change only (button colour)     │
+  └─────────────────────────────────────────┘
+  Write this down BEFORE you start. Don't change
+  the rules once you see results!</pre>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="text-section">
+            <h2>4 — Running the Test</h2>
+
+            <p>Let's follow a real-ish story. You run a newsletter, and you're testing two subject lines:</p>
+            <ul>
+                <li><strong>Version A:</strong> "5 tips to grow your audience this week"</li>
+                <li><strong>Version B:</strong> "The mistake that's killing your open rates"</li>
+            </ul>
+
+            <p>You're measuring <strong>open rate</strong>. Prior belief: rates hover around <strong>22%</strong>. MDE: 3 percentage points. Stop when you have 2,000 recipients per variant — about 14 days.</p>
+
+            <div class="callout tip">
+                <span class="callout-icon">☁️</span>
+                <div><strong>The weather forecast analogy:</strong> Your prior is Monday's forecast. Each day of data is new weather information. The posterior is today's revised forecast. The more data rolls in, the more accurate and narrow the forecast becomes.</div>
+            </div>
+
+            <h3>Day-by-Day: How the Posterior Evolves</h3>
+
+<pre class="ascii-block">  DAY 1 — Only 100 recipients each, small sample
+  ─────────────────────────────────────────────
+  A: 21 opens / 100 sent  =  21%
+  B: 26 opens / 100 sent  =  26%
+
+  A: ─────░░░░░░░░░░░░░░░░░░░░░─────
+          10%      22%       35%
+
+  B: ──────▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓────
+          10%      25%       40%
+
+  Big overlap. P(B > A) = ~68%  →  "Not confident yet"</pre>
+
+<pre class="ascii-block">  DAY 7 — 700 recipients each, moderate data
+  ─────────────────────────────────────────────
+  A: 151 opens / 700 sent  =  21.6%
+  B: 182 opens / 700 sent  =  26.0%
+
+  A:    ────░░░░░░░░░░░░░────
+             18%  22%  26%
+
+  B:      ──▓▓▓▓▓▓▓▓▓▓▓▓──
+             22%  26%  30%
+
+  P(B > A) = ~89%  →  "Strong signal, but not quite there"</pre>
+
+<pre class="ascii-block">  DAY 14 — 2,000 recipients each, full sample
+  ─────────────────────────────────────────────
+  A: 432 opens / 2,000 sent  =  21.6%
+  B: 520 opens / 2,000 sent  =  26.0%
+
+  A:       ──░░░░░░──
+            20% 22% 24%
+
+  B:             ──▓▓▓▓▓▓──
+                 24% 26% 28%
+
+  Minimal overlap!
+  P(B > A) = ~97%  →  "Call it. B wins."</pre>
+
+            <div class="callout example">
+                <span class="callout-icon">📬</span>
+                <div><strong>Plain English conclusion:</strong> The curiosity-driven subject line (Version B) gets about 4–5 more opens per 100 emails sent. We're 97% confident this isn't a fluke. At 10,000 sends/week, that's 400–500 extra opens every single week.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div class="text-section">
+            <h2>5 — Reading the Results</h2>
+
+            <p>Your test has run. The data is in. Reading Bayesian results is refreshingly straightforward compared to traditional statistics.</p>
+
+            <h3>Reading a Posterior Distribution</h3>
+
+<pre class="ascii-block">  How to read a posterior curve:
+
+  Probability
+    │
+    │           ╭──╮          ← Peak = most likely value
+    │          ╭╯  ╰╮
+    │         ╭╯    ╰╮
+    │        ╭╯      ╰╮
+    │  ──────╯        ╰──────
+    └──────────────────────────▶  Conversion rate
+      3%  3.5%  4.4%  5.3%  6%
+           └──────────┘
+           95% credible interval
+           "The true rate is almost certainly in here"
+
+  Narrow peak  = lots of data (certain)
+  Wide peak    = less data (uncertain)</pre>
+
+            <h3>A Sample Results Table</h3>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variant</th><th>Visitors</th><th>Conversions</th>
+                            <th>Observed Rate</th><th>95% Credible Interval</th><th>P(Variant Wins)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>A — Grey button</strong> (control)</td>
+                            <td>2,000</td><td>60</td><td>3.0%</td><td>2.3% – 3.8%</td><td>3%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>B — Orange button</strong> (variant)</td>
+                            <td>2,000</td><td>88</td><td>4.4%</td><td>3.5% – 5.3%</td><td><strong>97%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>The credible intervals don't overlap — a very strong sign that B is genuinely better. P(B wins) = 97% clears our pre-set threshold of 95%. <strong>Call it: B wins. Ship the orange button.</strong></p>
+
+            <h3>When to Call a Test "Done"</h3>
+
+            <ul>
+                <li>You've hit your pre-planned sample size <em>(most important!)</em></li>
+                <li>P(winner) ≥ your threshold <em>and</em> sample size is reached</li>
+                <li>You've run long enough to cover a full business cycle (weekends matter!)</li>
+            </ul>
+
+            <div class="callout warning">
+                <span class="callout-icon">⚠️</span>
+                <div><strong>Never stop early just because it looks good!</strong> Imagine flipping a coin: after 5 flips, you might see 4 heads and think "this coin is biased!" — but after 100 flips it evens out. Always honour your pre-planned stopping point.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 6 -->
+        <div class="text-section">
+            <h2>6 — Common Mistakes</h2>
+
+            <p>Knowing the theory is half the battle. The other half is avoiding the landmines that trip up even experienced practitioners.</p>
+
+            <div class="mistake-card">
+                <div class="m-name">🔭 Peeking at results early and stopping when it "looks good"</div>
+                <div class="m-why">Random variation makes results look conclusive early on, then regress. Stop too soon and you'll "find" winners that don't exist — a false positive.</div>
+                <div class="m-fix"><strong>Fix:</strong> Set your sample size before the test. Don't look at results until you've hit it — or use a sequential testing method designed for early stopping.</div>
+            </div>
+
+            <div class="mistake-card">
+                <div class="m-name">🎯 Testing too many things at once</div>
+                <div class="m-why">If you test 20 variants simultaneously, pure chance means ~1 will look like a winner even if nothing works. More variants = more noise.</div>
+                <div class="m-fix"><strong>Fix:</strong> Test one change at a time (or use a proper multi-armed bandit / multi-variant approach with appropriate corrections).</div>
+            </div>
+
+            <div class="mistake-card">
+                <div class="m-name">📅 Running the test for too short a time</div>
+                <div class="m-why">People behave differently on different days (Monday vs. Friday). A test that only runs Tuesday–Thursday captures a skewed audience.</div>
+                <div class="m-fix"><strong>Fix:</strong> Run tests for at least one full week — ideally two — regardless of how fast you hit your sample size target.</div>
+            </div>
+
+            <div class="mistake-card">
+                <div class="m-name">🔀 Changing the test mid-way</div>
+                <div class="m-why">If you change the page, audience targeting, or anything else while the test runs, you corrupt the data — it becomes impossible to know what caused any effect.</div>
+                <div class="m-fix"><strong>Fix:</strong> Treat the test as sacred. No changes while it runs. If something must change, stop the test, make the change, and restart from scratch.</div>
+            </div>
+
+            <div class="mistake-card">
+                <div class="m-name">📊 Confusing statistical significance with practical significance</div>
+                <div class="m-why">With enough data, even a 0.01% improvement becomes "statistically significant" — but is it worth implementing?</div>
+                <div class="m-fix"><strong>Fix:</strong> Always sanity-check against your MDE. "Is this improvement large enough to justify the engineering effort, risk, and opportunity cost?"</div>
+            </div>
+
+            <h3>Quick Reference Cheatsheet</h3>
+
+<pre class="ascii-block">  ┌──────────────────────────────────────────────────────┐
+  │         BAYESIAN A/B TESTING — QUICK REFERENCE       │
+  ├──────────────────┬───────────────────────────────────┤
+  │  Before test     │  Define MDE, sample size,         │
+  │                  │  prior, win threshold             │
+  ├──────────────────┼───────────────────────────────────┤
+  │  During test     │  Don't peek! Let it run.          │
+  │                  │  No changes to page or targeting  │
+  ├──────────────────┼───────────────────────────────────┤
+  │  Stopping        │  Hit pre-set sample size AND      │
+  │                  │  run at least 1 full week         │
+  ├──────────────────┼───────────────────────────────────┤
+  │  Reading results │  P(B > A) ≥ 95%?                  │
+  │                  │  Credible intervals don't overlap?│
+  │                  │  Effect ≥ MDE? → Ship it          │
+  ├──────────────────┼───────────────────────────────────┤
+  │  If inconclusive │  The test worked! "No difference  │
+  │                  │  found" is a valid, useful result │
+  └──────────────────┴───────────────────────────────────┘</pre>
+
+            <div class="callout example">
+                <span class="callout-icon">🎉</span>
+                <div>
+                    <strong>You're ready.</strong> You now understand more about A/B testing than most people who run them. You know what a prior is, how data updates your beliefs, how to design a test that won't mislead you, and how to read results with confidence. The best way to cement this is to run a real test — pick one thing, form a hypothesis, set it up properly, and watch Bayesian inference do its magic.
+                </div>
+            </div>
+        </div>
+
+        <!-- TOOLS -->
+        <div class="tools-section">
+            <h2>Tools & Technologies</h2>
+            <div class="tools-grid">
+                <span class="tool-tag"><i class="fab fa-python"></i>Python</span>
+                <span class="tool-tag">scipy.stats</span>
+                <span class="tool-tag">NumPy</span>
+                <span class="tool-tag">Matplotlib</span>
+                <span class="tool-tag">Bayesian Inference</span>
+                <span class="tool-tag">Beta Distribution</span>
+                <span class="tool-tag">A/B Testing</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        if (sessionStorage.getItem('pv_auth') !== '1') {
+            window.location.replace('../private-projects/private-login.html');
+        }
+    </script>
+
+</body>
+</html>
