@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WSS3DYFH3Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Voss - Private Projects</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --dark-green: #06231A;
+            --text-color: #333333;
+            --nav-bg-color: #f1f1f1;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            padding-top: 18vh;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 15vh;
+            z-index: 1000;
+            padding: 0;
+            background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1), rgba(253, 51, 5, 1), rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1), rgba(255, 177, 0, 1), rgba(255, 220, 0, 1)
+            );
+            border-image-slice: 1;
+        }
+
+        .nav-content {
+            position: relative; z-index: 3;
+            display: flex; justify-content: center; align-items: center;
+            width: 100%; height: 100%; padding: 0.5rem;
+        }
+
+        .nav-content a.nav-link {
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative; overflow: hidden; z-index: 3; margin: 0 1rem;
+        }
+
+        .nav-content a.nav-link::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1), rgba(253, 51, 5, 1), rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1), rgba(255, 177, 0, 1), rgba(255, 220, 0, 1)
+            );
+            opacity: 0; transition: opacity 0.3s ease; z-index: -1;
+        }
+
+        .nav-content a.nav-link:hover { color: white !important; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .nav-content a.nav-link:hover::before { opacity: 1; }
+
+        .navbar-brand.mx-2 { background: none; overflow: visible; padding: 0 !important; border-radius: 0; }
+        .navbar-brand.mx-2:hover::before { opacity: 0; display: none; }
+        .navbar-brand { margin: 0 2rem; z-index: 3; }
+        .navbar-brand img { max-height: 80px; width: auto; transition: all 0.3s ease; }
+        .nav-link i { margin-right: 8px; }
+        .desktop-logo { display: block; max-height: 80px; width: auto; }
+        .mobile-logo { display: none; max-height: 55px; width: auto; }
+
+        .page-header {
+            max-width: 1200px;
+            margin: 0 auto 1.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .badge-private {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: linear-gradient(to right, rgba(253, 9, 6, 0.08), rgba(255, 220, 0, 0.08));
+            border: 1px solid rgba(253, 9, 6, 0.2);
+            color: #b03000;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header h1 { font-size: 1.8rem; font-weight: 600; color: var(--text-color); margin-bottom: 0.25rem; }
+        .page-header p { color: #888; font-size: 0.9rem; }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 2.5rem;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: hidden;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 16px; padding: 3px;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1), rgba(253, 51, 5, 1), rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1), rgba(255, 177, 0, 1), rgba(255, 220, 0, 1)
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0; transition: opacity 0.3s ease; z-index: 2; pointer-events: none;
+        }
+
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); color: inherit; }
+        .project-card:hover::before { opacity: 1; }
+
+        .project-image {
+            width: 100%; height: 200px;
+            background-color: var(--secondary-color);
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .project-content { padding: 1.5rem; }
+        .project-card h3 { margin-bottom: 0.75rem; color: var(--text-color); font-weight: 600; }
+        .project-card p { color: var(--text-color); font-size: 0.95rem; margin-bottom: 0.5rem; }
+
+        .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .project-tag {
+            background-color: #f0f0f0;
+            padding: 0.25rem 0.75rem; border-radius: 15px;
+            font-size: 0.8rem; color: var(--text-color); transition: all 0.3s ease;
+        }
+        .project-card:hover .project-tag { background: rgba(0, 69, 242, 0.1); }
+
+        @media (max-width: 991px) {
+            .navbar { height: 15vh; }
+            body { padding-top: 15vh; }
+            .project-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 767px) {
+            .nav-link .nav-text { display: none; }
+            .nav-link i { margin-right: 0; font-size: 1.2rem; }
+            .nav-content a.nav-link { padding: 0.5rem !important; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+            .desktop-logo { display: none; }
+            .mobile-logo { display: block; max-height: 55px; }
+            .navbar { height: 13vh; }
+            body { padding-top: 12vh; }
+            .navbar-brand { margin: 0 1rem !important; }
+            .projects-container { padding: 1.5rem; margin: 1rem 1rem 3rem; }
+            .project-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .project-image { height: 180px; }
+        }
+
+        @media (max-width: 480px) {
+            .navbar { height: 12vh; }
+            body { padding-top: 10vh; }
+            .projects-container { padding: 1rem 0.75rem; }
+            .project-content { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="../main-pages/projects.html">
+                <i class="fas fa-folder-open"></i>
+                <span class="nav-text">Projects</span>
+            </a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-text">View CV</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="badge-private"><i class="fas fa-lock"></i> Private</div>
+        <h1>Private Projects</h1>
+        <p>Work-in-progress and exploratory analyses not yet ready for public release.</p>
+    </div>
+
+    <div class="container projects-container">
+        <div class="project-grid">
+
+            <a class="project-card" href="../working-docs/baysian-ab-testing.html">
+                <div class="project-image" style="background: linear-gradient(135deg, #1a1523 0%, #3d2b6b 60%, #6c3fc5 100%); display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-flask" style="font-size: 3rem; color: rgba(200,184,240,0.6);"></i>
+                </div>
+                <div class="project-content">
+                    <h3>Bayesian A/B Testing</h3>
+                    <p>A beginner's guide to Bayesian inference for A/B testing — moving beyond p-values to probability distributions and credible intervals.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Bayesian</span>
+                        <span class="project-tag">Statistics</span>
+                        <span class="project-tag">A/B Testing</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+        if (sessionStorage.getItem('pv_auth') !== '1') {
+            window.location.replace('private-login.html');
+        }
+    </script>
+</body>
+</html>
