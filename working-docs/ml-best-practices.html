@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WSS3DYFH3Z');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Best Practices</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <style>
+        :root { --primary-color: #0F5741; --secondary-color: #F5F5F7; --text-color: #333333; --nav-bg-color: #f1f1f1; }
+        body { background-color: var(--secondary-color); font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif; line-height: 1.6; padding-top: 18vh; padding-left: 10px; padding-right: 10px; margin: 0; overflow-x: hidden; color: var(--text-color); }
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; height: 15vh; z-index: 1000; padding: 0; background: var(--nav-bg-color); border-bottom: 5px solid transparent; border-image: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)); border-image-slice: 1; }
+        .nav-content { position: relative; z-index: 3; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; padding: 0.5rem; }
+        .nav-content a.nav-link { color: var(--text-color); padding: 0.75rem 1.5rem !important; border-radius: 25px; transition: all 0.3s; position: relative; overflow: hidden; z-index: 3; margin: 0 1rem; }
+        .nav-content a.nav-link::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)); opacity: 0; transition: opacity 0.3s ease; z-index: -1; }
+        .nav-content a.nav-link:hover { color: white !important; }
+        .nav-content a.nav-link:hover::before { opacity: 1; }
+        .navbar-brand.mx-2 { background: none; overflow: visible; padding: 0 !important; border-radius: 0; }
+        .navbar-brand.mx-2:hover::before { opacity: 0; display: none; }
+        .navbar-brand { margin: 0 2rem; z-index: 3; }
+        .navbar-brand img { max-height: 80px; width: auto; }
+        .nav-link i { margin-right: 8px; }
+        .desktop-logo { display: block; max-height: 80px; width: auto; }
+        .mobile-logo { display: none; max-height: 55px; width: auto; }
+        .page-header { max-width: 900px; margin: 0 auto 1.5rem; padding: 0 0.5rem; }
+        .badge-private { display: inline-flex; align-items: center; gap: 0.4rem; background: linear-gradient(to right, rgba(253,9,6,0.08), rgba(255,220,0,0.08)); border: 1px solid rgba(253,9,6,0.2); color: #b03000; font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 20px; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .page-header h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .page-header p { color: #888; font-size: 0.9rem; margin: 0.2rem 0; }
+        .content-container { max-width: 900px; margin: 0 auto 4rem; }
+        .text-section { background-color: white; padding: 2.5rem; margin-bottom: 2rem; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .text-section h2 { color: var(--text-color); margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid; display: inline-block; border-image: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)) 1; }
+        .text-section h3 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        .text-section p { color: var(--text-color); margin-bottom: 1rem; }
+        .text-section p:last-child { margin-bottom: 0; }
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+        .compare-block { border-radius: 10px; overflow: hidden; }
+        .compare-label { padding: 8px 14px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-family: 'SFMono-Regular', monospace; }
+        .compare-block.bad .compare-label { background: rgba(239,68,68,0.12); color: #dc2626; }
+        .compare-block.good .compare-label { background: rgba(34,197,94,0.12); color: #16a34a; }
+        .compare-block pre { margin: 0; border-radius: 0 !important; }
+        .callout { background: #f8f9fa; border-left: 4px solid rgba(254,135,2,1); padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1rem 0 1.25rem; }
+        .callout.warning { border-left-color: #dc2626; background: rgba(239,68,68,0.04); }
+        .callout p { color: #555; font-size: 0.92rem; margin: 0; }
+        .scenario { background: #fff8f8; border: 1px solid rgba(239,68,68,0.2); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; border-top: 3px solid #dc2626; }
+        .scenario h4 { color: #dc2626; font-size: 1rem; margin: 0 0 0.5rem; font-weight: 600; }
+        .scenario .impact { margin-top: 0.75rem; padding: 0.6rem 1rem; background: rgba(239,68,68,0.08); border-radius: 6px; font-size: 0.85rem; color: #dc2626; font-weight: 500; }
+        .checklist { list-style: none; padding: 0; margin: 1rem 0; }
+        .checklist li { padding: 0.6rem 0 0.6rem 2rem; position: relative; font-size: 0.9rem; color: var(--text-color); border-bottom: 1px solid #f0f0f0; }
+        .checklist li::before { content: '☐'; position: absolute; left: 4px; top: 0.6rem; font-size: 0.9rem; color: #aaa; }
+        .related-links { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
+        .related-links h3 { font-size: 0.78rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; font-weight: 700; }
+        .related-links a { display: inline-block; margin: 0.25rem 0.5rem 0.25rem 0; padding: 0.4rem 0.9rem; background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 8px; color: #555; text-decoration: none; font-size: 0.85rem; transition: all 0.2s; }
+        .related-links a:hover { border-color: var(--primary-color); color: var(--primary-color); }
+        @media (max-width: 991px) { .navbar { height: 15vh; } body { padding-top: 15vh; } }
+        @media (max-width: 767px) { .nav-link .nav-text { display: none; } .nav-link i { margin-right: 0; font-size: 1.2rem; } .nav-content a.nav-link { padding: 0.5rem !important; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; } .desktop-logo { display: none; } .mobile-logo { display: block; } .navbar { height: 13vh; } body { padding-top: 12vh; } .navbar-brand { margin: 0 1rem !important; } .compare-grid { grid-template-columns: 1fr; } .text-section { padding: 1.5rem; } }
+        @media (max-width: 480px) { .navbar { height: 12vh; } body { padding-top: 10vh; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="../main-pages/projects.html"><i class="fas fa-folder-open"></i><span class="nav-text">Projects</span></a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html"><i class="fas fa-file-alt"></i><span class="nav-text">View CV</span></a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="badge-private"><i class="fas fa-lock"></i> Private</div>
+        <h1>ML Best Practices</h1>
+        <p>Preventing data leakage, evaluation strategies, reproducibility, and deployment — things that separate hobby models from production systems.</p>
+        <p><a href="../working-docs/index.html" style="color: var(--primary-color); text-decoration: none; font-size: 0.85rem;">← Back to Python Learning Hub</a></p>
+    </div>
+
+    <div class="content-container">
+
+        <div class="text-section">
+            <h2>The Cardinal Rules</h2>
+            <div class="callout warning"><p><strong>Rule #1 — Never Leak Test Data Into Training.</strong> Fit ALL preprocessing (scalers, encoders, imputers) on TRAINING data only. Then transform both train and test with the fitted transformer. The sklearn Pipeline enforces this automatically.</p></div>
+            <div class="compare-grid">
+                <div class="compare-block bad"><div class="compare-label">❌ Data leakage!</div><pre><code class="python">scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+X_train, X_test = train_test_split(X_scaled)
+# Scaler learned from ALL data!</code></pre></div>
+                <div class="compare-block good"><div class="compare-label">✅ No leakage</div><pre><code class="python">X_train, X_test = train_test_split(X)
+scaler = StandardScaler()
+X_train_sc = scaler.fit_transform(X_train)
+X_test_sc = scaler.transform(X_test)</code></pre></div>
+            </div>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-top:1rem;">
+                <pre><code class="python">from sklearn.pipeline import Pipeline
+pipe = Pipeline([
+    ("scaler", StandardScaler()),
+    ("model", RandomForestClassifier())
+])
+pipe.fit(X_train, y_train)    # internally only fits scaler on X_train
+pipe.score(X_test, y_test)</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Reproducibility</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python"># Set seeds EVERYWHERE
+import numpy as np, random, os
+
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+
+# sklearn
+model = RandomForestClassifier(random_state=SEED)
+X_train, X_test = train_test_split(X, y, random_state=SEED)
+
+# PyTorch
+import torch
+torch.manual_seed(SEED)
+torch.cuda.manual_seed(SEED)
+
+# TensorFlow
+import tensorflow as tf
+tf.random.set_seed(SEED)</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Experiment Tracking</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python"># Use MLflow or Weights & Biases
+import mlflow
+
+with mlflow.start_run():
+    mlflow.log_param("n_estimators", 100)
+    mlflow.log_param("max_depth", 5)
+    mlflow.log_metric("test_accuracy", accuracy)
+    mlflow.log_metric("test_f1", f1)
+    mlflow.sklearn.log_model(model, "model")</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Feature Engineering Checklist</h2>
+            <ul class="checklist">
+                <li>Are features scaled appropriately for the algorithm?</li>
+                <li>Are categorical variables encoded?</li>
+                <li>Are missing values handled — fitted on train only?</li>
+                <li>Is there target leakage? (features computed after the target event)</li>
+                <li>Are date features extracted correctly?</li>
+                <li>Are correlated features reviewed (multicollinearity risk)?</li>
+                <li>Are outliers addressed?</li>
+                <li>Is feature importance checked post-training?</li>
+            </ul>
+        </div>
+
+        <div class="text-section">
+            <h2>Evaluation Checklist</h2>
+            <ul class="checklist">
+                <li>Is the baseline (dummy) model evaluated?</li>
+                <li>Is cross-validation used instead of a single split?</li>
+                <li>Is class imbalance addressed (for classification)?</li>
+                <li>Are multiple metrics reported (not just accuracy)?</li>
+                <li>Is the final model evaluated ONCE on the test set?</li>
+                <li>Are confidence intervals reported for key metrics?</li>
+                <li>Is the learning curve checked (bias/variance diagnosis)?</li>
+            </ul>
+        </div>
+
+        <div class="text-section">
+            <h2>Hyperparameter Tuning</h2>
+            <div class="callout"><p>Don't tune on the test set! Use <strong>nested cross-validation</strong> for unbiased evaluation.</p></div>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python">from sklearn.model_selection import cross_val_score, GridSearchCV
+
+outer_cv = StratifiedKFold(5)
+inner_cv = StratifiedKFold(3)
+
+param_grid = {"n_estimators": [100, 200], "max_depth": [5, None]}
+grid = GridSearchCV(RandomForestClassifier(), param_grid, cv=inner_cv)
+
+# Outer CV gives unbiased estimate of tuned model performance
+scores = cross_val_score(grid, X, y, cv=outer_cv, scoring="roc_auc")
+print(f"Nested CV AUC: {scores.mean():.4f} ± {scores.std():.4f}")</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Data Leakage — The Silent Killer</h2>
+            <p>Data leakage occurs when information from OUTSIDE the training set is used to build the model. The model appears amazing during development but fails catastrophically in production.</p>
+
+            <div class="scenario">
+                <h4>Scenario 1: Test-Time Leakage (Most Common)</h4>
+                <p>Fit preprocessor on ALL data (train + test), then split.</p>
+                <div class="impact">Impact: Model shows 95% accuracy in development, 60% in production. Career-ending.</div>
+            </div>
+            <div class="compare-grid">
+                <div class="compare-block bad"><div class="compare-label">❌ Leakage</div><pre><code class="python">scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+X_train, X_test = train_test_split(X_scaled)
+# Scaler learned from ALL data!</code></pre></div>
+                <div class="compare-block good"><div class="compare-label">✅✅ Pipeline</div><pre><code class="python">pipe = Pipeline([
+    ('scaler', StandardScaler()),
+    ('model', RandomForestClassifier())
+])
+X_train, X_test = train_test_split(X, y)
+pipe.fit(X_train, y_train)
+pipe.score(X_test, y_test)  # No leakage</code></pre></div>
+            </div>
+
+            <div class="scenario">
+                <h4>Scenario 2: Target Leakage</h4>
+                <p>Using information from AFTER the prediction time.</p>
+            </div>
+            <div class="compare-grid">
+                <div class="compare-block bad"><div class="compare-label">❌ Future information</div><pre><code class="python"># Predict loan default within 12 months
+# 'last_payment_date' is AFTER origination!
+df['days_since_last_payment'] = (
+    df['last_payment_date']
+    - df['origination_date']
+).days</code></pre></div>
+                <div class="compare-block good"><div class="compare-label">✅ Known at prediction time</div><pre><code class="python"># Only features known at origination
+df['credit_score'] = ...
+df['income'] = ...
+df['loan_age_months'] = (
+    df['data_date']
+    - df['origination_date']
+).days / 30</code></pre></div>
+            </div>
+            <p><strong>Real Case:</strong> Model trained to predict pneumonia risk with 98% accuracy → deployed at 52%. Root cause: oxygen saturation (measured in hospital AFTER diagnosis) was used as a feature.</p>
+
+            <div class="scenario">
+                <h4>Scenario 3: Proxy Variables</h4>
+                <p>Using variables that encode the target rather than predict it.</p>
+            </div>
+            <div class="compare-grid">
+                <div class="compare-block bad"><div class="compare-label">❌ Lagging indicator</div><pre><code class="python"># Predict churn
+features = ['support_tickets_open']
+# Tickets open BECAUSE they're churning
+# not BEFORE they churn (proxy!)</code></pre></div>
+                <div class="compare-block good"><div class="compare-label">✅ Leading indicators</div><pre><code class="python">features = [
+    'months_as_customer',
+    'monthly_usage_hours',
+    'feature_diversity',
+    'sentiment_score'
+]
+# These LEAD to churn, not follow</code></pre></div>
+            </div>
+
+            <div class="scenario">
+                <h4>Scenario 4: Train-Test Contamination</h4>
+                <p>Choosing features after seeing test performance (data snooping).</p>
+            </div>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin: 1rem 0;">
+                <pre><code class="python"># ✅ CORRECT: Pre-register features before seeing test results
+# 1. Choose features based on domain knowledge or train-only analysis
+# 2. Train model
+# 3. Evaluate on test ONCE
+# 4. Report results (don't iterate based on test performance)
+
+# Use cross-validation on TRAINING data only
+gs = GridSearchCV(
+    RandomForestClassifier(),
+    {'max_depth': [5, 10, 15]},
+    cv=5  # Cross-validate only on TRAIN
+)
+gs.fit(X_train, y_train)
+
+# Final evaluation on test (ONCE)
+test_score = gs.score(X_test, y_test)</code></pre>
+            </div>
+
+            <h3>How to Detect Leakage</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python"># 1. Train-test gap
+train_score = model.score(X_train, y_train)
+test_score = model.score(X_test, y_test)
+if train_score - test_score > 0.20:
+    print("⚠️  Possible leakage! Large gap")
+
+# 2. Surprisingly high performance
+if test_score > 0.95:
+    print("⚠️  Too good? Check for leakage")
+
+# 3. Feature importance
+feature_importance = model.feature_importances_
+if feature_importance[0] > 0.5:
+    print(f"⚠️  Single feature dominates: {feature_names[0]}")
+    print("    Is this a proxy for the target?")
+
+# 4. Time-based check
+if (df['feature_date'] > df['target_date']).any():
+    print("⚠️  Features computed AFTER target time!")</code></pre>
+            </div>
+
+            <h3>Complete Safe Pipeline</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python">from sklearn.pipeline import Pipeline
+from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.ensemble import RandomForestClassifier
+
+preprocessor = ColumnTransformer(transformers=[
+    ('num', StandardScaler(), numerical_features),
+    ('cat', OneHotEncoder(handle_unknown='ignore'), categorical_features)
+])
+
+pipe = Pipeline([
+    ('preprocessor', preprocessor),
+    ('model', RandomForestClassifier(random_state=42))
+])
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+cv_scores = cross_val_score(
+    pipe, X_train, y_train,
+    cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
+    scoring='roc_auc'
+)
+print(f"Cross-validated AUC: {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
+
+# Final: test set ONCE ONLY
+pipe.fit(X_train, y_train)
+test_score = pipe.score(X_test, y_test)
+# Pipeline ensures all preprocessing fit ONLY on training data</code></pre>
+            </div>
+
+            <h3>Leakage Checklist</h3>
+            <ul class="checklist">
+                <li>All preprocessing fit on TRAIN only</li>
+                <li>Features observable BEFORE prediction time</li>
+                <li>No proxy variables that encode the target</li>
+                <li>Cross-validation done on TRAIN only</li>
+                <li>Hyperparameter tuning done on TRAIN only</li>
+                <li>No feature engineering based on test set performance</li>
+                <li>Test set evaluated ONCE at the end</li>
+                <li>For time-series: no forward leakage</li>
+            </ul>
+        </div>
+
+        <div class="text-section">
+            <h2>Model Deployment Checklist</h2>
+            <ul class="checklist">
+                <li>Model saved with joblib/pickle (or ONNX for cross-language)</li>
+                <li>Preprocessing pipeline saved WITH the model</li>
+                <li>Input validation added (check dtypes, ranges, required features)</li>
+                <li>Prediction logging implemented</li>
+                <li>Model version tracked</li>
+                <li>Performance monitoring set up (data drift detection)</li>
+                <li>Rollback plan defined</li>
+            </ul>
+            <div class="related-links">
+                <h3>🔗 Related Notes</h3>
+                <a href="data-analysis-best-practices.html">Data Analysis Best Practices</a>
+                <a href="ai-best-practices.html">AI Best Practices</a>
+                <a href="study-guide.html">Study Guide &amp; Cheatsheet</a>
+                <a href="index.html">🐍 Python Learning Hub</a>
+            </div>
+        </div>
+
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

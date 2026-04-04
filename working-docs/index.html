@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WSS3DYFH3Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Learning Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --dark-green: #06231A;
+            --text-color: #333333;
+            --nav-bg-color: #f1f1f1;
+        }
+        body {
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            padding-top: 18vh;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 15vh; z-index: 1000;
+            padding: 0; background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1));
+            border-image-slice: 1;
+        }
+        .nav-content {
+            position: relative; z-index: 3; display: flex; justify-content: center;
+            align-items: center; width: 100%; height: 100%; padding: 0.5rem;
+        }
+        .nav-content a.nav-link {
+            color: var(--text-color); padding: 0.75rem 1.5rem !important; border-radius: 25px;
+            transition: all 0.3s; position: relative; overflow: hidden; z-index: 3; margin: 0 1rem;
+        }
+        .nav-content a.nav-link::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1));
+            opacity: 0; transition: opacity 0.3s ease; z-index: -1;
+        }
+        .nav-content a.nav-link:hover { color: white !important; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .nav-content a.nav-link:hover::before { opacity: 1; }
+        .navbar-brand.mx-2 { background: none; overflow: visible; padding: 0 !important; border-radius: 0; }
+        .navbar-brand.mx-2:hover::before { opacity: 0; display: none; }
+        .navbar-brand { margin: 0 2rem; z-index: 3; }
+        .navbar-brand img { max-height: 80px; width: auto; transition: all 0.3s ease; }
+        .nav-link i { margin-right: 8px; }
+        .desktop-logo { display: block; max-height: 80px; width: auto; }
+        .mobile-logo { display: none; max-height: 55px; width: auto; }
+
+        /* Page header */
+        .page-header { max-width: 900px; margin: 0 auto 1.5rem; padding: 0 0.5rem; }
+        .badge-private {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            background: linear-gradient(to right, rgba(253,9,6,0.08), rgba(255,220,0,0.08));
+            border: 1px solid rgba(253,9,6,0.2); color: #b03000;
+            font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.75rem;
+            border-radius: 20px; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 0.5rem;
+        }
+        .page-header h1 { font-size: 1.8rem; font-weight: 600; color: var(--text-color); margin-bottom: 0.25rem; }
+        .page-header p { color: #888; font-size: 0.9rem; }
+
+        /* Content container */
+        .content-container { max-width: 900px; margin: 0 auto 4rem; }
+
+        /* Text sections */
+        .text-section {
+            background-color: white; padding: 2.5rem; margin-bottom: 2rem;
+            border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .text-section h2 {
+            color: var(--text-color); margin-bottom: 1.25rem; padding-bottom: 0.75rem;
+            border-bottom: 2px solid; display: inline-block;
+            border-image: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)) 1;
+        }
+        .text-section h3 { color: var(--text-color); font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        .text-section h4 { color: #555; font-size: 1rem; font-weight: 600; margin: 1.25rem 0 0.5rem; }
+        .text-section p { color: var(--text-color); margin-bottom: 1rem; }
+        .text-section p:last-child { margin-bottom: 0; }
+        .text-section ul, .text-section ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+        .text-section li { margin-bottom: 0.4rem; color: var(--text-color); }
+
+        /* Code blocks */
+        .code-section {
+            background-color: white; padding: 2rem 2.5rem; margin-bottom: 2rem;
+            border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .code-section pre { margin: 0; border-radius: 8px; }
+        .code-section .code-label {
+            font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase;
+            letter-spacing: 0.06em; margin-bottom: 0.5rem; font-family: 'SFMono-Regular', monospace;
+        }
+
+        /* Good/bad comparison grid */
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0 1.5rem; }
+        .compare-block { border-radius: 10px; overflow: hidden; }
+        .compare-label {
+            padding: 8px 14px; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.05em; text-transform: uppercase; font-family: 'SFMono-Regular', monospace;
+        }
+        .compare-block.bad .compare-label { background: rgba(239,68,68,0.12); color: #dc2626; }
+        .compare-block.good .compare-label { background: rgba(34,197,94,0.12); color: #16a34a; }
+        .compare-block pre { margin: 0; border-radius: 0; }
+
+        /* Callout box */
+        .callout {
+            background: #f8f9fa; border-left: 4px solid rgba(254,135,2,1);
+            padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1rem 0 1.5rem;
+        }
+        .callout p { color: #555; font-size: 0.92rem; margin: 0; }
+
+        /* Key decision / highlight box */
+        .key-decision {
+            background: linear-gradient(135deg, rgba(253,51,5,0.05), rgba(255,177,0,0.05));
+            border-radius: 8px; padding: 1rem 1.5rem; margin-top: 1.5rem;
+            border-left: 4px solid rgba(254,135,2,1);
+        }
+
+        /* Inline code */
+        code.inline {
+            font-family: 'SFMono-Regular', 'Menlo', monospace;
+            background: #f0f0f0; padding: 2px 6px; border-radius: 4px;
+            font-size: 0.85em; color: #c7254e;
+        }
+
+        /* Tools grid (dark card) */
+        .tools-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white; padding: 2.5rem; margin-bottom: 2rem;
+            border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); text-align: center;
+        }
+        .tools-section h2 { color: white; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid rgba(255,255,255,0.2); display: inline-block; }
+        .tools-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .tool-tag {
+            background: rgba(255,255,255,0.1); padding: 0.6rem 1.25rem; border-radius: 25px;
+            font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .tool-tag i { margin-right: 0.5rem; }
+
+        /* Pathway/card grid for hub-style pages */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .pathway-card {
+            background: white; border-radius: 16px; padding: 1.75rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid #eee;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .pathway-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
+        .pathway-number {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 8px; font-size: 0.85rem; font-weight: 700;
+            margin-bottom: 1rem; background: rgba(15,87,65,0.1); color: var(--primary-color);
+            font-family: 'SFMono-Regular', monospace;
+        }
+        .pathway-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .pathway-card .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 1rem; }
+        .pathway-topics { list-style: none; padding: 0; margin: 0; }
+        .pathway-topics li { font-size: 0.85rem; color: #666; padding: 0.2rem 0 0.2rem 1.1rem; position: relative; }
+        .pathway-topics li::before { content: ''; position: absolute; left: 0; top: 10px; width: 5px; height: 5px; border-radius: 50%; background: var(--primary-color); opacity: 0.5; }
+
+        /* Reference card links */
+        .ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .ref-card {
+            display: flex; align-items: center; gap: 1rem; background: white; border-radius: 12px;
+            padding: 1rem 1.25rem; text-decoration: none; color: var(--text-color);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.07); border: 1px solid #eee;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .ref-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.12); transform: translateX(3px); color: var(--text-color); }
+        .ref-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .ref-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 2px; }
+        .ref-desc { font-size: 0.82rem; color: #888; }
+
+        /* Connected topics list */
+        .connected-list { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
+        .connected-item {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.75rem 1rem; background: white; border-radius: 10px;
+            border: 1px solid #eee; font-size: 0.9rem; color: #555;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .connected-item .arrow { color: var(--primary-color); font-weight: 700; }
+
+        /* Progress tracker */
+        .progress-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; margin-bottom: 2rem; }
+        .progress-item {
+            display: flex; align-items: center; gap: 0.6rem; padding: 0.75rem 1rem;
+            background: white; border-radius: 10px; border: 1px solid #eee; font-size: 0.85rem;
+            cursor: pointer; transition: all 0.2s; user-select: none; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .progress-item:hover { border-color: var(--primary-color); }
+        .progress-check {
+            width: 20px; height: 20px; border: 2px solid #ccc; border-radius: 5px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s;
+        }
+        .progress-item.checked .progress-check { background: var(--primary-color); border-color: var(--primary-color); }
+        .progress-item.checked .progress-check::after { content: '✓'; color: white; font-size: 0.7rem; font-weight: 700; }
+
+        /* Section label */
+        .section-label {
+            font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            color: #999; margin: 2rem 0 1rem; display: flex; align-items: center; gap: 0.75rem;
+        }
+        .section-label::after { content: ''; flex: 1; height: 1px; background: #e5e5e5; }
+
+        /* Related links at bottom */
+        .related-links { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
+        .related-links h3 { font-size: 0.78rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; font-weight: 700; }
+        .related-links a {
+            display: inline-block; margin: 0.25rem 0.5rem 0.25rem 0; padding: 0.4rem 0.9rem;
+            background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 8px;
+            color: #555; text-decoration: none; font-size: 0.85rem; transition: all 0.2s;
+        }
+        .related-links a:hover { border-color: var(--primary-color); color: var(--primary-color); }
+
+        /* Responsive */
+        @media (max-width: 991px) { .navbar { height: 15vh; } body { padding-top: 15vh; } }
+        @media (max-width: 767px) {
+            .nav-link .nav-text { display: none; }
+            .nav-link i { margin-right: 0; font-size: 1.2rem; }
+            .nav-content a.nav-link { padding: 0.5rem !important; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+            .desktop-logo { display: none; }
+            .mobile-logo { display: block; max-height: 55px; }
+            .navbar { height: 13vh; }
+            body { padding-top: 12vh; }
+            .navbar-brand { margin: 0 1rem !important; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .text-section, .code-section { padding: 1.5rem; }
+        }
+        @media (max-width: 480px) { .navbar { height: 12vh; } body { padding-top: 10vh; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="../main-pages/projects.html">
+                <i class="fas fa-folder-open"></i>
+                <span class="nav-text">Projects</span>
+            </a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-text">View CV</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="badge-private"><i class="fas fa-lock"></i> Private</div>
+        <h1>Python Learning Hub</h1>
+        <p>Your complete Python learning system — from fundamentals to cutting-edge AI. All notes are interconnected. Follow each pathway in order, or jump to any topic you need.</p>
+        <p><a href="../private-projects/private-projects-index.html" style="color: var(--primary-color); text-decoration: none; font-size: 0.85rem;">← Back to Private Projects</a></p>
+    </div>
+
+    <div class="content-container">
+
+        <div class="section-label">Learning Pathways</div>
+
+        <div class="cards-grid">
+
+            <div class="pathway-card">
+                <div class="pathway-number">01</div>
+                <h3>Python Foundations</h3>
+                <p class="subtitle">Start here if you're new to Python or want to solidify the basics.</p>
+                <ul class="pathway-topics">
+                    <li>Variables, Types &amp; Operators</li>
+                    <li>Control Flow — Loops &amp; Conditionals</li>
+                    <li>Functions &amp; Scope</li>
+                    <li>Data Structures — Lists, Dicts, Sets &amp; Tuples</li>
+                    <li>File Handling &amp; Exceptions</li>
+                    <li>Code-Along — Fundamentals Project</li>
+                </ul>
+            </div>
+
+            <div class="pathway-card">
+                <div class="pathway-number">02</div>
+                <h3>Object-Oriented Programming</h3>
+                <p class="subtitle">Build structured, reusable, and maintainable code.</p>
+                <ul class="pathway-topics">
+                    <li>Introduction &amp; Core Concepts</li>
+                    <li>Classes &amp; Objects</li>
+                    <li>Inheritance &amp; Polymorphism</li>
+                    <li>Encapsulation, Abstraction &amp; Properties</li>
+                    <li>Magic Methods &amp; Dunder Methods</li>
+                    <li>Design Patterns in Python</li>
+                    <li>Code-Along — Bank Account Project</li>
+                </ul>
+            </div>
+
+            <div class="pathway-card">
+                <div class="pathway-number">03</div>
+                <h3>Data Analysis</h3>
+                <p class="subtitle">Work with data like a pro using NumPy, Pandas, and visualisation tools.</p>
+                <ul class="pathway-topics">
+                    <li>NumPy Fundamentals</li>
+                    <li>Pandas Essentials</li>
+                    <li>Data Cleaning &amp; Preprocessing</li>
+                    <li>Exploratory Data Analysis (EDA)</li>
+                    <li>Visualisation with Matplotlib &amp; Seaborn</li>
+                    <li>Statistical Analysis in Python</li>
+                    <li>Code-Along — Full EDA Project</li>
+                </ul>
+            </div>
+
+            <div class="pathway-card">
+                <div class="pathway-number">04</div>
+                <h3>Machine Learning</h3>
+                <p class="subtitle">Build, train, and evaluate predictive models.</p>
+                <ul class="pathway-topics">
+                    <li>Introduction &amp; Core Concepts</li>
+                    <li>Supervised Learning</li>
+                    <li>Unsupervised Learning</li>
+                    <li>Model Evaluation &amp; Metrics</li>
+                    <li>Feature Engineering</li>
+                    <li>Scikit-Learn Reference Guide</li>
+                    <li>Deep Learning with PyTorch</li>
+                    <li>Code-Along — End-to-End ML Pipeline</li>
+                </ul>
+            </div>
+
+            <div class="pathway-card">
+                <div class="pathway-number">05</div>
+                <h3>AI in Python</h3>
+                <p class="subtitle">Leverage large language models, APIs, and agent frameworks.</p>
+                <ul class="pathway-topics">
+                    <li>Large Language Models &amp; How They Work</li>
+                    <li>OpenAI &amp; Anthropic API</li>
+                    <li>Hugging Face Transformers</li>
+                    <li>LangChain &amp; Agent Frameworks</li>
+                    <li>Vector Databases &amp; RAG</li>
+                    <li>Prompt Engineering</li>
+                    <li>Code-Along — Build an AI Application</li>
+                </ul>
+            </div>
+
+            <div class="pathway-card">
+                <div class="pathway-number">06</div>
+                <h3>Statistics &amp; Experimentation</h3>
+                <p class="subtitle">Master A/B testing, hypothesis testing, and probability simulations.</p>
+                <ul class="pathway-topics">
+                    <li>A/B Testing — Frequentist Methods</li>
+                    <li>A/B Testing — Bayesian Methods</li>
+                    <li>A/B Testing — Best Practices &amp; Pitfalls</li>
+                    <li>Monte Carlo Simulations in Python</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="section-label">Reference &amp; Best Practices</div>
+
+        <div class="ref-grid">
+            <a href="python-best-practices.html" class="ref-card">
+                <span class="ref-icon"><i class="fas fa-ruler-combined"></i></span>
+                <div>
+                    <div class="ref-title">Python Best Practices &amp; Style Guide</div>
+                    <div class="ref-desc">PEP 8, clean code, tools (black, flake8, mypy)</div>
+                </div>
+            </a>
+            <a href="oop-best-practices.html" class="ref-card">
+                <span class="ref-icon"><i class="fas fa-cubes"></i></span>
+                <div>
+                    <div class="ref-title">OOP Best Practices</div>
+                    <div class="ref-desc">SOLID principles, patterns, anti-patterns, worked examples</div>
+                </div>
+            </a>
+            <a href="data-analysis-best-practices.html" class="ref-card">
+                <span class="ref-icon"><i class="fas fa-chart-bar"></i></span>
+                <div>
+                    <div class="ref-title">Data Analysis Best Practices</div>
+                    <div class="ref-desc">Clean pipelines, reproducibility, code review checklist</div>
+                </div>
+            </a>
+            <a href="ml-best-practices.html" class="ref-card">
+                <span class="ref-icon"><i class="fas fa-robot"></i></span>
+                <div>
+                    <div class="ref-title">ML Best Practices</div>
+                    <div class="ref-desc">Preventing leakage, evaluation, deployment</div>
+                </div>
+            </a>
+            <a href="ai-best-practices.html" class="ref-card">
+                <span class="ref-icon"><i class="fas fa-brain"></i></span>
+                <div>
+                    <div class="ref-title">AI Best Practices</div>
+                    <div class="ref-desc">Prompt design, safety, cost management</div>
+                </div>
+            </a>
+            <a href="study-guide.html" class="ref-card">
+                <span class="ref-icon"><i class="fas fa-graduation-cap"></i></span>
+                <div>
+                    <div class="ref-title">Study Guide &amp; Cheatsheet</div>
+                    <div class="ref-desc">Quick reference for syntax &amp; 25 practice questions</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="section-label">Connected Topics</div>
+
+        <div class="connected-list">
+            <div class="connected-item">
+                <span class="arrow">→</span>
+                <span><strong>Bayesian A/B Testing</strong> — applies Bayesian Methods &amp; Model Evaluation &amp; Metrics</span>
+            </div>
+            <div class="connected-item">
+                <span class="arrow">→</span>
+                <span><strong>Monte Carlo Simulations</strong> — sports simulations, uses Frequentist Methods concepts</span>
+            </div>
+            <div class="connected-item">
+                <span class="arrow">→</span>
+                <span><strong>K-Means › Casemiro Replacement</strong> — real project using Unsupervised Learning</span>
+            </div>
+        </div>
+
+        <div class="section-label">Progress Tracker</div>
+
+        <div class="progress-grid">
+            <div class="progress-item" onclick="this.classList.toggle('checked')">
+                <div class="progress-check"></div>
+                <span>Pathway 1 — Foundations</span>
+            </div>
+            <div class="progress-item" onclick="this.classList.toggle('checked')">
+                <div class="progress-check"></div>
+                <span>Pathway 2 — OOP</span>
+            </div>
+            <div class="progress-item" onclick="this.classList.toggle('checked')">
+                <div class="progress-check"></div>
+                <span>Pathway 3 — Data</span>
+            </div>
+            <div class="progress-item" onclick="this.classList.toggle('checked')">
+                <div class="progress-check"></div>
+                <span>Pathway 4 — ML</span>
+            </div>
+            <div class="progress-item" onclick="this.classList.toggle('checked')">
+                <div class="progress-check"></div>
+                <span>Pathway 5 — AI</span>
+            </div>
+            <div class="progress-item" onclick="this.classList.toggle('checked')">
+                <div class="progress-check"></div>
+                <span>Pathway 6 — Stats</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

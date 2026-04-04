@@ -114,38 +114,46 @@
         .page-header p { color: #888; font-size: 0.9rem; }
 
         .projects-container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto 4rem;
-            padding: 2.5rem;
+            padding: 2rem;
             background-color: white;
             border-radius: 16px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             overflow-x: hidden;
         }
 
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
         }
 
         .project-card {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 1rem 1.25rem;
             background-color: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
+            border-radius: 12px;
+            border: 1px solid #eee;
             text-decoration: none;
-            display: block;
+            color: inherit;
+            cursor: pointer;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-color: transparent;
             color: inherit;
         }
 
         .project-card::before {
             content: '';
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 16px; padding: 3px;
+            border-radius: 12px; padding: 1px;
             background: linear-gradient(to right,
                 rgba(253, 9, 6, 1), rgba(253, 51, 5, 1), rgba(254, 93, 3, 1),
                 rgba(254, 135, 2, 1), rgba(255, 177, 0, 1), rgba(255, 220, 0, 1)
@@ -153,34 +161,42 @@
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
-            opacity: 0; transition: opacity 0.3s ease; z-index: 2; pointer-events: none;
+            opacity: 0; transition: opacity 0.2s ease; z-index: 2; pointer-events: none;
         }
 
-        .project-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); color: inherit; }
         .project-card:hover::before { opacity: 1; }
 
-        .project-image {
-            width: 100%; height: 200px;
-            background-color: var(--secondary-color);
+        .project-icon {
+            width: 44px; height: 44px;
+            border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2rem;
         }
 
-        .project-content { padding: 1.5rem; }
-        .project-card h3 { margin-bottom: 0.75rem; color: var(--text-color); font-weight: 600; }
-        .project-card p { color: var(--text-color); font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .project-info { flex: 1; min-width: 0; }
+        .project-info h3 { margin: 0 0 0.2rem; font-size: 1rem; font-weight: 600; color: var(--text-color); }
+        .project-info p { margin: 0 0 0.5rem; font-size: 0.85rem; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
         .project-tag {
             background-color: #f0f0f0;
-            padding: 0.25rem 0.75rem; border-radius: 15px;
-            font-size: 0.8rem; color: var(--text-color); transition: all 0.3s ease;
+            padding: 0.15rem 0.6rem; border-radius: 12px;
+            font-size: 0.75rem; color: var(--text-color); transition: all 0.2s ease;
         }
-        .project-card:hover .project-tag { background: rgba(0, 69, 242, 0.1); }
+        .project-card:hover .project-tag { background: rgba(0, 69, 242, 0.08); }
+
+        .project-arrow {
+            color: #ccc;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            transition: color 0.2s ease;
+        }
+        .project-card:hover .project-arrow { color: #888; }
 
         @media (max-width: 991px) {
             .navbar { height: 15vh; }
             body { padding-top: 15vh; }
-            .project-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 767px) {
@@ -192,16 +208,14 @@
             .navbar { height: 13vh; }
             body { padding-top: 12vh; }
             .navbar-brand { margin: 0 1rem !important; }
-            .projects-container { padding: 1.5rem; margin: 1rem 1rem 3rem; }
-            .project-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .project-image { height: 180px; }
+            .projects-container { padding: 1.25rem; margin: 1rem 1rem 3rem; }
+            .project-info p { white-space: normal; }
         }
 
         @media (max-width: 480px) {
             .navbar { height: 12vh; }
             body { padding-top: 10vh; }
             .projects-container { padding: 1rem 0.75rem; }
-            .project-content { padding: 1rem; }
         }
     </style>
 </head>
@@ -230,15 +244,127 @@
     </div>
 
     <div class="container projects-container">
-        <div class="project-grid">
+        <div class="project-list">
+
+            <a class="project-card" href="../working-docs/index.html">
+                <div class="project-icon" style="background: linear-gradient(135deg, #0a2e1a, #0F5741);">
+                    <i class="fas fa-book-open" style="color: rgba(180,240,200,0.85);"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Python Learning Hub</h3>
+                    <p>Complete Python learning system — foundations to AI. All pathways interconnected.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Reference</span>
+                        <span class="project-tag">Hub</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right project-arrow"></i>
+            </a>
+
+            <a class="project-card" href="../working-docs/python-best-practices.html">
+                <div class="project-icon" style="background: linear-gradient(135deg, #1a1a3e, #3b3b8f);">
+                    <i class="fas fa-code" style="color: rgba(180,180,255,0.85);"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Python Best Practices &amp; Style Guide</h3>
+                    <p>PEP 8, clean code principles, Python idioms, and the tools that enforce them.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">PEP 8</span>
+                        <span class="project-tag">Style Guide</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right project-arrow"></i>
+            </a>
+
+            <a class="project-card" href="../working-docs/oop-best-practices.html">
+                <div class="project-icon" style="background: linear-gradient(135deg, #0a2a2e, #0d6b6b);">
+                    <i class="fas fa-cubes" style="color: rgba(160,240,235,0.85);"></i>
+                </div>
+                <div class="project-info">
+                    <h3>OOP Best Practices</h3>
+                    <p>SOLID principles, composition over inheritance, and real-world refactoring walkthroughs.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">OOP</span>
+                        <span class="project-tag">SOLID</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right project-arrow"></i>
+            </a>
+
+            <a class="project-card" href="../working-docs/data-analysis-best-practices.html">
+                <div class="project-icon" style="background: linear-gradient(135deg, #0a1e3e, #1a4a8f);">
+                    <i class="fas fa-chart-bar" style="color: rgba(160,200,255,0.85);"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Data Analysis Best Practices</h3>
+                    <p>Clean pipelines, reproducibility, visualisation standards, and a code review checklist.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Pandas</span>
+                        <span class="project-tag">EDA</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right project-arrow"></i>
+            </a>
+
+            <a class="project-card" href="../working-docs/ml-best-practices.html">
+                <div class="project-icon" style="background: linear-gradient(135deg, #2a1a3e, #6b2b8f);">
+                    <i class="fas fa-robot" style="color: rgba(210,180,255,0.85);"></i>
+                </div>
+                <div class="project-info">
+                    <h3>ML Best Practices</h3>
+                    <p>Preventing data leakage, evaluation strategies, and deployment checklists.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">scikit-learn</span>
+                        <span class="project-tag">ML</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right project-arrow"></i>
+            </a>
+
+            <a class="project-card" href="../working-docs/ai-best-practices.html">
+                <div class="project-icon" style="background: linear-gradient(135deg, #3e1a2e, #8f2b6b);">
+                    <i class="fas fa-brain" style="color: rgba(255,180,220,0.85);"></i>
+                </div>
+                <div class="project-info">
+                    <h3>AI Best Practices</h3>
+                    <p>Security, cost management, reliability patterns, and RAG best practices for LLMs.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">LLMs</span>
+                        <span class="project-tag">RAG</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right project-arrow"></i>
+            </a>
+
+            <a class="project-card" href="../working-docs/study-guide.html">
+                <div class="project-icon" style="background: linear-gradient(135deg, #3e2a0a, #8f6b1a);">
+                    <i class="fas fa-graduation-cap" style="color: rgba(255,220,140,0.85);"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Python Study Guide &amp; Cheatsheet</h3>
+                    <p>Quick reference for all 5 pathways and 25 interactive practice questions.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Reference</span>
+                        <span class="project-tag">Quiz</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right project-arrow"></i>
+            </a>
 
             <a class="project-card" href="../working-docs/baysian-ab-testing.html">
-                <div class="project-image" style="background: linear-gradient(135deg, #1a1523 0%, #3d2b6b 60%, #6c3fc5 100%); display: flex; align-items: center; justify-content: center;">
-                    <i class="fas fa-flask" style="font-size: 3rem; color: rgba(200,184,240,0.6);"></i>
+                <div class="project-icon" style="background: linear-gradient(135deg, #1a1523, #3d2b6b);">
+                    <i class="fas fa-flask" style="color: rgba(200,184,240,0.85);"></i>
                 </div>
-                <div class="project-content">
+                <div class="project-info">
                     <h3>Bayesian A/B Testing</h3>
-                    <p>A beginner's guide to Bayesian inference for A/B testing — moving beyond p-values to probability distributions and credible intervals.</p>
+                    <p>Moving beyond p-values to probability distributions and credible intervals.</p>
                     <div class="project-tags">
                         <span class="project-tag">Python</span>
                         <span class="project-tag">Bayesian</span>
@@ -246,6 +372,7 @@
                         <span class="project-tag">A/B Testing</span>
                     </div>
                 </div>
+                <i class="fas fa-chevron-right project-arrow"></i>
             </a>
 
         </div>

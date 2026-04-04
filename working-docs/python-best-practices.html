@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WSS3DYFH3Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Best Practices &amp; Style Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --text-color: #333333;
+            --nav-bg-color: #f1f1f1;
+        }
+        body {
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
+            line-height: 1.6; padding-top: 18vh; padding-left: 10px; padding-right: 10px;
+            margin: 0; overflow-x: hidden; color: var(--text-color);
+        }
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 15vh; z-index: 1000;
+            padding: 0; background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1));
+            border-image-slice: 1;
+        }
+        .nav-content {
+            position: relative; z-index: 3; display: flex; justify-content: center;
+            align-items: center; width: 100%; height: 100%; padding: 0.5rem;
+        }
+        .nav-content a.nav-link {
+            color: var(--text-color); padding: 0.75rem 1.5rem !important; border-radius: 25px;
+            transition: all 0.3s; position: relative; overflow: hidden; z-index: 3; margin: 0 1rem;
+        }
+        .nav-content a.nav-link::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1));
+            opacity: 0; transition: opacity 0.3s ease; z-index: -1;
+        }
+        .nav-content a.nav-link:hover { color: white !important; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .nav-content a.nav-link:hover::before { opacity: 1; }
+        .navbar-brand.mx-2 { background: none; overflow: visible; padding: 0 !important; border-radius: 0; }
+        .navbar-brand.mx-2:hover::before { opacity: 0; display: none; }
+        .navbar-brand { margin: 0 2rem; z-index: 3; }
+        .navbar-brand img { max-height: 80px; width: auto; transition: all 0.3s ease; }
+        .nav-link i { margin-right: 8px; }
+        .desktop-logo { display: block; max-height: 80px; width: auto; }
+        .mobile-logo { display: none; max-height: 55px; width: auto; }
+
+        .page-header { max-width: 900px; margin: 0 auto 1.5rem; padding: 0 0.5rem; }
+        .badge-private {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            background: linear-gradient(to right, rgba(253,9,6,0.08), rgba(255,220,0,0.08));
+            border: 1px solid rgba(253,9,6,0.2); color: #b03000;
+            font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.75rem;
+            border-radius: 20px; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 0.5rem;
+        }
+        .page-header h1 { font-size: 1.8rem; font-weight: 600; color: var(--text-color); margin-bottom: 0.25rem; }
+        .page-header p { color: #888; font-size: 0.9rem; margin: 0.2rem 0; }
+
+        .content-container { max-width: 900px; margin: 0 auto 4rem; }
+
+        .text-section {
+            background-color: white; padding: 2.5rem; margin-bottom: 2rem;
+            border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .text-section h2 {
+            color: var(--text-color); margin-bottom: 1.25rem; padding-bottom: 0.75rem;
+            border-bottom: 2px solid; display: inline-block;
+            border-image: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)) 1;
+        }
+        .text-section h3 { color: var(--text-color); font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        .text-section h4 { color: #555; font-size: 1rem; font-weight: 600; margin: 1.25rem 0 0.5rem; }
+        .text-section p { color: var(--text-color); margin-bottom: 1rem; }
+        .text-section p:last-child { margin-bottom: 0; }
+        .text-section ul, .text-section ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+        .text-section li { margin-bottom: 0.4rem; color: var(--text-color); }
+
+        .code-section {
+            background-color: white; padding: 1.5rem 2rem; margin-bottom: 2rem;
+            border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .code-section pre { margin: 0; border-radius: 8px; }
+        .code-label {
+            font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase;
+            letter-spacing: 0.06em; margin-bottom: 0.5rem; font-family: 'SFMono-Regular', monospace; display: block;
+        }
+
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0 0; }
+        .compare-block { border-radius: 10px; overflow: hidden; }
+        .compare-label {
+            padding: 8px 14px; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.05em; text-transform: uppercase; font-family: 'SFMono-Regular', monospace;
+        }
+        .compare-block.bad .compare-label { background: rgba(239,68,68,0.12); color: #dc2626; }
+        .compare-block.good .compare-label { background: rgba(34,197,94,0.12); color: #16a34a; }
+        .compare-block pre { margin: 0; border-radius: 0 !important; }
+
+        .callout {
+            background: #f8f9fa; border-left: 4px solid rgba(254,135,2,1);
+            padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1rem 0 1.25rem;
+        }
+        .callout p { color: #555; font-size: 0.92rem; margin: 0; }
+
+        .related-links { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
+        .related-links h3 { font-size: 0.78rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; font-weight: 700; }
+        .related-links a {
+            display: inline-block; margin: 0.25rem 0.5rem 0.25rem 0; padding: 0.4rem 0.9rem;
+            background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 8px;
+            color: #555; text-decoration: none; font-size: 0.85rem; transition: all 0.2s;
+        }
+        .related-links a:hover { border-color: var(--primary-color); color: var(--primary-color); }
+
+        @media (max-width: 991px) { .navbar { height: 15vh; } body { padding-top: 15vh; } }
+        @media (max-width: 767px) {
+            .nav-link .nav-text { display: none; }
+            .nav-link i { margin-right: 0; font-size: 1.2rem; }
+            .nav-content a.nav-link { padding: 0.5rem !important; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+            .desktop-logo { display: none; }
+            .mobile-logo { display: block; max-height: 55px; }
+            .navbar { height: 13vh; }
+            body { padding-top: 12vh; }
+            .navbar-brand { margin: 0 1rem !important; }
+            .compare-grid { grid-template-columns: 1fr; }
+            .text-section, .code-section { padding: 1.5rem; }
+        }
+        @media (max-width: 480px) { .navbar { height: 12vh; } body { padding-top: 10vh; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="../main-pages/projects.html">
+                <i class="fas fa-folder-open"></i>
+                <span class="nav-text">Projects</span>
+            </a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-text">View CV</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="badge-private"><i class="fas fa-lock"></i> Private</div>
+        <h1>Python Best Practices &amp; Style Guide</h1>
+        <p>PEP 8, clean code principles, Python idioms, and the tools that enforce them.</p>
+        <p><a href="../working-docs/index.html" style="color: var(--primary-color); text-decoration: none; font-size: 0.85rem;">← Back to Python Learning Hub</a></p>
+    </div>
+
+    <div class="content-container">
+
+        <div class="text-section">
+            <h2>PEP 8 — The Python Style Guide</h2>
+            <div class="code-label">Naming</div>
+            <div class="compare-grid" style="margin-bottom:1rem;">
+                <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                    <pre><code class="python">variable_name = 1              # snake_case for variables and functions
+CONSTANT_NAME = 3.14           # SCREAMING_SNAKE for constants
+ClassName = "example"          # PascalCase for classes
+_private = "internal use"      # leading _ for "private"
+__mangled = "name mangled"     # double __ for name mangling</code></pre>
+                </div>
+            </div>
+            <div class="code-label">Spacing</div>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python">x = 1 + 2           # spaces around operators
+x = [1, 2, 3]       # space after comma
+def f(a, b=0):      # no space around default arg
+f(a=1, b=2)         # no space around keyword arg</code></pre>
+            </div>
+            <div class="code-label">Imports</div>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python"># 1. Standard library
+import os
+import json
+from pathlib import Path
+
+# 2. Third-party
+import numpy as np
+import pandas as pd
+
+# 3. Local
+from mymodule import my_function</code></pre>
+            </div>
+            <div class="code-label">Line Length</div>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python"># PEP 8: 79 chars. In practice: 88-100 is common (Black uses 88)
+result = (very_long_variable_name
+          + another_long_variable_name
+          + yet_another_one)</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Clean Code Principles</h2>
+            <h3>Functions</h3>
+            <div class="callout"><p>Functions should do <strong>one thing</strong>. Keep parameters to ~3. Use descriptive verb+noun names for booleans and getters.</p></div>
+            <div class="compare-grid">
+                <div class="compare-block bad">
+                    <div class="compare-label">❌ Multiple responsibilities</div>
+                    <pre><code class="python">def process_order(order):
+    validate(order)
+    calculate_price(order)
+    send_email(order)
+    update_database(order)</code></pre>
+                </div>
+                <div class="compare-block good">
+                    <div class="compare-label">✅ Composed single-purpose functions</div>
+                    <pre><code class="python">def process_order(order):
+    validated = validate_order(order)
+    priced = calculate_order_price(validated)
+    saved = save_order(priced)
+    notify_customer(saved)
+    return saved</code></pre>
+                </div>
+            </div>
+            <div class="compare-grid" style="margin-top:1rem;">
+                <div class="compare-block bad">
+                    <div class="compare-label">❌ Too many params</div>
+                    <pre><code class="python">def create_user(name, email, age,
+    city, phone, role, ...):
+    ...</code></pre>
+                </div>
+                <div class="compare-block good">
+                    <div class="compare-label">✅ Limited params</div>
+                    <pre><code class="python">def create_user(name: str,
+    email: str) -> User:
+    ...</code></pre>
+                </div>
+            </div>
+            <div style="margin-top:1rem; background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python">def is_valid_email(email: str) -> bool: ...   # ✅ verb + noun for bool
+def get_user_by_id(id: int) -> User: ...      # ✅ verb + noun
+def d(x): ...                                 # ❌ meaningless name</code></pre>
+            </div>
+
+            <h3>Variables</h3>
+            <div class="compare-grid">
+                <div class="compare-block bad">
+                    <div class="compare-label">❌ Mysterious abbreviations</div>
+                    <pre><code class="python">d = datetime.today()
+ttl = len(students) * avg_s</code></pre>
+                </div>
+                <div class="compare-block good">
+                    <div class="compare-label">✅ Clear names</div>
+                    <pre><code class="python">today = datetime.today()
+total_score = (len(students)
+    * average_score_per_student)</code></pre>
+                </div>
+            </div>
+            <div style="margin-top:1rem; background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python"># ✅ Use constants for magic numbers
+MAX_RETRIES = 3
+TIMEOUT_SECONDS = 30
+DEFAULT_PAGE_SIZE = 100
+
+if retries > MAX_RETRIES:  # clear intent
+    raise TimeoutError()</code></pre>
+            </div>
+
+            <h3>Error Handling</h3>
+            <div class="compare-grid">
+                <div class="compare-block bad">
+                    <div class="compare-label">❌ Bare except</div>
+                    <pre><code class="python">try:
+    result = risky_op()
+except:
+    pass  # swallows ALL exceptions!</code></pre>
+                </div>
+                <div class="compare-block good">
+                    <div class="compare-label">✅ Specific exceptions</div>
+                    <pre><code class="python">try:
+    result = risky_op()
+except ValueError as e:
+    logger.warning(f"Invalid: {e}")
+    result = default_value
+except ConnectionError as e:
+    logger.error(f"Failed: {e}")
+    raise  # re-raise if can't handle</code></pre>
+                </div>
+            </div>
+            <div style="margin-top:1rem; background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python"># ✅ Context managers for cleanup
+with open("file.txt") as f:
+    data = f.read()
+# file is closed even if an exception occurs</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Python Idioms</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python"># --- UNPACKING ---
+a, b, c = [1, 2, 3]
+first, *rest = [1, 2, 3, 4, 5]
+
+# --- ENUMERATE INSTEAD OF RANGE(LEN()) ---
+for i, item in enumerate(items):  # ✅
+for i in range(len(items)):       # ❌ un-Pythonic
+
+# --- ZIP FOR PARALLEL ITERATION ---
+for name, score in zip(names, scores):   # ✅
+for i in range(len(names)):              # ❌
+    name, score = names[i], scores[i]
+
+# --- TRUTHY/FALSY ---
+if user_list:          # ✅
+if len(user_list) > 0: # ❌ unnecessary
+
+if value is None:  # ✅ for None check (identity)
+if value == None:  # ❌
+
+# --- DICT GET WITH DEFAULT ---
+value = d.get("key", default)  # ✅
+value = d["key"] if "key" in d else default  # ❌
+
+# --- STRING JOINING ---
+result = ", ".join(words)      # ✅ efficient
+result = ""
+for w in words:
+    result += w + ", "         # ❌ O(n²)
+
+# --- COMPREHENSIONS OVER MAP/FILTER ---
+squares = [x**2 for x in nums]             # ✅
+squares = list(map(lambda x: x**2, nums))  # ❌ less readable</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Type Hints Best Practices</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python">from typing import Optional, Union
+from collections.abc import Sequence, Mapping
+
+def process_data(
+    items: list[str],           # Python 3.9+ built-in generics
+    config: dict[str, int],
+    callback: Optional[callable] = None,
+) -> tuple[list[str], int]:
+    ...
+
+# For older Python
+from typing import List, Dict, Tuple, Optional
+def old_style(items: List[str]) -> Optional[str]: ...
+
+# Protocol for duck typing
+from typing import Protocol
+class Drawable(Protocol):
+    def draw(self) -> None: ...</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Logging</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python">import logging
+
+# ✅ Use logging, not print
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s — %(name)s — %(levelname)s — %(message)s"
+)
+logger = logging.getLogger(__name__)
+
+logger.debug("Debug info")             # development details
+logger.info("Server started")          # normal operations
+logger.warning("Low memory")           # unexpected but OK
+logger.error("DB connection failed")   # problem
+logger.critical("System down")         # fatal</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Testing</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python">def add(a: int, b: int) -> int:
+    return a + b
+
+# test_math.py
+def test_add():
+    assert add(1, 2) == 3
+    assert add(-1, 1) == 0
+    assert add(0, 0) == 0
+
+def test_add_type_error():
+    with pytest.raises(TypeError):
+        add("1", 2)
+
+# Parametrised test
+import pytest
+@pytest.mark.parametrize("a,b,expected", [
+    (1, 2, 3),
+    (0, 0, 0),
+    (-1, 1, 0),
+])
+def test_add_parametrised(a, b, expected):
+    assert add(a, b) == expected</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Why Does Each Rule Exist?</h2>
+            <h3>Naming Conventions</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python"># ✅ snake_case for variables: why?
+# Easier to read than camelCase for long names
+# Python standard since PEP 8 (ecosystem consistency)
+variable_name = 1
+myVariableName = 1  # feels "un-Pythonic"
+
+# ✅ SCREAMING_SNAKE for constants: why?
+# ALL CAPS catches attention: "this is fixed, don't change it"
+# Easy to grep for constant definitions
+MAX_RETRIES = 3
+
+# ✅ PascalCase for classes: why?
+# Visually distinct from variables
+# Differentiates: MyClass() vs my_function()
+class MyClass:
+    pass</code></pre>
+            </div>
+            <h3>Spacing &amp; Line Length</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python"># ✅ Spaces around operators: why?
+x = 1 + 2  # readable: clear precedence
+x=1+2      # hard to parse visually
+
+# ✅ 79-char line limit (PEP 8): why?
+# 1. Old terminals were 80 chars
+# 2. Side-by-side diffs: 80 + 80 = 160
+# 3. Forces you to break complex lines
+# Black uses 88 characters (common compromise)</code></pre>
+            </div>
+            <h3>Import Order</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python"># ✅ Standard library → Third-party → Local: why?
+# Readers immediately see external dependencies
+# Easy to audit (all third-party together)
+# Standard library API is stable, safe to import first
+
+import os                    # Standard library
+from pathlib import Path
+
+import numpy as np           # Third-party
+import pandas as pd
+
+from mymodule import func    # Local</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Before / After Refactoring</h2>
+            <h3>Example 1 — Naming Clarity</h3>
+            <div class="compare-grid">
+                <div class="compare-block bad">
+                    <div class="compare-label">❌ Before</div>
+                    <pre><code class="python">def p(t, r):
+    return t * (1 - r)
+
+x = 100
+y = p(x, 0.1)</code></pre>
+                </div>
+                <div class="compare-block good">
+                    <div class="compare-label">✅ After</div>
+                    <pre><code class="python">def calculate_discounted_price(
+    original_price: float,
+    discount_rate: float
+) -> float:
+    """Calculate price after discount."""
+    return original_price * (1 - discount_rate)
+
+original_amount = 100
+discounted = calculate_discounted_price(
+    original_amount, 0.1
+)</code></pre>
+                </div>
+            </div>
+            <h3>Example 2 — Line Length &amp; Readability</h3>
+            <div class="compare-grid" style="margin-top:0.5rem;">
+                <div class="compare-block bad">
+                    <div class="compare-label">❌ Before</div>
+                    <pre><code class="python">users = [u for u in users
+  if u.location == "London"
+  and u.age > 30
+  and u.subscription == "premium"]</code></pre>
+                </div>
+                <div class="compare-block good">
+                    <div class="compare-label">✅ After</div>
+                    <pre><code class="python">def is_premium_london_user(user):
+    return (
+        user.location == "London"
+        and user.age > 30
+        and user.subscription == "premium"
+    )
+
+premium_users = [
+    u for u in users
+    if is_premium_london_user(u)
+]</code></pre>
+                </div>
+            </div>
+            <h3>Example 3 — Error Handling</h3>
+            <div class="compare-grid" style="margin-top:0.5rem;">
+                <div class="compare-block bad">
+                    <div class="compare-label">❌ Before</div>
+                    <pre><code class="python">try:
+    result = risky_operation()
+except:
+    pass</code></pre>
+                </div>
+                <div class="compare-block good">
+                    <div class="compare-label">✅ After</div>
+                    <pre><code class="python">try:
+    result = risky_operation()
+except ValueError as e:
+    logger.warning(f"Invalid: {e}")
+    result = default_value
+except ConnectionError as e:
+    logger.error(f"Failed: {e}")
+    raise</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Tools: black, flake8, mypy, autopep8</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="bash">pip install black flake8 mypy autopep8</code></pre>
+            </div>
+            <h3>black (Auto-formatter)</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="bash"># Format a file
+black myfile.py
+
+# Format entire directory
+black .
+
+# Check without modifying
+black --check myfile.py
+
+# Custom line length (default 88)
+black --line-length 100 myfile.py</code></pre>
+            </div>
+            <h3>flake8 (Linter)</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="bash"># Check file
+flake8 myfile.py
+
+# Ignore certain rules
+flake8 --ignore=E501,W503 .
+
+# Example output:
+# myfile.py:1:1: F401 'os' imported but unused
+# myfile.py:5:1: E302 expected 2 blank lines, found 1
+# myfile.py:10:80: E501 line too long (85 > 79)</code></pre>
+            </div>
+            <h3>mypy (Type Checker)</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="bash"># Check file
+mypy myfile.py
+
+# Strict mode (recommended)
+mypy --strict myfile.py
+
+# Example error:
+# myfile.py:4: Argument 1 to "greet" has
+#   incompatible type "int"; expected "str"</code></pre>
+            </div>
+            <h3>Pre-Commit Hooks</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="bash"># Install pre-commit
+pip install pre-commit
+
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.7.1
+    hooks:
+      - id: mypy
+
+# Install hooks
+pre-commit install
+# Now on every `git commit`, hooks run automatically!</code></pre>
+            </div>
+            <div class="related-links">
+                <h3>🔗 Related Notes</h3>
+                <a href="oop-best-practices.html">OOP Best Practices</a>
+                <a href="data-analysis-best-practices.html">Data Analysis Best Practices</a>
+                <a href="ml-best-practices.html">ML Best Practices</a>
+                <a href="index.html">🐍 Python Learning Hub</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

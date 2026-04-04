@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WSS3DYFH3Z');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Study Guide &amp; Cheatsheet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <style>
+        :root { --primary-color: #0F5741; --secondary-color: #F5F5F7; --text-color: #333333; --nav-bg-color: #f1f1f1; }
+        body { background-color: var(--secondary-color); font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif; line-height: 1.6; padding-top: 18vh; padding-left: 10px; padding-right: 10px; margin: 0; overflow-x: hidden; color: var(--text-color); }
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; height: 15vh; z-index: 1000; padding: 0; background: var(--nav-bg-color); border-bottom: 5px solid transparent; border-image: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)); border-image-slice: 1; }
+        .nav-content { position: relative; z-index: 3; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; padding: 0.5rem; }
+        .nav-content a.nav-link { color: var(--text-color); padding: 0.75rem 1.5rem !important; border-radius: 25px; transition: all 0.3s; position: relative; overflow: hidden; z-index: 3; margin: 0 1rem; }
+        .nav-content a.nav-link::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)); opacity: 0; transition: opacity 0.3s ease; z-index: -1; }
+        .nav-content a.nav-link:hover { color: white !important; }
+        .nav-content a.nav-link:hover::before { opacity: 1; }
+        .navbar-brand.mx-2 { background: none; overflow: visible; padding: 0 !important; border-radius: 0; }
+        .navbar-brand.mx-2:hover::before { opacity: 0; display: none; }
+        .navbar-brand { margin: 0 2rem; z-index: 3; }
+        .navbar-brand img { max-height: 80px; width: auto; }
+        .nav-link i { margin-right: 8px; }
+        .desktop-logo { display: block; max-height: 80px; width: auto; }
+        .mobile-logo { display: none; max-height: 55px; width: auto; }
+        .page-header { max-width: 900px; margin: 0 auto 1.5rem; padding: 0 0.5rem; }
+        .badge-private { display: inline-flex; align-items: center; gap: 0.4rem; background: linear-gradient(to right, rgba(253,9,6,0.08), rgba(255,220,0,0.08)); border: 1px solid rgba(253,9,6,0.2); color: #b03000; font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 20px; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .page-header h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .page-header p { color: #888; font-size: 0.9rem; margin: 0.2rem 0; }
+        .content-container { max-width: 900px; margin: 0 auto 4rem; }
+        .text-section { background-color: white; padding: 2.5rem; margin-bottom: 2rem; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .text-section h2 { color: var(--text-color); margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid; display: inline-block; border-image: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)) 1; }
+        .text-section h3 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        .text-section p { color: var(--text-color); margin-bottom: 1rem; }
+        .text-section p:last-child { margin-bottom: 0; }
+
+        /* Concepts table */
+        .concepts-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .concepts-table th { text-align: left; padding: 10px 16px; background: #f5f5f7; border: 1px solid #e5e5e5; font-size: 0.85rem; font-weight: 600; color: var(--primary-color); }
+        .concepts-table td { padding: 9px 16px; border: 1px solid #e5e5e5; font-size: 0.85rem; color: #555; }
+        .concepts-table tr:hover td { background: #fafafa; }
+
+        /* Quiz accordion */
+        .quiz-card { background: white; border: 1px solid #eee; border-radius: 12px; margin: 0.75rem 0; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .quiz-header { padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1rem; cursor: pointer; transition: background 0.2s; user-select: none; }
+        .quiz-header:hover { background: #fafafa; }
+        .quiz-num { font-family: 'SFMono-Regular', monospace; font-size: 0.8rem; font-weight: 700; color: var(--primary-color); min-width: 30px; }
+        .quiz-q { font-size: 0.92rem; font-weight: 500; flex: 1; }
+        .quiz-toggle { font-size: 1rem; color: #aaa; transition: transform 0.3s; flex-shrink: 0; }
+        .quiz-answer { padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s; }
+        .quiz-card.open .quiz-answer { padding: 0 1.25rem 1.25rem; max-height: 600px; }
+        .quiz-card.open .quiz-toggle { transform: rotate(180deg); }
+        .quiz-answer-inner { padding-top: 0.75rem; border-top: 1px solid #eee; font-size: 0.88rem; color: #555; line-height: 1.7; }
+        .quiz-answer-inner code { font-family: 'SFMono-Regular', monospace; background: #f0f0f0; padding: 2px 5px; border-radius: 3px; font-size: 0.82em; }
+        .quiz-answer-inner pre { margin: 0.75rem 0 0; border-radius: 8px; }
+
+        .related-links { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
+        .related-links h3 { font-size: 0.78rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; font-weight: 700; }
+        .related-links a { display: inline-block; margin: 0.25rem 0.5rem 0.25rem 0; padding: 0.4rem 0.9rem; background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 8px; color: #555; text-decoration: none; font-size: 0.85rem; transition: all 0.2s; }
+        .related-links a:hover { border-color: var(--primary-color); color: var(--primary-color); }
+        @media (max-width: 991px) { .navbar { height: 15vh; } body { padding-top: 15vh; } }
+        @media (max-width: 767px) { .nav-link .nav-text { display: none; } .nav-link i { margin-right: 0; font-size: 1.2rem; } .nav-content a.nav-link { padding: 0.5rem !important; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; } .desktop-logo { display: none; } .mobile-logo { display: block; } .navbar { height: 13vh; } body { padding-top: 12vh; } .navbar-brand { margin: 0 1rem !important; } .text-section { padding: 1.5rem; } .concepts-table { font-size: 0.8rem; } }
+        @media (max-width: 480px) { .navbar { height: 12vh; } body { padding-top: 10vh; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="../main-pages/projects.html"><i class="fas fa-folder-open"></i><span class="nav-text">Projects</span></a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html"><i class="fas fa-file-alt"></i><span class="nav-text">View CV</span></a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="badge-private"><i class="fas fa-lock"></i> Private</div>
+        <h1>Python Study Guide &amp; Cheatsheet</h1>
+        <p>Quick reference for all 5 pathways, key concepts summary, and 25 interactive practice questions with answers.</p>
+        <p><a href="../working-docs/index.html" style="color: var(--primary-color); text-decoration: none; font-size: 0.85rem;">← Back to Python Learning Hub</a></p>
+    </div>
+
+    <div class="content-container">
+
+        <div class="text-section">
+            <h2>🐍 Python Fundamentals</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python"># Variables & Types
+x = 42            # int
+x = 3.14          # float
+x = "hello"       # str
+x = True          # bool
+x = None          # NoneType
+x = [1,2,3]       # list (mutable)
+x = (1,2,3)       # tuple (immutable)
+x = {"a":1}       # dict
+x = {1,2,3}       # set
+
+# String f-strings
+f"Hello {name}! Score: {score:.2f}"
+
+# List comprehension
+[x**2 for x in range(10) if x % 2 == 0]
+
+# Dict comprehension
+{k: v for k, v in items.items() if v > 0}
+
+# Unpacking
+a, *b, c = [1,2,3,4,5]   # b = [2,3,4]
+x, y = y, x               # swap variables
+
+# Context manager
+with open("file.txt") as f:
+    data = f.read()
+
+# Lambda
+square = lambda x: x**2
+sorted(items, key=lambda x: x["name"])</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>🏗️ OOP Quick Reference</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python">class Animal:
+    species = "Unknown"   # class variable
+
+    def __init__(self, name: str, age: int):
+        self.name = name     # instance variable
+        self._age = age      # "protected"
+
+    @property
+    def age(self): return self._age
+
+    @age.setter
+    def age(self, v):
+        if v < 0: raise ValueError()
+        self._age = v
+
+    @classmethod
+    def from_birth_year(cls, name, year):
+        return cls(name, 2026 - year)
+
+    @staticmethod
+    def is_valid_age(age): return age >= 0
+
+    def __str__(self): return f"{self.name} ({self._age})"
+    def __repr__(self): return f"Animal(name={self.name!r})"
+    def __eq__(self, other): return self.name == other.name
+
+
+class Dog(Animal):
+    def __init__(self, name, age, breed):
+        super().__init__(name, age)
+        self.breed = breed
+
+    def speak(self): return "Woof!"
+
+# Dataclass
+from dataclasses import dataclass
+@dataclass
+class Point:
+    x: float
+    y: float
+    def distance(self): return (self.x**2 + self.y**2)**0.5</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>📊 Data Analysis Quick Reference</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python">import pandas as pd
+import numpy as np
+
+# Load & inspect
+df = pd.read_csv("data.csv")
+df.head() | df.info() | df.describe()
+df.isnull().sum() | df.dtypes
+
+# Select
+df["col"] | df[["col1","col2"]]
+df.iloc[0] | df.loc[0, "col"]
+df[df["age"] > 30 & df["dept"].isin(["Engineering"])]
+
+# Transform
+df["new"] = df["old"].apply(func)
+df.assign(new_col=lambda df: df["a"] + df["b"])
+
+# GroupBy
+df.groupby("dept")["salary"].agg(["mean","count"])
+df.groupby("dept").agg(avg=("salary","mean"), n=("id","count"))
+
+# Merge
+pd.merge(df1, df2, on="id", how="left")
+
+# NumPy
+np.array([1,2,3])
+arr[arr > 5]          # boolean indexing
+arr * 2               # vectorised operation
+np.mean/std/min/max/sum(arr)</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>🤖 ML Quick Reference</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python">from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+
+# Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, stratify=y
+)
+
+# Pipeline (prevents leakage!)
+pipe = Pipeline([
+    ("scaler", StandardScaler()),
+    ("model", RandomForestClassifier(n_estimators=100))
+])
+pipe.fit(X_train, y_train)
+score = pipe.score(X_test, y_test)
+
+# Cross-validate
+scores = cross_val_score(pipe, X, y, cv=5, scoring="roc_auc")
+
+# Evaluate
+y_pred = pipe.predict(X_test)
+print(classification_report(y_test, y_pred))
+
+# Tune
+from sklearn.model_selection import GridSearchCV
+gs = GridSearchCV(pipe, {"model__n_estimators": [100,200]}, cv=5)
+gs.fit(X_train, y_train)</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>🧠 AI in Python Quick Reference</h2>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden;">
+                <pre><code class="python"># OpenAI
+from openai import OpenAI
+client = OpenAI()  # reads OPENAI_API_KEY from env
+
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {"role": "system", "content": "You are helpful."},
+        {"role": "user", "content": "Hello!"}
+    ],
+    temperature=0.7
+)
+text = response.choices[0].message.content
+
+# Anthropic
+import anthropic
+client = anthropic.Anthropic()
+msg = client.messages.create(
+    model="claude-opus-4-6",
+    max_tokens=1024,
+    messages=[{"role":"user","content":"Hello!"}]
+)
+text = msg.content[0].text
+
+# Embeddings
+from sentence_transformers import SentenceTransformer
+model = SentenceTransformer("all-MiniLM-L6-v2")
+embeddings = model.encode(["text 1", "text 2"])
+
+# LangChain RAG
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_community.vectorstores import FAISS
+
+vectorstore = FAISS.from_texts(docs, OpenAIEmbeddings())
+retriever = vectorstore.as_retriever()
+
+chain = (
+    {"context": retriever, "question": lambda x: x}
+    | ChatPromptTemplate.from_template("Context: {context}\nQ: {question}")
+    | ChatOpenAI()
+    | StrOutputParser()
+)
+answer = chain.invoke("my question")</code></pre>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>📐 Key Concepts Summary</h2>
+            <table class="concepts-table">
+                <thead><tr><th>Topic</th><th>Key Concepts</th></tr></thead>
+                <tbody>
+                    <tr><td>Python Basics</td><td>Variables, types, operators, f-strings</td></tr>
+                    <tr><td>Control Flow</td><td>if/elif/else, for, while, comprehensions</td></tr>
+                    <tr><td>Functions</td><td>*args, **kwargs, closures, decorators</td></tr>
+                    <tr><td>Data Structures</td><td>list, dict, tuple, set, Counter, defaultdict</td></tr>
+                    <tr><td>OOP Pillars</td><td>Encapsulation, Abstraction, Inheritance, Polymorphism</td></tr>
+                    <tr><td>OOP Patterns</td><td>Singleton, Factory, Observer, Strategy</td></tr>
+                    <tr><td>NumPy</td><td>Arrays, broadcasting, vectorisation, linear algebra</td></tr>
+                    <tr><td>Pandas</td><td>Series, DataFrame, groupby, merge</td></tr>
+                    <tr><td>EDA</td><td>Missing values, distributions, correlations</td></tr>
+                    <tr><td>ML Workflow</td><td>Split → Preprocess → Train → Evaluate → Tune</td></tr>
+                    <tr><td>Supervised</td><td>Logistic/Linear Regression, Trees, RF, XGBoost, SVM</td></tr>
+                    <tr><td>Unsupervised</td><td>K-Means, DBSCAN, PCA, t-SNE</td></tr>
+                    <tr><td>LLMs</td><td>Tokenisation, attention, context window, temperature</td></tr>
+                    <tr><td>RAG</td><td>Embed → Store → Retrieve → Generate</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-section">
+            <h2>📋 Practice Questions</h2>
+            <p>Click any question to reveal the answer.</p>
+
+            <h3>Pathway 1: Python Fundamentals</h3>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q1</span><span class="quiz-q">What is the output of <code>x = [1, 2, 3]; x[1] = 5; print(x)</code>?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><code>[1, 5, 3]</code> — Lists are mutable, indexing is 0-based.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q2</span><span class="quiz-q">Unpack <code>[1, 2, 3, 4]</code> so that a=1, b=4, c=[2,3]</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><pre><code class="python">a, *c, b = [1, 2, 3, 4]
+# a = 1, c = [2, 3], b = 4</code></pre></div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q3</span><span class="quiz-q">What's the difference between <code>==</code> and <code>is</code>?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><code>==</code> compares <strong>value</strong>, <code>is</code> compares <strong>object identity</strong>. <code>[1] == [1]</code> is True, but <code>[1] is [1]</code> is False.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q4</span><span class="quiz-q">How do list comprehensions compare to <code>map()</code> in readability?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">Comprehensions are more readable and generally faster. Preferred in Python.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q5</span><span class="quiz-q">Write a function that accepts <code>*args</code> and <code>**kwargs</code></span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><pre><code class="python">def func(*args, **kwargs):
+    print(f"Args: {args}, Kwargs: {kwargs}")
+
+func(1, 2, name="John")
+# Args: (1, 2), Kwargs: {'name': 'John'}</code></pre></div></div>
+            </div>
+
+            <h3>Pathway 2: OOP</h3>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q6</span><span class="quiz-q">Explain the Single Responsibility Principle with code</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">Each class has one job:<pre><code class="python"># ❌ Violates SRP
+class User:
+    def save_to_db(self): ...
+    def send_email(self): ...
+
+# ✅ Correct
+class User: pass
+class UserRepository:
+    def save(self, user): ...
+class EmailService:
+    def send(self, user): ...</code></pre></div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q7</span><span class="quiz-q">What is the difference between <code>@property</code> and a regular method?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><code>@property</code> lets you use <code>obj.attr</code> syntax while running a method. Regular methods require <code>obj.method()</code>.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q8</span><span class="quiz-q">How does inheritance differ from composition?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">Inheritance: "is-a" (Dog IS-A Animal). Composition: "has-a" (Car HAS-A Engine). Prefer composition for flexibility.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q9</span><span class="quiz-q">What does <code>super().__init__()</code> do?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">Calls the parent class <code>__init__()</code>, initialising base class attributes.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q10</span><span class="quiz-q">Create a dataclass with a custom <code>__post_init__</code> method</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><pre><code class="python">from dataclasses import dataclass
+
+@dataclass
+class Person:
+    name: str
+    age: int
+
+    def __post_init__(self):
+        if self.age < 0:
+            raise ValueError("Age can't be negative")</code></pre></div></div>
+            </div>
+
+            <h3>Pathway 3: Data Analysis</h3>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q11</span><span class="quiz-q">How do you remove duplicate rows in Pandas?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><code>df.drop_duplicates()</code></div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q12</span><span class="quiz-q">What's the difference between <code>.loc[]</code> and <code>.iloc[]</code>?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><code>.loc[]</code> is label-based, <code>.iloc[]</code> is integer position-based.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q13</span><span class="quiz-q">Fill missing values only in the 'age' column</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><pre><code class="python">df['age'] = df['age'].fillna(df['age'].median())</code></pre></div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q14</span><span class="quiz-q">Group by a column and get the mean of another</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><pre><code class="python">df.groupby('column').agg({'other_column': 'mean'})</code></pre></div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q15</span><span class="quiz-q">What does <code>df.assign()</code> do differently?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><code>.assign()</code> returns a new DataFrame without modifying the original (non-mutating). Great for method chaining.</div></div>
+            </div>
+
+            <h3>Pathway 4: Machine Learning</h3>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q16</span><span class="quiz-q">Why fit the scaler on training data only?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">Fitting on all data (including test) leaks test information into training. The model "sees" test data statistics during training, giving unrealistically good performance.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q17</span><span class="quiz-q">Cross-validation vs train-test split?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">CV: split into k folds, train k times. Train-test: single split. CV gives a more robust, unbiased estimate of model performance.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q18</span><span class="quiz-q">Explain data leakage with an example</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">Using future information (e.g., a target date) as a feature for predicting that same target. Example: using "last payment date" to predict loan default when that date is AFTER the prediction point.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q19</span><span class="quiz-q">What is the purpose of a Pipeline in sklearn?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">Pipeline chains preprocessing and model training, automatically preventing data leakage by ensuring preprocessing is fit only on training data.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q20</span><span class="quiz-q">Why report multiple metrics, not just accuracy?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">Accuracy alone is misleading, especially with imbalanced data. Use precision, recall, F1, ROC-AUC depending on the problem and business context.</div></div>
+            </div>
+
+            <h3>Pathway 5: AI in Python</h3>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q21</span><span class="quiz-q">What is a token in the context of LLMs?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">A token is an atomic unit of text — roughly 1 word or 4 characters. LLMs process text as sequences of tokens.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q22</span><span class="quiz-q">How do you set the temperature in an API call?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><pre><code class="python">response = client.chat.completions.create(
+    model="gpt-4",
+    temperature=0.7,  # 0=deterministic, 1=random
+    messages=[...]
+)</code></pre></div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q23</span><span class="quiz-q">Embeddings vs text generation?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">Embeddings: dense vectors representing semantic meaning (used for similarity search). Text generation: predicting next token sequences (used for chat, writing).</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q24</span><span class="quiz-q">What is RAG (Retrieval-Augmented Generation)?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner">RAG: Retrieve relevant documents from a vector store, then generate an answer using those documents as context. Reduces hallucination and keeps answers grounded in source material.</div></div>
+            </div>
+
+            <div class="quiz-card" onclick="this.classList.toggle('open')">
+                <div class="quiz-header"><span class="quiz-num">Q25</span><span class="quiz-q">How do you handle API authentication for OpenAI?</span><span class="quiz-toggle">▼</span></div>
+                <div class="quiz-answer"><div class="quiz-answer-inner"><pre><code class="python">from openai import OpenAI
+
+# Best: environment variable
+client = OpenAI()  # reads OPENAI_API_KEY from env
+
+# Or explicitly (but keep out of source control!)
+client = OpenAI(api_key="sk-...")</code></pre></div></div>
+            </div>
+
+            <div class="related-links">
+                <h3>🔗 Related Notes</h3>
+                <a href="python-best-practices.html">Python Style Guide</a>
+                <a href="oop-best-practices.html">OOP Best Practices</a>
+                <a href="data-analysis-best-practices.html">Data Analysis</a>
+                <a href="ml-best-practices.html">ML Best Practices</a>
+                <a href="ai-best-practices.html">AI Best Practices</a>
+                <a href="index.html">🐍 Python Learning Hub</a>
+            </div>
+        </div>
+
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

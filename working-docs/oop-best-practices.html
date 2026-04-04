@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WSS3DYFH3Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOP Best Practices</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <style>
+        :root { --primary-color: #0F5741; --secondary-color: #F5F5F7; --text-color: #333333; --nav-bg-color: #f1f1f1; }
+        body { background-color: var(--secondary-color); font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif; line-height: 1.6; padding-top: 18vh; padding-left: 10px; padding-right: 10px; margin: 0; overflow-x: hidden; color: var(--text-color); }
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; height: 15vh; z-index: 1000; padding: 0; background: var(--nav-bg-color); border-bottom: 5px solid transparent; border-image: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)); border-image-slice: 1; }
+        .nav-content { position: relative; z-index: 3; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; padding: 0.5rem; }
+        .nav-content a.nav-link { color: var(--text-color); padding: 0.75rem 1.5rem !important; border-radius: 25px; transition: all 0.3s; position: relative; overflow: hidden; z-index: 3; margin: 0 1rem; }
+        .nav-content a.nav-link::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)); opacity: 0; transition: opacity 0.3s ease; z-index: -1; }
+        .nav-content a.nav-link:hover { color: white !important; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .nav-content a.nav-link:hover::before { opacity: 1; }
+        .navbar-brand.mx-2 { background: none; overflow: visible; padding: 0 !important; border-radius: 0; }
+        .navbar-brand.mx-2:hover::before { opacity: 0; display: none; }
+        .navbar-brand { margin: 0 2rem; z-index: 3; }
+        .navbar-brand img { max-height: 80px; width: auto; transition: all 0.3s ease; }
+        .nav-link i { margin-right: 8px; }
+        .desktop-logo { display: block; max-height: 80px; width: auto; }
+        .mobile-logo { display: none; max-height: 55px; width: auto; }
+        .page-header { max-width: 900px; margin: 0 auto 1.5rem; padding: 0 0.5rem; }
+        .badge-private { display: inline-flex; align-items: center; gap: 0.4rem; background: linear-gradient(to right, rgba(253,9,6,0.08), rgba(255,220,0,0.08)); border: 1px solid rgba(253,9,6,0.2); color: #b03000; font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 20px; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .page-header h1 { font-size: 1.8rem; font-weight: 600; color: var(--text-color); margin-bottom: 0.25rem; }
+        .page-header p { color: #888; font-size: 0.9rem; margin: 0.2rem 0; }
+        .content-container { max-width: 900px; margin: 0 auto 4rem; }
+        .text-section { background-color: white; padding: 2.5rem; margin-bottom: 2rem; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .text-section h2 { color: var(--text-color); margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid; display: inline-block; border-image: linear-gradient(to right, rgba(253,9,6,1), rgba(253,51,5,1), rgba(254,93,3,1), rgba(254,135,2,1), rgba(255,177,0,1), rgba(255,220,0,1)) 1; }
+        .text-section h3 { color: var(--text-color); font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+        .text-section p { color: var(--text-color); margin-bottom: 1rem; }
+        .text-section p:last-child { margin-bottom: 0; }
+        .text-section ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+        .text-section li { margin-bottom: 0.4rem; color: var(--text-color); }
+        .solid-letter { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 8px; font-size: 1.1rem; font-weight: 800; font-family: 'SFMono-Regular', monospace; background: rgba(15,87,65,0.1); color: var(--primary-color); flex-shrink: 0; }
+        .callout { background: #f8f9fa; border-left: 4px solid rgba(254,135,2,1); padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin: 1rem 0 1.25rem; }
+        .callout p { color: #555; font-size: 0.92rem; margin: 0; }
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+        .compare-block { border-radius: 10px; overflow: hidden; }
+        .compare-label { padding: 8px 14px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-family: 'SFMono-Regular', monospace; }
+        .compare-block.bad .compare-label { background: rgba(239,68,68,0.12); color: #dc2626; }
+        .compare-block.good .compare-label { background: rgba(34,197,94,0.12); color: #16a34a; }
+        .compare-block pre { margin: 0; border-radius: 0 !important; }
+        .checklist { list-style: none; padding: 0; margin: 1rem 0; }
+        .checklist li { padding: 0.6rem 0 0.6rem 2rem; position: relative; font-size: 0.9rem; color: var(--text-color); border-bottom: 1px solid #f0f0f0; }
+        .checklist li::before { content: '☐'; position: absolute; left: 4px; top: 0.6rem; font-size: 0.9rem; color: #aaa; }
+        .related-links { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
+        .related-links h3 { font-size: 0.78rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; font-weight: 700; }
+        .related-links a { display: inline-block; margin: 0.25rem 0.5rem 0.25rem 0; padding: 0.4rem 0.9rem; background: #f5f5f7; border: 1px solid #e5e5e5; border-radius: 8px; color: #555; text-decoration: none; font-size: 0.85rem; transition: all 0.2s; }
+        .related-links a:hover { border-color: var(--primary-color); color: var(--primary-color); }
+        @media (max-width: 991px) { .navbar { height: 15vh; } body { padding-top: 15vh; } }
+        @media (max-width: 767px) { .nav-link .nav-text { display: none; } .nav-link i { margin-right: 0; font-size: 1.2rem; } .nav-content a.nav-link { padding: 0.5rem !important; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; } .desktop-logo { display: none; } .mobile-logo { display: block; max-height: 55px; } .navbar { height: 13vh; } body { padding-top: 12vh; } .navbar-brand { margin: 0 1rem !important; } .compare-grid { grid-template-columns: 1fr; } .text-section { padding: 1.5rem; } }
+        @media (max-width: 480px) { .navbar { height: 12vh; } body { padding-top: 10vh; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="../main-pages/projects.html"><i class="fas fa-folder-open"></i><span class="nav-text">Projects</span></a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html"><i class="fas fa-file-alt"></i><span class="nav-text">View CV</span></a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="badge-private"><i class="fas fa-lock"></i> Private</div>
+        <h1>OOP Best Practices</h1>
+        <p>SOLID principles, composition over inheritance, real-world refactoring walkthrough, and a class design checklist.</p>
+        <p><a href="../working-docs/index.html" style="color: var(--primary-color); text-decoration: none; font-size: 0.85rem;">← Back to Python Learning Hub</a></p>
+    </div>
+
+    <div class="content-container">
+
+        <div class="text-section">
+            <h2>SOLID Principles</h2>
+
+            <h3><span class="solid-letter">S</span> Single Responsibility Principle</h3>
+            <div class="callout"><p>A class should have only <strong>one reason to change</strong>.</p></div>
+            <div class="compare-grid">
+                <div class="compare-block bad"><div class="compare-label">❌ Violates SRP</div><pre><code class="python">class Report:
+    def generate(self): ...
+    def format_as_html(self): ...
+    def save_to_disk(self): ...</code></pre></div>
+                <div class="compare-block good"><div class="compare-label">✅ Separate responsibilities</div><pre><code class="python">class Report:
+    def generate(self): ...
+
+class HTMLFormatter:
+    def format(self, report): ...
+
+class ReportSaver:
+    def save(self, report): ...</code></pre></div>
+            </div>
+
+            <h3><span class="solid-letter">O</span> Open/Closed Principle</h3>
+            <div class="callout"><p>Open for <strong>extension</strong>, closed for <strong>modification</strong>.</p></div>
+            <div class="compare-grid">
+                <div class="compare-block bad"><div class="compare-label">❌ Must modify to extend</div><pre><code class="python">class PriceCalculator:
+    def calculate(self, product, type):
+        if type == "percentage":
+            return product.price * 0.9
+        elif type == "fixed":
+            return product.price - 10
+        # Must add elif here every time</code></pre></div>
+                <div class="compare-block good"><div class="compare-label">✅ Extend via new classes</div><pre><code class="python">class DiscountStrategy(ABC):
+    @abstractmethod
+    def apply(self, price: float) -> float: ...
+
+class PercentageDiscount(DiscountStrategy):
+    def __init__(self, rate):
+        self.rate = rate
+    def apply(self, price):
+        return price * (1 - self.rate)
+
+# New discounts: just add a new class!</code></pre></div>
+            </div>
+
+            <h3><span class="solid-letter">L</span> Liskov Substitution Principle</h3>
+            <div class="callout"><p>Subclasses must be <strong>substitutable</strong> for their base classes.</p></div>
+            <div class="compare-grid">
+                <div class="compare-block bad"><div class="compare-label">❌ Square breaks Rectangle</div><pre><code class="python">class Rectangle:
+    def set_width(self, w):
+        self.width = w
+    def set_height(self, h):
+        self.height = h
+
+class Square(Rectangle):
+    def set_width(self, w):
+        self.width = self.height = w
+        # breaks Rectangle's assumption!</code></pre></div>
+                <div class="compare-block good"><div class="compare-label">✅ Use shared abstraction</div><pre><code class="python">class Shape(ABC):
+    @abstractmethod
+    def area(self) -> float: ...
+
+class Rectangle(Shape):
+    def area(self): ...
+
+class Square(Shape):
+    def area(self): ...</code></pre></div>
+            </div>
+
+            <h3><span class="solid-letter">I</span> Interface Segregation Principle</h3>
+            <div class="callout"><p>Clients shouldn't depend on methods <strong>they don't use</strong>.</p></div>
+            <div class="compare-grid">
+                <div class="compare-block bad"><div class="compare-label">❌ Fat interface</div><pre><code class="python">class Animal(ABC):
+    def eat(self): ...
+    def sleep(self): ...
+    def fly(self): ...
+    # penguins can't fly!</code></pre></div>
+                <div class="compare-block good"><div class="compare-label">✅ Small, focused interfaces</div><pre><code class="python">class Eater(ABC):
+    @abstractmethod
+    def eat(self): ...
+
+class Flyer(ABC):
+    @abstractmethod
+    def fly(self): ...
+
+class Bird(Eater, Flyer): ...
+class Penguin(Eater): ...  # no fly</code></pre></div>
+            </div>
+
+            <h3><span class="solid-letter">D</span> Dependency Inversion Principle</h3>
+            <div class="callout"><p>Depend on <strong>abstractions</strong>, not concretions.</p></div>
+            <div class="compare-grid">
+                <div class="compare-block bad"><div class="compare-label">❌ Tightly coupled</div><pre><code class="python">class DataProcessor:
+    def __init__(self):
+        self.db = MySQLDatabase()
+        # can't swap or test!</code></pre></div>
+                <div class="compare-block good"><div class="compare-label">✅ Inject dependency</div><pre><code class="python">class Database(ABC):
+    @abstractmethod
+    def save(self, data): ...
+
+class DataProcessor:
+    def __init__(self, db: Database):
+        self.db = db
+
+# Easy to swap:
+processor = DataProcessor(MySQL())
+processor = DataProcessor(Mock())</code></pre></div>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>Composition over Inheritance</h2>
+            <div class="compare-grid">
+                <div class="compare-block bad"><div class="compare-label">❌ Deep inheritance is fragile</div><pre><code class="python">class Animal: ...
+class Mammal(Animal): ...
+class Pet(Mammal): ...
+class Dog(Pet): ...
+class ServiceDog(Dog): ...
+# 5 levels deep!</code></pre></div>
+                <div class="compare-block good"><div class="compare-label">✅ Prefer composition</div><pre><code class="python">class Dog:
+    def __init__(self, name: str):
+        self.name = name
+        self._behaviours = []
+
+    def add_behaviour(self, behaviour):
+        self._behaviours.append(behaviour)
+
+dog = Dog("Rex")
+dog.add_behaviour(GuideAssistant())
+dog.add_behaviour(SearchAndRescue())</code></pre></div>
+            </div>
+        </div>
+
+        <div class="text-section">
+            <h2>SOLID in Practice: Refactoring a Messy Codebase</h2>
+            <p>A real-world example applying all SOLID principles step by step to a payment processing system.</p>
+
+            <h3>Initial Messy Code</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python">class PaymentProcessor:
+    def process_credit_card_payment(self, amount, card_number, card_cvv):
+        if len(card_number) != 16: raise ValueError("Invalid card")
+        if len(card_cvv) != 3: raise ValueError("Invalid CVV")
+        print(f"Charging £{amount} to {card_number}")
+
+    def process_paypal_payment(self, amount, email):
+        if not email: raise ValueError("No email")
+        print(f"Charging £{amount} via PayPal to {email}")
+
+    def process_apple_pay_payment(self, amount, token):
+        print(f"Charging £{amount} via Apple Pay")
+
+    def refund_payment(self, payment_id): ...
+    def send_receipt_email(self, customer_email, amount): ...
+    def generate_invoice_pdf(self, order_id): ...</code></pre>
+            </div>
+            <p><strong>Problems:</strong> Handles 3 payment methods + refunds + emails + PDFs in one class. Adding new payment method requires modifying the class. Different methods don't follow a consistent contract. Tightly coupled to Stripe, PayPal, Apple.</p>
+
+            <h3>Step 1 — Single Responsibility (S)</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python">from abc import ABC, abstractmethod
+
+class CardValidator:
+    def validate(self, card_number, cvv):
+        if len(card_number) != 16: raise ValueError("Invalid card")
+        if len(cvv) != 3: raise ValueError("Invalid CVV")
+
+class StripePaymentProcessor:
+    def __init__(self, validator: CardValidator):
+        self.validator = validator
+
+    def process(self, amount, card_number, cvv):
+        self.validator.validate(card_number, cvv)
+        print(f"Processing via Stripe: £{amount}")
+        return f"stripe_{id(self)}"</code></pre>
+            </div>
+
+            <h3>Step 2 — Open/Closed (O)</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python">class PaymentProcessor(ABC):
+    @abstractmethod
+    def process(self, amount, **kwargs) -> str:
+        """Process payment. Returns transaction ID."""
+        pass
+
+class StripeProcessor(PaymentProcessor):
+    def process(self, amount, card_number, cvv):
+        return "stripe_txn_123"
+
+class PayPalProcessor(PaymentProcessor):
+    def process(self, amount, email):
+        return "paypal_txn_123"
+
+# Adding ApplePay = NEW class, NOT modifying old ones!
+class ApplePayProcessor(PaymentProcessor):
+    def process(self, amount, token):
+        return "apple_txn_123"</code></pre>
+            </div>
+
+            <h3>Step 3 — Liskov Substitution (L)</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python"># All processors implement same interface — interchangeable
+def charge_customer(processor: PaymentProcessor, amount, **kwargs) -> str:
+    """Works with ANY PaymentProcessor subclass."""
+    return processor.process(amount, **kwargs)
+
+stripe = StripeProcessor(CardValidator())
+paypal = PayPalProcessor(EmailValidator())
+
+txn_1 = charge_customer(stripe, 100, card_number="1111222233334444", cvv="123")
+txn_2 = charge_customer(paypal, 100, email="user@example.com")
+# Both work identically from client perspective</code></pre>
+            </div>
+
+            <h3>Step 4 — Interface Segregation (I)</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python">class PaymentProcessor(ABC):
+    @abstractmethod
+    def process(self, amount, **kwargs) -> str: pass
+
+class Refundable(ABC):
+    @abstractmethod
+    def refund(self, txn_id) -> bool: pass
+
+# Processors implement only what they support
+class StripeProcessor(PaymentProcessor, Refundable):
+    def process(self, amount, **kwargs) -> str: return "txn_123"
+    def refund(self, txn_id) -> bool: return True
+
+class ApplePayProcessor(PaymentProcessor):
+    def process(self, amount, **kwargs) -> str: return "apple_txn"
+    # No refund — not supported, not forced to implement
+
+# Email sending is separate (not a payment concern!)
+class ReceiptService:
+    def send_receipt(self, email, amount): ...</code></pre>
+            </div>
+
+            <h3>Step 5 — Dependency Inversion (D)</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python">class CheckoutController:
+    def __init__(self, processor: PaymentProcessor, receipt: ReceiptService):
+        self.processor = processor       # could be anything!
+        self.receipt = receipt
+
+    def checkout(self, amount, email, **payment_details):
+        txn_id = self.processor.process(amount, **payment_details)
+        self.receipt.send_receipt(email, amount)
+        return txn_id
+
+# Easy to test with mock
+class MockProcessor(PaymentProcessor):
+    def process(self, amount, **kwargs): return "mock_txn"
+
+# Easy to swap real implementations
+ctrl_stripe = CheckoutController(StripeProcessor(), ReceiptService())
+ctrl_test = CheckoutController(MockProcessor(), ReceiptService())</code></pre>
+            </div>
+
+            <h3>Final Architecture</h3>
+            <div style="background:#1e1e1e; border-radius:8px; overflow:hidden; margin-bottom:1rem;">
+                <pre><code class="python">class PaymentProcessor(ABC):
+    @abstractmethod
+    def process(self, amount, **kwargs) -> str: pass
+
+class Refundable(ABC):
+    @abstractmethod
+    def refund(self, txn_id) -> bool: pass
+
+class StripeProcessor(PaymentProcessor, Refundable):
+    def process(self, amount, card_number, cvv): return "stripe_txn_123"
+    def refund(self, txn_id): return True
+
+class PayPalProcessor(PaymentProcessor, Refundable):
+    def process(self, amount, email): return "paypal_txn_123"
+    def refund(self, txn_id): return True
+
+class ApplePayProcessor(PaymentProcessor):
+    def process(self, amount, token): return "apple_txn_123"
+
+class CheckoutService:
+    def __init__(self, processor: PaymentProcessor):
+        self.processor = processor
+    def checkout(self, amount, **details) -> str:
+        return self.processor.process(amount, **details)
+
+class RefundService:
+    def __init__(self, processor: Refundable):
+        self.processor = processor
+    def refund(self, txn_id) -> bool:
+        return self.processor.refund(txn_id)</code></pre>
+            </div>
+            <p><strong>Benefits:</strong> Each class has ONE responsibility. Adding new payment methods doesn't modify existing code. All processors are interchangeable. No fat interfaces. Easy to test with mocks.</p>
+        </div>
+
+        <div class="text-section">
+            <h2>Class Design Checklist</h2>
+            <ul class="checklist">
+                <li>Does each class have ONE clear responsibility?</li>
+                <li>Are attributes documented in <code style="font-family:monospace; background:#f0f0f0; padding:2px 5px; border-radius:3px;">__init__</code>?</li>
+                <li>Is <code style="font-family:monospace; background:#f0f0f0; padding:2px 5px; border-radius:3px;">__repr__</code> defined for debugging?</li>
+                <li>Is <code style="font-family:monospace; background:#f0f0f0; padding:2px 5px; border-radius:3px;">__eq__</code> defined if value equality matters?</li>
+                <li>Are mutable default arguments avoided? (use <code style="font-family:monospace; background:#f0f0f0; padding:2px 5px; border-radius:3px;">field(default_factory=list)</code>)</li>
+                <li>Are internal attributes prefixed with <code style="font-family:monospace; background:#f0f0f0; padding:2px 5px; border-radius:3px;">_</code>?</li>
+                <li>Are properties used instead of getters/setters?</li>
+                <li>Are abstract base classes used for interfaces?</li>
+                <li>Is the class small enough to understand in one read?</li>
+            </ul>
+            <div class="related-links">
+                <h3>🔗 Related Notes</h3>
+                <a href="python-best-practices.html">Python Style Guide</a>
+                <a href="study-guide.html">Study Guide &amp; Cheatsheet</a>
+                <a href="index.html">🐍 Python Learning Hub</a>
+            </div>
+        </div>
+
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
