@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSS3DYFH3Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WSS3DYFH3Z');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project - Predicting the Premier League Season with Monte Carlo Simulation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((el) => {
+            hljs.highlightElement(el);
+        });
+    });
+    </script>
+    <style>
+        :root {
+            --primary-color: #0F5741;
+            --secondary-color: #F5F5F7;
+            --dark-green: #06231A;
+            --text-color: #333333;
+            --nav-bg-color: #f1f1f1;
+            --gradient-start: rgba(253, 9, 6, 1);
+            --gradient-end: rgba(255, 220, 0, 1);
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            padding-top: 18vh;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--text-color);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15vh;
+            z-index: 1000;
+            padding: 0;
+            background: var(--nav-bg-color);
+            border-bottom: 5px solid transparent;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            border-image-slice: 1;
+        }
+
+        .nav-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem;
+        }
+
+        .nav-content a.nav-link {
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem !important;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 3;
+            margin: 0 1rem;
+        }
+
+        .nav-content a.nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-content a.nav-link:hover {
+            color: white !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-content a.nav-link:hover::before {
+            opacity: 1;
+        }
+
+        .navbar-brand.mx-2 {
+            background: none;
+            overflow: visible;
+            padding: 0 !important;
+            border-radius: 0;
+        }
+
+        .navbar-brand.mx-2:hover::before {
+            opacity: 0;
+            display: none;
+        }
+
+        .navbar-brand {
+            margin: 0 2rem;
+            z-index: 3;
+        }
+
+        .navbar-brand img {
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link i {
+            margin-right: 8px;
+        }
+
+        .desktop-logo {
+            display: block;
+            max-height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-logo {
+            display: none;
+            max-height: 55px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.9);
+        }
+
+        .hero-text-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 80%;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-text-box h1 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-text-box p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        /* Content Sections */
+        .content-container {
+            max-width: 1000px;
+            margin: 2rem auto 4rem;
+            padding: 0;
+        }
+
+        .text-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .text-section h2 {
+            color: var(--text-color);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid;
+            display: inline-block;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            ) 1;
+        }
+
+        .text-section p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .text-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* TL;DR Section */
+        .tldr-section {
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 0.9),
+                rgba(254, 135, 2, 0.9),
+                rgba(255, 177, 0, 0.9)
+            );
+            color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tldr-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tldr-section p {
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* Data Context Box */
+        .data-context {
+            background: #f8f9fa;
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .data-context .item {
+            margin-bottom: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .data-context .item:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-context .label {
+            font-weight: 600;
+            color: var(--text-color);
+            min-width: 140px;
+        }
+
+        .data-context .value {
+            color: #555;
+            flex: 1;
+        }
+
+        /* Approach Steps */
+        .approach-steps {
+            margin: 1.5rem 0;
+        }
+
+        .approach-step {
+            display: flex;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .approach-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            min-width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg,
+                rgba(253, 51, 5, 1),
+                rgba(255, 177, 0, 1)
+            );
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            padding-top: 0.4rem;
+        }
+
+        /* Findings Grid */
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .finding-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-top: 4px solid;
+            border-image: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .finding-card h3 {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .finding-card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* Photo Section */
+        .photo-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .photo-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .photo-section figcaption {
+            margin-top: 1rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .photo-section figcaption strong {
+            color: var(--text-color);
+        }
+
+        .photo-section figcaption .insight {
+            display: block;
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 0.25rem;
+        }
+
+        .photo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 3px;
+            background: linear-gradient(to right,
+                rgba(253, 9, 6, 1),
+                rgba(253, 51, 5, 1),
+                rgba(254, 93, 3, 1),
+                rgba(254, 135, 2, 1),
+                rgba(255, 177, 0, 1),
+                rgba(255, 220, 0, 1)
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Tools Section */
+        .tools-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .tools-section h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            display: inline-block;
+        }
+
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .tool-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.6rem 1.25rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-tag i {
+            margin-right: 0.5rem;
+        }
+
+        /* Reflection Box */
+        .reflection-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #555;
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom,
+                rgba(253, 9, 6, 1),
+                rgba(255, 177, 0, 1)
+            ) 1;
+        }
+
+        /* Key Decision Highlight */
+        .key-decision {
+            background: linear-gradient(135deg, rgba(253, 51, 5, 0.05), rgba(255, 177, 0, 0.05));
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid rgba(254, 135, 2, 1);
+        }
+
+        .key-decision strong {
+            color: rgba(253, 51, 5, 1);
+        }
+
+        /* Media queries */
+        @media (min-width: 992px) {
+            .navbar-brand img { max-height: 85px; }
+        }
+
+        @media (min-width: 1200px) {
+            .navbar-brand img { max-height: 80px; }
+        }
+
+        @media (max-width: 991px) {
+            .navbar { height: 15vh; }
+            .navbar-brand img { max-height: 70px; }
+            body { padding-top: 15vh; }
+            .hero-container { height: 50vh; }
+            .hero-text-box { padding: 2rem; }
+            .findings-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 767px) {
+            .nav-link .nav-text { display: none; }
+            .nav-link i { margin-right: 0; font-size: 1.2rem; }
+            .nav-content a.nav-link { padding: 0.5rem !important; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+            .desktop-logo { display: none; }
+            .mobile-logo { display: block; max-height: 55px; }
+            .navbar { height: 13vh; }
+            .navbar-brand img { max-height: 55px; }
+            body { padding-top: 15vh; }
+            .nav-content { padding: 0.5rem; }
+            .navbar-brand { margin: 0 1rem !important; }
+            .nav-link { padding: 0.5rem !important; margin: 0 0.25rem; font-size: 0.9rem; }
+            .hero-container { height: 40vh; margin-top: 2rem; }
+            .hero-image { padding: 0.25rem; }
+            .hero-text-box { padding: 1.25rem; max-width: 90%; }
+            .hero-text-box h1 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+            .hero-text-box p { font-size: 0.85rem; line-height: 1.3; }
+            .text-section, .tldr-section, .photo-section, .tools-section { padding: 1.5rem; }
+            .data-context .item { flex-direction: column; }
+            .data-context .label { margin-bottom: 0.25rem; }
+            .tool-tag { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        }
+
+        @media (max-width: 480px) {
+            .navbar { height: 12vh; }
+            .navbar-brand img { max-height: 55px; }
+            body { padding-top: 13vh; }
+            .nav-content { padding: 0.25rem; }
+            .navbar-brand { margin: 0 0.5rem !important; }
+            .hero-container { height: 35vh; margin-top: 2.5rem; }
+            .hero-text-box { padding: 0.75rem; max-width: 95%; }
+            .hero-text-box h1 { font-size: 1.1rem; }
+            .hero-text-box p { font-size: 0.75rem; line-height: 1.2; }
+            .text-section, .tldr-section, .photo-section, .tools-section { padding: 1rem; }
+            .content-container { margin: 1rem auto 2rem; }
+            .step-number { min-width: 28px; height: 28px; font-size: 0.85rem; }
+            .finding-card { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a class="nav-link" href="../main-pages/projects.html">
+                <i class="fas fa-folder-open"></i>
+                <span class="nav-text">Projects</span>
+            </a>
+            <a class="navbar-brand mx-2" href="../index.html">
+                <img src="../main-page-image/logo.png" alt="Thomas Voss Logo" class="desktop-logo">
+                <img src="../main-page-image/mobile-logo.png" alt="Thomas Voss Logo" class="mobile-logo">
+            </a>
+            <a class="nav-link" href="../main-pages/cv.html">
+                <i class="fas fa-file-alt"></i>
+                <span class="nav-text">View CV</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container-fluid px-3">
+        <div class="hero-container">
+            <img src="../project-image/project-background-1.png" alt="Premier League Prediction" class="hero-image">
+            <div class="hero-text-box">
+                <h1>Predicting the Premier League Season Finish</h1>
+                <p>Using bookmaker odds and 50,000 Monte Carlo simulations to forecast final standings</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content-container">
+
+        <!-- TL;DR -->
+        <div class="tldr-section">
+            <h2>TL;DR</h2>
+            <p>
+                By combining live betting odds with <strong>Monte Carlo simulation</strong>, I modelled 50,000 possible
+                end-of-season outcomes for every Premier League club based on their next two fixtures. The simulation
+                confirmed Arsenal as near-certain champions (100%) with Manchester City locked into second (99%), while
+                revealing a much tighter battle in the middle of the table — and a two-horse relegation fight at the
+                bottom where Wolves and Burnley face a combined 93.8% chance of occupying the final two relegation spots.
+            </p>
+        </div>
+
+        <!-- Objective -->
+        <div class="text-section">
+            <h2>The Objective</h2>
+            <p>
+                Late in a Premier League season, the title race and relegation battle are often mathematically tight.
+                Points gaps are small, remaining fixtures vary in difficulty, and a single result can reshape the entire
+                table. Standard league table views tell you where teams stand right now — they don't tell you where they
+                are likely to end up.
+            </p>
+            <p>
+                <strong>Goal:</strong> Build a simulation-based model that uses current league position and upcoming
+                match odds to generate a probability distribution over every possible finishing position for all 20 clubs.
+            </p>
+            <p>
+                Rather than making a single deterministic prediction, the goal was to produce a full probability matrix —
+                answering questions like "what is the chance Tottenham get relegated?" or "how likely is a top-four
+                finish for Aston Villa?" in a way that a simple league table cannot.
+            </p>
+        </div>
+
+        <!-- Data & Context -->
+        <div class="text-section">
+            <h2>Data &amp; Context</h2>
+            <div class="data-context">
+                <div class="item">
+                    <span class="label">Source 1:</span>
+                    <span class="value">BBC Sport — live Premier League table scraped via BeautifulSoup, capturing current position, points, wins, draws, losses, and goal difference for all 20 clubs</span>
+                </div>
+                <div class="item">
+                    <span class="label">Source 2:</span>
+                    <span class="value">The Odds API — upcoming match odds (decimal format) from UK bookmakers, fetched for each team's next two fixtures, covering win, draw, and lose markets</span>
+                </div>
+                <div class="item">
+                    <span class="label">Scope:</span>
+                    <span class="value">All 20 Premier League clubs; odds averaged across multiple UK bookmakers to reduce individual bookmaker bias</span>
+                </div>
+                <div class="item">
+                    <span class="label">Limitations:</span>
+                    <span class="value">Only the next two fixtures are simulated — teams with three or more games remaining introduce uncertainty not captured here; odds shift in real time as news breaks</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Approach -->
+        <div class="text-section">
+            <h2>My Approach</h2>
+            <p>
+                I chose <strong>Monte Carlo simulation</strong> because it naturally handles uncertainty without forcing
+                a single deterministic outcome. Rather than predicting one result per match, the model runs thousands of
+                possible season endings and reports how often each scenario occurs.
+            </p>
+
+            <div class="approach-steps">
+                <div class="approach-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>Collect live data.</strong> The current league table was scraped from the BBC Sport
+                        website, capturing each club's points tally and position in real time. Upcoming match odds
+                        were pulled from The Odds API — specifically the head-to-head market for each team's next
+                        two fixtures, averaged across all available UK bookmakers.
+                    </div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <strong>Convert odds to implied probabilities.</strong> Decimal odds were inverted
+                        (probability = 1 ÷ odds) to produce raw implied probabilities for a win, draw, or loss in
+                        each game. Because bookmakers build in a margin (overround), the three raw probabilities
+                        for any match always sum to more than 100%.
+                    </div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <strong>Normalise to remove the bookmaker margin.</strong> Each team's raw win, draw, and
+                        lose probabilities were divided by their total sum, producing a normalised set of
+                        probabilities that correctly sum to 100%. This strips out the bookmaker's profit margin and
+                        gives a fairer estimate of the true match probability.
+                    </div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <strong>Run 50,000 season simulations.</strong> In each simulation, every team's two
+                        remaining fixtures were independently simulated using their normalised probabilities —
+                        drawing a random number and comparing it against the win/draw/lose thresholds to determine
+                        the result. Points were added accordingly (3 for a win, 1 for a draw, 0 for a loss) and the
+                        table was re-ranked by final points total.
+                    </div>
+                </div>
+                <div class="approach-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <strong>Aggregate into a probability matrix.</strong> Across all 50,000 simulations, the
+                        frequency with which each team finished in each position (1st through 20th) was tallied and
+                        converted to a percentage. This produced a 20×20 probability heatmap — the core output of
+                        the analysis.
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-decision">
+                <strong>Key decision:</strong> Using bookmaker odds as the probability input rather than building a
+                statistical model from scratch. Betting markets are highly efficient — they already encode recent
+                form, injuries, home/away advantage, squad depth, and market consensus into a single number. For a
+                short-horizon simulation (2 games), this is a robust and well-calibrated starting point that avoids
+                the complexity of feature engineering a predictive model.
+            </div>
+        </div>
+
+        <!-- Visualisation -->
+        <div class="photo-section">
+            <figure>
+                <img src="../project-image/fig-1-prem-league-heatmap.png" alt="Premier League season finish probability heatmap">
+                <figcaption>
+                    <strong>Figure 1: Finishing Position Probability Heatmap (50,000 simulations)</strong>
+                    <span class="insight">
+                        Each cell shows the percentage chance of a team finishing in that league position.
+                        The heatmap uses a magma colour scale — brighter cells indicate higher probability.
+                        The diagonal structure is clear for the top and bottom clubs, reflecting near-certainty
+                        in their final positions, while mid-table teams show broader, flatter distributions
+                        spanning several positions.
+                    </span>
+                </figcaption>
+            </figure>
+        </div>
+
+        <!-- Findings -->
+        <div class="text-section">
+            <h2>Findings</h2>
+
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <h3>Title Race: Effectively Settled</h3>
+                    <p>Arsenal finish 1st in 100% of simulations, with Manchester City at 99% for 2nd place.
+                    With only two games remaining and a sufficient points gap, no realistic combination of
+                    results changes the top two — the title is Arsenal's to lose.</p>
+                </div>
+                <div class="finding-card">
+                    <h3>The Real Battle: 3rd to 5th</h3>
+                    <p>Manchester United (68.5% for 3rd) and Aston Villa (67.8% for 4th) are locked in a
+                    tight contest for European spots. Liverpool sit at 75.8% for 5th but face a 17.2% chance
+                    of slipping to 6th — a result that could have significant implications for European
+                    competition qualification.</p>
+                </div>
+                <div class="finding-card">
+                    <h3>Tottenham in Danger</h3>
+                    <p>The simulation places Tottenham at 53.8% to finish 17th and 30.1% to finish 18th —
+                    meaning over an 80% chance of landing in the bottom four. Despite their historical
+                    stature, the odds for their remaining fixtures reflect a team in serious form trouble
+                    heading into the final weeks.</p>
+                </div>
+                <div class="finding-card">
+                    <h3>Relegation Resolved at the Bottom</h3>
+                    <p>Wolverhampton Wanderers and Burnley have a combined 187.6% probability points
+                    across 19th and 20th — each finishing in those spots in 93.8% of simulations. Their
+                    relegation is not yet mathematically confirmed, but the model treats it as near-certain
+                    given remaining fixture difficulty.</p>
+                </div>
+                <div class="finding-card">
+                    <h3>Bookmaker Overround: ~5–8%</h3>
+                    <p>Before normalisation, raw implied probabilities for each match summed to roughly
+                    105–108%, reflecting the typical bookmaker margin. Stripping this out meaningfully
+                    shifts win probabilities for underdogs, making the simulation fairer and better
+                    calibrated than using raw odds directly.</p>
+                </div>
+                <div class="finding-card">
+                    <h3>Simulation Stability at 50,000 Runs</h3>
+                    <p>Running 50,000 iterations ensures the probability estimates are stable to within
+                    roughly ±0.5 percentage points. Early test runs at 1,000 and 10,000 simulations showed
+                    noticeable variance in mid-table probabilities; 50,000 produced consistent, reproducible
+                    results across runs.</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 1.5rem;">
+                <strong>Recommendation:</strong> For fans, analysts, or clubs monitoring the table, this approach
+                provides a more honest view of uncertainty than headline points gaps alone. A team four points behind
+                with a favourable fixture might have a 35% chance of overtaking — or only 5% — and the simulation
+                quantifies that distinction clearly.
+            </p>
+        </div>
+
+        <!-- Reflection -->
+        <div class="text-section">
+            <h2>Reflection</h2>
+            <div class="reflection-box">
+                <p>
+                    This project reinforced how powerful Monte Carlo methods are for communicating uncertainty.
+                    Rather than stating "Arsenal will win the league," the model produces a distribution that is
+                    both more honest and more informative. The normalisation step — removing the bookmaker overround
+                    — was a small but important detail that required understanding why raw implied probabilities
+                    can't be used directly.
+                </p>
+                <p style="margin-top: 1rem; margin-bottom: 0;">
+                    If I revisited this analysis, I would extend it to simulate all remaining fixtures in the
+                    season rather than just the next two, and would incorporate goal difference tiebreakers for
+                    cases where teams are level on points. A natural extension would be to re-run the simulation
+                    daily as odds update and new results come in — turning this into a live season tracker rather
+                    than a single snapshot.
+                </p>
+            </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="tools-section">
+            <h2>Tools &amp; Technologies</h2>
+            <div class="tools-grid">
+                <span class="tool-tag"><i class="fab fa-python"></i>Python</span>
+                <span class="tool-tag">pandas</span>
+                <span class="tool-tag">BeautifulSoup</span>
+                <span class="tool-tag">requests</span>
+                <span class="tool-tag">The Odds API</span>
+                <span class="tool-tag">Monte Carlo Simulation</span>
+                <span class="tool-tag">seaborn</span>
+                <span class="tool-tag">Probability Normalisation</span>
+                <span class="tool-tag">Web Scraping</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
